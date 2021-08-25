@@ -169,21 +169,23 @@
 import pizza from "@/static/pizza.json";
 
 import {
-  normalizeDough,
-  normalizeSize,
-  normalizeSauce,
-  normalizeIngredient,
-} from "@/common/helpers";
+  doughToClientAdapter,
+  sizeToClientAdapter,
+  sauceToClientAdapter,
+  ingredientToClientAdapter,
+} from "@/common/adapters";
 
 export default {
   name: "Index",
   data() {
     return {
       pizza,
-      dough: pizza.dough.map((item) => normalizeDough(item)),
-      sizes: pizza.sizes.map((item) => normalizeSize(item)),
-      sauces: pizza.sauces.map((item) => normalizeSauce(item)),
-      ingredients: pizza.ingredients.map((item) => normalizeIngredient(item)),
+      dough: pizza.dough.map((item) => doughToClientAdapter(item)),
+      sizes: pizza.sizes.map((item) => sizeToClientAdapter(item)),
+      sauces: pizza.sauces.map((item) => sauceToClientAdapter(item)),
+      ingredients: pizza.ingredients.map((item) =>
+        ingredientToClientAdapter(item)
+      ),
     };
   },
 };
