@@ -88,27 +88,11 @@
                       :class="`filling--${ingredient.label}`"
                       >{{ ingredient.name }}</span
                     >
-                    <div class="counter counter--orange ingredients__counter">
-                      <button
-                        type="button"
-                        class="counter__button counter__button--minus"
-                        disabled
-                      >
-                        <span class="visually-hidden">Меньше</span>
-                      </button>
-                      <input
-                        type="text"
-                        name="counter"
-                        class="counter__input"
-                        value="0"
-                      />
-                      <button
-                        type="button"
-                        class="counter__button counter__button--plus"
-                      >
-                        <span class="visually-hidden">Больше</span>
-                      </button>
-                    </div>
+                    <CounterControl
+                      :value="0"
+                      :max-value="3"
+                      :set-value="setCounter"
+                    />
                   </li>
                 </ul>
               </div>
@@ -148,6 +132,7 @@
 <script>
 import pizza from "@/static/pizza.json";
 import AppLayout from "@/layouts/AppLayout";
+import CounterControl from "@/common/components/CounterControl";
 
 import {
   doughToClientAdapter,
@@ -158,7 +143,7 @@ import {
 
 export default {
   name: "Index",
-  components: { AppLayout },
+  components: { AppLayout, CounterControl },
   data() {
     return {
       pizza,
@@ -169,6 +154,11 @@ export default {
         ingredientToClientAdapter(item)
       ),
     };
+  },
+  methods: {
+    setCounter(value) {
+      console.log("setCounter", value);
+    },
   },
 };
 </script>
