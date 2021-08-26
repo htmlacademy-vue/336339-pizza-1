@@ -102,7 +102,7 @@
         </div>
       -->
     </div>
-    <p>{{ `Итого: ${pizzaOrder.total} ₽` }}</p>
+    <p>{{ `Итого: ${total} ₽` }}</p>
   </form>
 </template>
 
@@ -139,14 +139,14 @@ export default {
       //   ingredientToClientAdapter(item)
       // ),
       maxIngredientsCountValue: INGREDIENTS_MAX_QUANTITY,
-      pizzaOrder: { ...DEFAULT_PIZZA_ORDER, total: 0 },
+      pizzaOrder: { ...DEFAULT_PIZZA_ORDER },
     };
   },
-  created: function () {
-    this.pizzaOrder = {
-      ...this.pizzaOrder,
-      total: calculateCostOfPizza(this.dough[this.pizzaOrder.dough]),
-    };
+
+  computed: {
+    total() {
+      return calculateCostOfPizza(this.dough[this.pizzaOrder.dough]);
+    },
   },
   methods: {
     setCounter(value) {
