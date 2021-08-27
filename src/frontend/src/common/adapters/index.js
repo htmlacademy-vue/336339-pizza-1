@@ -1,11 +1,11 @@
 import doughToClientAdapter from "./doughToClientAdapter";
-import ingredientToClientAdapter from "./ingredientToClientAdapter";
-import sauceToClientAdapter from "./sauceToClientAdapter";
-import sizeToClientAdapter from "./sizeToClientAdapter";
+import ingredientsToClientAdapter from "./ingredientsToClientAdapter";
+import saucesToClientAdapter from "./saucesToClientAdapter";
+import sizesToClientAdapter from "./sizesToClientAdapter";
 
 export {
   doughToClientAdapter,
-  ingredientToClientAdapter,
-  sizeToClientAdapter,
-  sauceToClientAdapter,
+  ingredientsToClientAdapter,
+  sizesToClientAdapter,
+  saucesToClientAdapter,
 };

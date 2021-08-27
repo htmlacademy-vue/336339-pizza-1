@@ -1,10 +1,10 @@
 import { INGREDIENTS } from "@/common/constants";
 
-const ingredientToClientAdapter = (ingredient) => {
+const ingredientsToClientAdapter = (ingredient) => {
   return {
     ...ingredient,
     label: ingredient.id ? INGREDIENTS[ingredient.id] : "",
   };
 };
 
-export default ingredientToClientAdapter;
+export default ingredientsToClientAdapter;

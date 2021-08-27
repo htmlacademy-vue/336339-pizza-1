@@ -1,3 +1,4 @@
 import BuilderDoughSelector from "./BuilderDoughSelector";
+import BuilderSizeSelector from "./BuilderSizeSelector";
 
-export { BuilderDoughSelector };
+export { BuilderDoughSelector, BuilderSizeSelector };

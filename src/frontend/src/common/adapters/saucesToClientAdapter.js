@@ -1,6 +1,6 @@
 import { SAUCES } from "@/common/constants";
 
-const sauceToClientAdapter = (sauce) => {
+const saucesToClientAdapter = (sauce) => {
   return {
     ...sauce,
     value: sauce.id ? SAUCES[sauce.id] : "",
@@ -8,4 +8,4 @@ const sauceToClientAdapter = (sauce) => {
   };
 };
 
-export default sauceToClientAdapter;
+export default saucesToClientAdapter;

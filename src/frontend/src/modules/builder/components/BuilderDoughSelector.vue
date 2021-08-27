@@ -34,7 +34,7 @@ export default {
       required: true,
     },
     valueId: {
-      type: String,
+      type: [String, Number],
       required: true,
     },
   },

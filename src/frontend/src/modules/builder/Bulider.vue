@@ -3,34 +3,16 @@
     <div class="content__wrapper">
       <h1 class="title title--big">Конструктор пиццы</h1>
       <BuilderDoughSelector
-        :dough="dough"
-        :value-id="pizzaOrder.dough"
+        :dough="pizzaData.dough"
+        :value-id="pizzaOrder.dough.id"
         @setDough="handleChangeDough"
       />
+      <BuilderSizeSelector
+        :sizes="pizzaData.sizes"
+        :value-id="pizzaOrder.size.id"
+        @setSize="handleChangeSize"
+      />
       <!--
-      <div class="content__diameter">
-        <div class="sheet">
-          <h2 class="title title--small sheet__title">Выберите размер</h2>
-          <div class="sheet__content diameter">
-            <label
-              class="diameter__input"
-              :class="`diameter__input--${size.value}`"
-              v-for="size in sizes"
-              :key="size.id"
-            >
-              <input
-                type="radio"
-                name="diameter"
-                :value="size.value"
-                class="visually-hidden"
-                :checked="size.isChecked"
-              />
-              <span>{{ size.name }}</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
       <div class="content__ingredients">
         <div class="sheet">
           <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
@@ -107,53 +89,54 @@
 </template>
 
 <script>
-import pizza from "@/static/pizza.json";
-import {
-  INGREDIENTS_MAX_QUANTITY,
-  DEFAULT_PIZZA_ORDER,
-} from "@/common/constants";
-import {
-  doughToClientAdapter,
-  // sizeToClientAdapter,
-  // sauceToClientAdapter,
-  // ingredientToClientAdapter,
-} from "@/common/adapters";
-import { BuilderDoughSelector } from "./components";
+import { BuilderDoughSelector, BuilderSizeSelector } from "./components";
 import { calculateCostOfPizza } from "@/common/utils";
+import { DEFAULT_DOUGH_ID, DEFAULT_SIZE_ID } from "@/common/constants";
 
 export default {
   name: "Builder",
-  components: { BuilderDoughSelector },
+  components: { BuilderDoughSelector, BuilderSizeSelector },
+  props: {
+    pizzaData: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
-    // const adaptedSizes = pizza.sizes.map((item) => sizeToClientAdapter(item));
-    // const adaptedSauces = pizza.sauces.map((item) =>
-    //   sauceToClientAdapter(item)
-    // );
-
     return {
-      pizza,
-      dough: doughToClientAdapter(pizza.dough),
-      // sizes: adaptedSizes,
-      // sauces: adaptedSauces,
-      // ingredients: pizza.ingredients.map((item) =>
-      //   ingredientToClientAdapter(item)
-      // ),
-      maxIngredientsCountValue: INGREDIENTS_MAX_QUANTITY,
-      pizzaOrder: { ...DEFAULT_PIZZA_ORDER },
+      pizzaOrder: {
+        name: "",
+        ingredients: {},
+        dough: this.pizzaData.dough[DEFAULT_DOUGH_ID],
+        size: this.pizzaData.sizes[DEFAULT_SIZE_ID],
+      },
     };
   },
-
   computed: {
     total() {
-      return calculateCostOfPizza(this.dough[this.pizzaOrder.dough]);
+      return calculateCostOfPizza(
+        this.pizzaOrder.dough,
+        { price: 0 },
+        {},
+        this.pizzaOrder.size
+      );
     },
   },
   methods: {
-    setCounter(value) {
-      console.log("setCounter", value);
-    },
+    // setCounter(value) {
+    //   console.log("setCounter", value);
+    // },
     handleChangeDough(doughId) {
-      this.pizzaOrder = { ...this.pizzaOrder, dough: doughId };
+      this.pizzaOrder = {
+        ...this.pizzaOrder,
+        dough: this.pizzaData.dough[doughId],
+      };
+    },
+    handleChangeSize(sizeId) {
+      this.pizzaOrder = {
+        ...this.pizzaOrder,
+        size: this.pizzaData.sizes[sizeId],
+      };
     },
   },
 };

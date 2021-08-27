@@ -43,11 +43,3 @@ export const INGREDIENTS_MAX_QUANTITY = 3;
 export const DEFAULT_DOUGH_ID = 1;
 export const DEFAULT_SIZE_ID = 2;
 export const DEFAULT_SAUCE_ID = 1;
-
-export const DEFAULT_PIZZA_ORDER = {
-  name: "",
-  dough: DEFAULT_DOUGH_ID,
-  size: DEFAULT_SIZE_ID,
-  sauce: DEFAULT_SAUCE_ID,
-  ingredients: {},
-};
