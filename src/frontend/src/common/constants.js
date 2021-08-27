@@ -1,11 +1,11 @@
 export const DOUGH_TYPES = [
   {
     label: "Тонкое",
-    value: "light",
+    value: "small",
   },
   {
     label: "Толстое",
-    value: "large",
+    value: "big",
   },
 ];
 
