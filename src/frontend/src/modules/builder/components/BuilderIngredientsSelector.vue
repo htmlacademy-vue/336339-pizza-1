@@ -7,14 +7,21 @@
         v-for="ingredient in ingredients"
         :key="ingredient.id"
       >
-        <span class="filling" :class="`filling--${ingredient.label}`">{{
-          ingredient.name
-        }}</span>
-        <CounterControl
-          :value="ingredient.quantity"
-          :max-value="maxIngredientsCountValue"
-          :set-value="(value) => setValue(ingredient.id, value)"
-        />
+        <AppDrag
+          :transferData="ingredient"
+          :isDraggable="checkIsDraggable(ingredient.quantity)"
+        >
+          <div :class="getDraggableClass(ingredient.quantity)">
+            <span class="filling" :class="`filling--${ingredient.label}`">{{
+              ingredient.name
+            }}</span>
+            <CounterControl
+              :value="ingredient.quantity"
+              :max-value="maxIngredientsCountValue"
+              :set-value="(value) => setValue(ingredient.id, value)"
+            />
+          </div>
+        </AppDrag>
       </li>
     </ul>
   </div>
@@ -22,9 +29,11 @@
 
 <script>
 import CounterControl from "@/common/components/CounterControl";
+import AppDrag from "@/common/components/Drag'n'Drop/AppDrag";
 import { INGREDIENTS_MAX_QUANTITY } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",
+  components: { CounterControl, AppDrag },
   props: {
     ingredients: {
       type: Object,
@@ -36,11 +45,25 @@ export default {
       maxIngredientsCountValue: INGREDIENTS_MAX_QUANTITY,
     };
   },
-  components: { CounterControl },
   methods: {
     setValue(id, value) {
       this.$emit("setIngredient", id, value);
     },
+    checkIsDraggable(value) {
+      return value < 3;
+    },
+    getDraggableClass(value) {
+      return {
+        "draggable-item": this.checkIsDraggable(value),
+      };
+    },
   },
 };
 </script>
+<style lang="scss">
+.draggable-item {
+  &:hover {
+    cursor: pointer;
+  }
+}
+</style>

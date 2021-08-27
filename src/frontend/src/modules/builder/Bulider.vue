@@ -39,11 +39,13 @@
             :value="pizzaOrder.name"
           />
         </label>
-        <BuilderPizzaView
-          :ingredients="nonEmptyIngredients"
-          :sauce="pizzaOrder.sauce"
-          :dough="pizzaOrder.dough"
-        />
+        <AppDrop @drop="onDropIngredientHandler($event)">
+          <BuilderPizzaView
+            :ingredients="nonEmptyIngredients"
+            :sauce="pizzaOrder.sauce"
+            :dough="pizzaOrder.dough"
+          />
+        </AppDrop>
         <div class="content__result">
           <p>{{ `Итого: ${total} ₽` }}</p>
           <button
@@ -63,6 +65,13 @@
 </template>
 
 <script>
+import AppDrop from "@/common/components/Drag'n'Drop/AppDrop";
+import { calculateCostOfPizza } from "@/common/utils";
+import {
+  DEFAULT_DOUGH_ID,
+  DEFAULT_SAUCE_ID,
+  DEFAULT_SIZE_ID,
+} from "@/common/constants";
 import {
   BuilderDoughSelector,
   BuilderSizeSelector,
@@ -70,12 +79,6 @@ import {
   BuilderIngredientsSelector,
   BuilderPizzaView,
 } from "./components";
-import { calculateCostOfPizza } from "@/common/utils";
-import {
-  DEFAULT_DOUGH_ID,
-  DEFAULT_SAUCE_ID,
-  DEFAULT_SIZE_ID,
-} from "@/common/constants";
 
 export default {
   name: "Builder",
@@ -85,6 +88,7 @@ export default {
     BuilderSauceSelector,
     BuilderIngredientsSelector,
     BuilderPizzaView,
+    AppDrop,
   },
   props: {
     pizzaData: {
@@ -158,6 +162,9 @@ export default {
     },
     handleChangeName(event) {
       this.pizzaOrder = { ...this.pizzaOrder, name: event.target.value };
+    },
+    onDropIngredientHandler(ingredient) {
+      this.handleChangeIngredient(ingredient.id, ingredient.quantity + 1);
     },
   },
 };
