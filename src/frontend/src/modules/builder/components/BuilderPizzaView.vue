@@ -5,12 +5,22 @@
       :class="`pizza--foundation--${dough.value}-${sauce.value}`"
     >
       <div class="pizza__wrapper">
-        <div
-          class="pizza__filling"
-          v-for="value in ingredients"
-          :key="value.id"
-          :class="getPizzaClasses(value)"
-        ></div>
+        <div v-for="value in ingredients" :key="value.id">
+          <div
+            class="pizza__filling"
+            :class="`pizza__filling--${value.label}`"
+          />
+          <div
+            class="pizza__filling pizza__filling--second"
+            :class="`pizza__filling--${value.label}`"
+            v-show="value.quantity > 1"
+          />
+          <div
+            class="pizza__filling pizza__filling--third"
+            :class="`pizza__filling--${value.label}`"
+            v-show="value.quantity > 2"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -31,15 +41,6 @@ export default {
     sauce: {
       type: Object,
       required: true,
-    },
-  },
-  methods: {
-    getPizzaClasses(ingredient) {
-      return {
-        ["pizza__filling--" + ingredient.label]: ingredient.label,
-        "pizza__filling--second": ingredient.quantity === 2,
-        "pizza__filling--third": ingredient.quantity === 3,
-      };
     },
   },
 };
