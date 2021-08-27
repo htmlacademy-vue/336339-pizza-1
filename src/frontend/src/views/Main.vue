@@ -10,6 +10,7 @@ import {
   doughToClientAdapter,
   sizesToClientAdapter,
   saucesToClientAdapter,
+  ingredientsToClientAdapter,
 } from "@/common/adapters";
 
 export default {
@@ -21,9 +22,7 @@ export default {
         dough: doughToClientAdapter(pizza.dough),
         sizes: sizesToClientAdapter(pizza.sizes),
         sauces: saucesToClientAdapter(pizza.sauces),
-        // ingredients: pizza.ingredients.map((item) =>
-        //   ingredientsToClientAdapter(item)
-        // ),
+        ingredients: ingredientsToClientAdapter(pizza.ingredients),
       },
     };
   },

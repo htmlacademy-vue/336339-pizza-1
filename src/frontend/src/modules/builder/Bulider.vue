@@ -21,28 +21,10 @@
               :value-id="pizzaOrder.sauce.id"
               @setSauce="handleChangeSauce"
             />
-
-            <!-- <div class="ingredients__filling">
-              <p>Начинка:</p>
-              <ul class="ingredients__list">
-                <li
-                  class="ingredients__item"
-                  v-for="ingredient in ingredients"
-                  :key="ingredient.id"
-                >
-                  <span
-                    class="filling"
-                    :class="`filling--${ingredient.label}`"
-                    >{{ ingredient.name }}</span
-                  >
-                  <CounterControl
-                    :value="0"
-                    :max-value="maxIngredientsCountValue"
-                    :set-value="setCounter"
-                  />
-                </li>
-              </ul>
-            </div> -->
+            <BuilderIngredientsSelector
+              :ingredients="pizzaOrder.ingredients"
+              @setIngredient="handleChangeIngredient"
+            />
           </div>
         </div>
       </div>
@@ -80,6 +62,7 @@ import {
   BuilderDoughSelector,
   BuilderSizeSelector,
   BuilderSauceSelector,
+  BuilderIngredientsSelector,
 } from "./components";
 import { calculateCostOfPizza } from "@/common/utils";
 import {
@@ -94,6 +77,7 @@ export default {
     BuilderDoughSelector,
     BuilderSizeSelector,
     BuilderSauceSelector,
+    BuilderIngredientsSelector,
   },
   props: {
     pizzaData: {
@@ -105,10 +89,10 @@ export default {
     return {
       pizzaOrder: {
         name: "",
-        ingredients: {},
         dough: this.pizzaData.dough[DEFAULT_DOUGH_ID],
         size: this.pizzaData.sizes[DEFAULT_SIZE_ID],
         sauce: this.pizzaData.sauces[DEFAULT_SAUCE_ID],
+        ingredients: this.pizzaData.ingredients,
       },
     };
   },
@@ -117,15 +101,12 @@ export default {
       return calculateCostOfPizza(
         this.pizzaOrder.dough,
         this.pizzaOrder.sauce,
-        {},
+        this.pizzaOrder.ingredients,
         this.pizzaOrder.size
       );
     },
   },
   methods: {
-    // setCounter(value) {
-    //   console.log("setCounter", value);
-    // },
     handleChangeDough(doughId) {
       this.pizzaOrder = {
         ...this.pizzaOrder,
@@ -142,6 +123,19 @@ export default {
       this.pizzaOrder = {
         ...this.pizzaOrder,
         sauce: this.pizzaData.sauces[sauceId],
+      };
+    },
+    handleChangeIngredient(id, value) {
+      const ingredients = this.pizzaOrder.ingredients;
+      this.pizzaOrder = {
+        ...this.pizzaOrder,
+        ingredients: {
+          ...ingredients,
+          [id]: {
+            ...ingredients[id],
+            quantity: value,
+          },
+        },
       };
     },
   },
