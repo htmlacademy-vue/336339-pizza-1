@@ -12,30 +12,17 @@
         :value-id="pizzaOrder.size.id"
         @setSize="handleChangeSize"
       />
-      <!--
       <div class="content__ingredients">
         <div class="sheet">
           <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
-
           <div class="sheet__content ingredients">
-            <div class="ingredients__sauce">
-              <p>Основной соус:</p>
-              <label
-                class="radio ingredients__input"
-                v-for="sauce in sauces"
-                :key="sauce.id"
-              >
-                <input
-                  type="radio"
-                  name="sauce"
-                  :value="sauce.value"
-                  :checked="sauce.isChecked"
-                />
-                <span>{{ sauce.name }}</span>
-              </label>
-            </div>
+            <BuilderSauceSelector
+              :sauces="pizzaData.sauces"
+              :value-id="pizzaOrder.sauce.id"
+              @setSauce="handleChangeSauce"
+            />
 
-            <div class="ingredients__filling">
+            <!-- <div class="ingredients__filling">
               <p>Начинка:</p>
               <ul class="ingredients__list">
                 <li
@@ -55,47 +42,59 @@
                   />
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
+      <!--
+<div class="content__pizza">
+  <label class="input">
+    <span class="visually-hidden">Название пиццы</span>
+    <input
+      type="text"
+      name="pizza_name"
+      placeholder="Введите название пиццы"
+    />
+  </label>
 
-      <div class="content__pizza">
-        <label class="input">
-          <span class="visually-hidden">Название пиццы</span>
-          <input
-            type="text"
-            name="pizza_name"
-            placeholder="Введите название пиццы"
-          />
-        </label>
-
-        <div class="content__constructor">
-          <div class="pizza pizza--foundation--big-tomato">
-            <div class="pizza__wrapper">
-              <div class="pizza__filling pizza__filling--ananas"></div>
-              <div class="pizza__filling pizza__filling--bacon"></div>
-            </div>
-          </div>
-        </div>
-        <div class="content__result">
-          <p>{{ `Итого: ${pizzaOrder.total} ₽` }}</p>
-          <button type="button" class="button" disabled>Готовьте!</button>
-        </div>
-      -->
+  <div class="content__constructor">
+    <div class="pizza pizza--foundation--big-tomato">
+      <div class="pizza__wrapper">
+        <div class="pizza__filling pizza__filling--ananas"></div>
+        <div class="pizza__filling pizza__filling--bacon"></div>
+      </div>
+    </div>
+  </div>
+  <div class="content__result">
+    <p>{{ `Итого: ${pizzaOrder.total} ₽` }}</p>
+    <button type="button" class="button" disabled>Готовьте!</button>
+  </div>
+-->
     </div>
     <p>{{ `Итого: ${total} ₽` }}</p>
   </form>
 </template>
 
 <script>
-import { BuilderDoughSelector, BuilderSizeSelector } from "./components";
+import {
+  BuilderDoughSelector,
+  BuilderSizeSelector,
+  BuilderSauceSelector,
+} from "./components";
 import { calculateCostOfPizza } from "@/common/utils";
-import { DEFAULT_DOUGH_ID, DEFAULT_SIZE_ID } from "@/common/constants";
+import {
+  DEFAULT_DOUGH_ID,
+  DEFAULT_SAUCE_ID,
+  DEFAULT_SIZE_ID,
+} from "@/common/constants";
 
 export default {
   name: "Builder",
-  components: { BuilderDoughSelector, BuilderSizeSelector },
+  components: {
+    BuilderDoughSelector,
+    BuilderSizeSelector,
+    BuilderSauceSelector,
+  },
   props: {
     pizzaData: {
       type: Object,
@@ -109,6 +108,7 @@ export default {
         ingredients: {},
         dough: this.pizzaData.dough[DEFAULT_DOUGH_ID],
         size: this.pizzaData.sizes[DEFAULT_SIZE_ID],
+        sauce: this.pizzaData.sauces[DEFAULT_SAUCE_ID],
       },
     };
   },
@@ -116,7 +116,7 @@ export default {
     total() {
       return calculateCostOfPizza(
         this.pizzaOrder.dough,
-        { price: 0 },
+        this.pizzaOrder.sauce,
         {},
         this.pizzaOrder.size
       );
@@ -136,6 +136,12 @@ export default {
       this.pizzaOrder = {
         ...this.pizzaOrder,
         size: this.pizzaData.sizes[sizeId],
+      };
+    },
+    handleChangeSauce(sauceId) {
+      this.pizzaOrder = {
+        ...this.pizzaOrder,
+        sauce: this.pizzaData.sauces[sauceId],
       };
     },
   },

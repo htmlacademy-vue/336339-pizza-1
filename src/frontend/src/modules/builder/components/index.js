@@ -1,4 +1,5 @@
 import BuilderDoughSelector from "./BuilderDoughSelector";
 import BuilderSizeSelector from "./BuilderSizeSelector";
+import BuilderSauceSelector from "./BuilderSauceSelector";
 
-export { BuilderDoughSelector, BuilderSizeSelector };
+export { BuilderDoughSelector, BuilderSizeSelector, BuilderSauceSelector };

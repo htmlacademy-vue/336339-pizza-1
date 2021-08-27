@@ -6,7 +6,11 @@
 import AppLayout from "@/layouts/AppLayout";
 import Builder from "@/modules/builder/Bulider";
 import pizza from "@/static/pizza.json";
-import { doughToClientAdapter, sizesToClientAdapter } from "@/common/adapters";
+import {
+  doughToClientAdapter,
+  sizesToClientAdapter,
+  saucesToClientAdapter,
+} from "@/common/adapters";
 
 export default {
   name: "Index",
@@ -16,7 +20,7 @@ export default {
       pizzaData: {
         dough: doughToClientAdapter(pizza.dough),
         sizes: sizesToClientAdapter(pizza.sizes),
-        // sauces: adaptedSauces,
+        sauces: saucesToClientAdapter(pizza.sauces),
         // ingredients: pizza.ingredients.map((item) =>
         //   ingredientsToClientAdapter(item)
         // ),
