@@ -35,12 +35,27 @@
             type="text"
             name="pizza_name"
             placeholder="Введите название пиццы"
+            @input="handleChangeName"
+            :value="pizzaOrder.name"
           />
         </label>
-        <BuilderPizzaView :pizza="pizzaOrder" />
+        <BuilderPizzaView
+          :ingredients="nonEmptyIngredients"
+          :sauce="pizzaOrder.sauce"
+          :dough="pizzaOrder.dough"
+        />
         <div class="content__result">
           <p>{{ `Итого: ${total} ₽` }}</p>
-          <button type="button" class="button" disabled>Готовьте!</button>
+          <button
+            type="button"
+            class="button"
+            :disabled="
+              pizzaOrder.name === '' ||
+              Object.keys(nonEmptyIngredients).length === 0
+            "
+          >
+            Готовьте!
+          </button>
         </div>
       </div>
     </div>
@@ -97,6 +112,17 @@ export default {
         this.pizzaOrder.size
       );
     },
+    nonEmptyIngredients() {
+      return Object.keys(this.pizzaOrder.ingredients).reduce(
+        (accumulator, key) => {
+          if (this.pizzaOrder.ingredients[key].quantity > 0) {
+            accumulator[key] = { ...this.pizzaOrder.ingredients[key] };
+          }
+          return accumulator;
+        },
+        {}
+      );
+    },
   },
   methods: {
     handleChangeDough(doughId) {
@@ -129,6 +155,9 @@ export default {
           },
         },
       };
+    },
+    handleChangeName(event) {
+      this.pizzaOrder = { ...this.pizzaOrder, name: event.target.value };
     },
   },
 };

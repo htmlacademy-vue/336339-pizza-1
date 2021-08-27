@@ -2,12 +2,12 @@
   <div class="content__constructor">
     <div
       class="pizza"
-      :class="`pizza--foundation--${pizza.dough.value}-${pizza.sauce.value}`"
+      :class="`pizza--foundation--${dough.value}-${sauce.value}`"
     >
       <div class="pizza__wrapper">
         <div
           class="pizza__filling"
-          v-for="value in filteredIngredients"
+          v-for="value in ingredients"
           :key="value.id"
           :class="getPizzaClasses(value)"
         ></div>
@@ -20,19 +20,17 @@
 export default {
   name: "BuilderPizzaView",
   props: {
-    pizza: {
+    ingredients: {
       type: Object,
       required: true,
     },
-  },
-  computed: {
-    filteredIngredients() {
-      return Object.keys(this.pizza.ingredients).reduce((accumulator, key) => {
-        if (this.pizza.ingredients[key].quantity > 0) {
-          accumulator[key] = { ...this.pizza.ingredients[key] };
-        }
-        return accumulator;
-      }, {});
+    dough: {
+      type: Object,
+      required: true,
+    },
+    sauce: {
+      type: Object,
+      required: true,
     },
   },
   methods: {
