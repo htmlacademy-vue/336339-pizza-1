@@ -48,14 +48,7 @@
         </AppDrop>
         <div class="content__result">
           <p>{{ `Итого: ${total} ₽` }}</p>
-          <button
-            type="button"
-            class="button"
-            :disabled="
-              pizzaOrder.name === '' ||
-              Object.keys(nonEmptyIngredients).length === 0
-            "
-          >
+          <button type="button" class="button" :disabled="isDisabledButton">
             Готовьте!
           </button>
         </div>
@@ -125,6 +118,11 @@ export default {
           return accumulator;
         },
         {}
+      );
+    },
+    isDisabledButton() {
+      return (
+        this.pizzaOrder.name === "" || this.nonEmptyIngredients.length === 0
       );
     },
   },
