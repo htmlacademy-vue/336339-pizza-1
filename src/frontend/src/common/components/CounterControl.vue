@@ -4,7 +4,7 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isDisableDecrementControl"
-      @click="handleDecrement"
+      @click="$emit('onChange', id, value - 1)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -13,7 +13,7 @@
       type="button"
       class="counter__button counter__button--plus"
       :disabled="isDisableIncrementControl"
-      @click="handleIncrement"
+      @click="$emit('onChange', id, value + 1)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -32,8 +32,8 @@ export default {
       type: Number,
       default: null,
     },
-    setValue: {
-      type: Function,
+    id: {
+      type: [Number, String],
       required: true,
     },
   },
@@ -43,14 +43,6 @@ export default {
     },
     isDisableDecrementControl() {
       return this.value === 0;
-    },
-  },
-  methods: {
-    handleIncrement() {
-      this.setValue(this.value + 1);
-    },
-    handleDecrement() {
-      this.setValue(this.value - 1);
     },
   },
 };

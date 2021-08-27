@@ -18,7 +18,8 @@
             <CounterControl
               :value="ingredient.quantity"
               :max-value="maxIngredientsCountValue"
-              :set-value="(value) => setValue(ingredient.id, value)"
+              @onChange="setValue"
+              :id="ingredient.id"
             />
           </div>
         </AppDrag>
