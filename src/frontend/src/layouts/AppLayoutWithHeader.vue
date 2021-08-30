@@ -37,7 +37,7 @@
           </router-link>
           <a href="/" class="header__logout"><span>Выйти</span></a>
         </template>
-        <router-link v-else to="login" class="header__login">
+        <router-link v-else :to="routerUri" class="header__login">
           <span>Войти</span>
         </router-link>
       </div>
@@ -59,6 +59,12 @@ export default {
     isAuth: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    routerUri() {
+      console.log(this.$route);
+      return this.$route.path === "/" ? "/login" : "/sign-in";
     },
   },
 };
