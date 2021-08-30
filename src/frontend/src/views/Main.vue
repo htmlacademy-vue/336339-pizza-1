@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AppLayout from "@/layouts/AppLayout";
+import AppLayout from "@/layouts/AppLayoutMain";
 import Builder from "@/modules/builder/Bulider";
 import pizza from "@/static/pizza.json";
 import {
