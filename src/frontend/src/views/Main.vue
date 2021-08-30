@@ -1,9 +1,11 @@
 <template>
-  <AppLayout :total="0"> <Builder :pizzaData="pizzaData" /> </AppLayout>
+  <div>
+    <Builder :pizzaData="pizzaData" />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import AppLayout from "@/layouts/AppLayout";
 import Builder from "@/modules/builder/Bulider";
 import pizza from "@/static/pizza.json";
 import {
@@ -14,8 +16,8 @@ import {
 } from "@/common/adapters";
 
 export default {
-  name: "Index",
-  components: { AppLayout, Builder },
+  name: "Main",
+  components: { Builder },
   data() {
     return {
       pizzaData: {

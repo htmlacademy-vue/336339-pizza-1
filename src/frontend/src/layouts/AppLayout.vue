@@ -1,36 +1,16 @@
 <template>
-  <div>
-    <header class="header">
-      <div class="header__logo">
-        <a href="/" class="logo">
-          <img
-            src="@/assets/img/logo.svg"
-            alt="V!U!E! Pizza logo"
-            width="90"
-            height="40"
-          />
-        </a>
-      </div>
-      <div class="header__cart">
-        <a href="#">{{ total }} ₽</a>
-      </div>
-      <div class="header__user">
-        <a href="#" class="header__login"><span>Войти</span></a>
-      </div>
-    </header>
-    <div class="content">
-      <slot />
-    </div>
-  </div>
+  <component :is="layout">
+    <slot />
+  </component>
 </template>
-
 <script>
+const DEFAULT_LAYOUT = "AppEmptyLayout";
 export default {
   name: "AppLayout",
-  props: {
-    total: {
-      type: Number,
-      default: 0,
+  computed: {
+    layout() {
+      const layout = this.$route.meta.layout || DEFAULT_LAYOUT;
+      return () => import(`@/layouts/${layout}.vue`);
     },
   },
 };
