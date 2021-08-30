@@ -37,7 +37,7 @@
           </router-link>
           <a href="/" class="header__logout"><span>Выйти</span></a>
         </template>
-        <router-link v-else to="sign-in" class="header__login">
+        <router-link v-else to="login" class="header__login">
           <span>Войти</span>
         </router-link>
       </div>

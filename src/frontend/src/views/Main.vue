@@ -1,5 +1,8 @@
 <template>
-  <Builder :pizzaData="pizzaData" />
+  <div>
+    <Builder :pizzaData="pizzaData" />
+    <router-view />
+  </div>
 </template>
 
 <script>
