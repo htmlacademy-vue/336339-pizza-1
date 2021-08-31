@@ -3,27 +3,27 @@
     <div class="content__wrapper">
       <h1 class="title title--big">Конструктор пиццы</h1>
       <BuilderDoughSelector
-        :dough="pizzaData.dough"
-        :value-id="pizzaOrder.dough.id"
-        @setDough="handleChangeDough"
+        :dough="dough"
+        :value-id="pizza.doughId"
+        @setDough="putDough"
       />
       <BuilderSizeSelector
-        :sizes="pizzaData.sizes"
-        :value-id="pizzaOrder.size.id"
-        @setSize="handleChangeSize"
+        :sizes="sizes"
+        :value-id="pizza.sizeId"
+        @setSize="putSize"
       />
       <div class="content__ingredients">
         <div class="sheet">
           <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
           <div class="sheet__content ingredients">
             <BuilderSauceSelector
-              :sauces="pizzaData.sauces"
-              :value-id="pizzaOrder.sauce.id"
-              @setSauce="handleChangeSauce"
+              :sauces="sauces"
+              :value-id="pizza.sauceId"
+              @setSauce="putSauce"
             />
             <BuilderIngredientsSelector
-              :ingredients="pizzaOrder.ingredients"
-              @setIngredient="handleChangeIngredient"
+              :ingredients="ingredientsWithCount"
+              @setIngredient="putIngredient"
             />
           </div>
         </div>
@@ -36,18 +36,18 @@
             name="pizza_name"
             placeholder="Введите название пиццы"
             @input="handleChangeName"
-            :value="pizzaOrder.name"
+            :value="pizza.name"
           />
         </label>
         <AppDrop @drop="onDropIngredientHandler($event)">
           <BuilderPizzaView
             :ingredients="nonEmptyIngredients"
-            :sauce="pizzaOrder.sauce"
-            :dough="pizzaOrder.dough"
+            :sauce="sauces[pizza.sauceId]"
+            :dough="dough[pizza.doughId]"
           />
         </AppDrop>
         <div class="content__result">
-          <p>{{ `Итого: ${total} ₽` }}</p>
+          <p>{{ `Итого: ${pizzaPrice} ₽` }}</p>
           <button type="button" class="button" :disabled="isDisabledButton">
             Готовьте!
           </button>
@@ -58,13 +58,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
 import AppDrop from "@/common/components/Drag'n'Drop/AppDrop";
-import { calculateCostOfPizza } from "@/common/utils";
-import {
-  DEFAULT_DOUGH_ID,
-  DEFAULT_SAUCE_ID,
-  DEFAULT_SIZE_ID,
-} from "@/common/constants";
 import {
   BuilderDoughSelector,
   BuilderSizeSelector,
@@ -83,86 +78,37 @@ export default {
     BuilderPizzaView,
     AppDrop,
   },
-  props: {
-    pizzaData: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      pizzaOrder: {
-        name: "",
-        dough: this.pizzaData.dough[DEFAULT_DOUGH_ID],
-        size: this.pizzaData.sizes[DEFAULT_SIZE_ID],
-        sauce: this.pizzaData.sauces[DEFAULT_SAUCE_ID],
-        ingredients: this.pizzaData.ingredients,
-      },
-    };
-  },
   computed: {
-    total() {
-      return calculateCostOfPizza(
-        this.pizzaOrder.dough,
-        this.pizzaOrder.sauce,
-        this.pizzaOrder.ingredients,
-        this.pizzaOrder.size
-      );
-    },
+    ...mapState("Builder", ["pizza", "dough", "sauces", "sizes"]),
+    ...mapGetters("Builder", ["pizzaPrice", "ingredientsWithCount"]),
     nonEmptyIngredients() {
-      return Object.keys(this.pizzaOrder.ingredients).reduce(
-        (accumulator, key) => {
-          if (this.pizzaOrder.ingredients[key].quantity > 0) {
-            accumulator[key] = { ...this.pizzaOrder.ingredients[key] };
-          }
-          return accumulator;
-        },
-        {}
-      );
+      return Object.keys(this.pizza.ingredients).reduce((accumulator, key) => {
+        if (this.pizza.ingredients[key] > 0) {
+          accumulator[key] = { ...this.ingredientsWithCount[key] };
+        }
+        return accumulator;
+      }, {});
     },
     isDisabledButton() {
-      return (
-        this.pizzaOrder.name === "" || this.nonEmptyIngredients.length === 0
-      );
+      return this.pizza.name === "" || this.nonEmptyIngredients.length === 0;
     },
   },
   methods: {
-    handleChangeDough(doughId) {
-      this.pizzaOrder = {
-        ...this.pizzaOrder,
-        dough: this.pizzaData.dough[doughId],
-      };
-    },
-    handleChangeSize(sizeId) {
-      this.pizzaOrder = {
-        ...this.pizzaOrder,
-        size: this.pizzaData.sizes[sizeId],
-      };
-    },
-    handleChangeSauce(sauceId) {
-      this.pizzaOrder = {
-        ...this.pizzaOrder,
-        sauce: this.pizzaData.sauces[sauceId],
-      };
-    },
-    handleChangeIngredient(id, value) {
-      const ingredients = this.pizzaOrder.ingredients;
-      this.pizzaOrder = {
-        ...this.pizzaOrder,
-        ingredients: {
-          ...ingredients,
-          [id]: {
-            ...ingredients[id],
-            quantity: value,
-          },
-        },
-      };
-    },
+    ...mapActions("Builder", [
+      "putDough",
+      "putSize",
+      "putSauce",
+      "putName",
+      "putIngredient",
+      "post",
+    ]),
     handleChangeName(event) {
-      this.pizzaOrder = { ...this.pizzaOrder, name: event.target.value };
+      this.putName(event.target.value);
     },
+
     onDropIngredientHandler(ingredient) {
-      this.handleChangeIngredient(ingredient.id, ingredient.quantity + 1);
+      console.log("onDropIngredientHandler", ingredient);
+      // this.handleChangeIngredient(ingredient.id, ingredient.quantity + 1);
     },
   },
 };

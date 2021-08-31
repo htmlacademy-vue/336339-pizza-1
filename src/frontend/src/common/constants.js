@@ -38,7 +38,7 @@ export const INGREDIENTS = {
   15: "blue_cheese",
 };
 
-export const INGREDIENTS_MAX_QUANTITY = 3;
+export const INGREDIENTS_MAX_COUNT = 3;
 
 export const DEFAULT_DOUGH_ID = 1;
 export const DEFAULT_SIZE_ID = 2;

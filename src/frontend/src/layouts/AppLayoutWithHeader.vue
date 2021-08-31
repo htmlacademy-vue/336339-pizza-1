@@ -63,7 +63,6 @@ export default {
   },
   computed: {
     routerUri() {
-      console.log(this.$route);
       return this.$route.path === "/" ? "/login" : "/sign-in";
     },
   },
