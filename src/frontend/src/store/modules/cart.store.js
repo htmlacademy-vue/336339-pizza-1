@@ -1,4 +1,5 @@
 import miscMock from "@/static/misc.json";
+import adressessMock from "@/static/addresses.json";
 import {
   ADD_ENTITY,
   DELETE_ENTITY,
@@ -6,7 +7,10 @@ import {
   UPDATE_ENTITY,
 } from "@/store/mutation-types";
 import { calculateCostOfPizza, capitalize } from "@/common/utils";
-import { miscToClientAdapter } from "@/common/adapters";
+import {
+  addressesToClientAdapter,
+  miscToClientAdapter,
+} from "@/common/adapters";
 import { cloneDeep, uniqueId } from "lodash";
 
 const entity = "cart";
@@ -19,7 +23,8 @@ export default {
     pizzas: [],
     misc: [],
     phone: "",
-    newAddress: {
+    addresses: [],
+    address: {
       street: "",
       building: "",
       flat: "",
@@ -70,7 +75,8 @@ export default {
     },
   },
   actions: {
-    query({ commit }) {
+    query({ commit, rootState }) {
+      const user = cloneDeep(rootState.Auth.user);
       commit(
         SET_ENTITY,
         {
@@ -80,6 +86,26 @@ export default {
         },
         { root: true }
       );
+      if (user) {
+        commit(
+          SET_ENTITY,
+          {
+            ...namespace,
+            entity: "phone",
+            value: user.phone,
+          },
+          { root: true }
+        );
+        commit(
+          SET_ENTITY,
+          {
+            ...namespace,
+            entity: "addresses",
+            value: addressesToClientAdapter(adressessMock),
+          },
+          { root: true }
+        );
+      }
     },
     post({ commit, rootState }) {
       const data = cloneDeep(rootState.Cart);
@@ -138,6 +164,28 @@ export default {
             ...rootState.Cart.misc,
             [id]: { ...rootState.Cart.misc[id], quantity },
           },
+        },
+        { root: true }
+      );
+    },
+    setAddress({ commit }, address) {
+      commit(
+        SET_ENTITY,
+        {
+          module: "Cart",
+          entity: "address",
+          value: address,
+        },
+        { root: true }
+      );
+    },
+    setPhone({ commit }, phone) {
+      commit(
+        SET_ENTITY,
+        {
+          module: "Cart",
+          entity: "phone",
+          value: phone,
         },
         { root: true }
       );

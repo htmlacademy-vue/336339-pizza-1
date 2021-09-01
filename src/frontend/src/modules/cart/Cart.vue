@@ -17,50 +17,13 @@
             @setPizzaForEdit="setPizzaForEdit"
           />
           <MiscLayout :misc="misc" @setMisc="setPizzaMisc" />
-          <!--        <div class="cart__form">-->
-          <!--          <div class="cart-form">-->
-
-          <!--            <label class="cart-form__select">-->
-          <!--              <span class="cart-form__label">Получение заказа:</span>-->
-
-          <!--              <select name="test" class="select">-->
-          <!--                <option value="1">Заберу сам</option>-->
-          <!--                <option value="2">Новый адрес</option>-->
-          <!--                <option value="3">Дом</option>-->
-          <!--              </select>-->
-          <!--            </label>-->
-
-          <!--            <label class="input input&#45;&#45;big-label">-->
-          <!--              <span>Контактный телефон:</span>-->
-          <!--              <input type="text" name="tel" placeholder="+7 999-999-99-99">-->
-          <!--            </label>-->
-
-          <!--            <div class="cart-form__address">-->
-          <!--              <span class="cart-form__label">Новый адрес:</span>-->
-
-          <!--              <div class="cart-form__input">-->
-          <!--                <label class="input">-->
-          <!--                  <span>Улица*</span>-->
-          <!--                  <input type="text" name="street">-->
-          <!--                </label>-->
-          <!--              </div>-->
-
-          <!--              <div class="cart-form__input cart-form__input&#45;&#45;small">-->
-          <!--                <label class="input">-->
-          <!--                  <span>Дом*</span>-->
-          <!--                  <input type="text" name="house">-->
-          <!--                </label>-->
-          <!--              </div>-->
-
-          <!--              <div class="cart-form__input cart-form__input&#45;&#45;small">-->
-          <!--                <label class="input">-->
-          <!--                  <span>Квартира</span>-->
-          <!--                  <input type="text" name="apartment">-->
-          <!--                </label>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </div>-->
-          <!--        </div>-->
+          <DeliveryLayout
+            :phone="phone"
+            :address="address"
+            :addresses="addresses"
+            @setAddress="setAddress"
+            @setPhone="setPhone"
+          />
         </div>
       </div>
     </main>
@@ -78,12 +41,13 @@ import {
   CartFooterView,
   PizzasListLayout,
   MiscLayout,
+  DeliveryLayout,
 } from "@/modules/cart/components";
 export default {
   name: "Cart",
-  components: { CartFooterView, PizzasListLayout, MiscLayout },
+  components: { CartFooterView, PizzasListLayout, MiscLayout, DeliveryLayout },
   computed: {
-    ...mapState("Cart", ["pizzas", "misc"]),
+    ...mapState("Cart", ["pizzas", "misc", "phone", "address", "addresses"]),
     ...mapGetters("Cart", ["cartTotal", "adaptedPizzas"]),
     checkedMiscLength() {
       return Object.keys(this.misc).reduce((accumulator, id) => {
@@ -95,7 +59,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions("Cart", ["setPizzaQuantity", "setPizzaMisc"]),
+    ...mapActions("Cart", [
+      "setPizzaQuantity",
+      "setPizzaMisc",
+      "setAddress",
+      "setPhone",
+    ]),
     ...mapActions("Builder", ["resetBuilder"]),
     createOrder() {
       console.log("createOrder");
