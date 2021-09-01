@@ -10,7 +10,7 @@
         type="radio"
         name="sauce"
         :value="sauce.id"
-        :checked="sauce.id === valueId"
+        :checked="sauce.id == valueId"
         @input="$emit('setSauce', $event.target.value)"
       />
       <span>{{ sauce.name }}</span>

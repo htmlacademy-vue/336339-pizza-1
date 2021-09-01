@@ -2,7 +2,8 @@ import {
   SET_ENTITY,
   ADD_ENTITY,
   UPDATE_PIZZA,
-  RESET_STATE,
+  RESET_PIZZA,
+  UPDATE_ENTITY,
 } from "@/store/mutation-types";
 import pizzaMocks from "@/static/pizza.json";
 import { calculateCostOfPizza, capitalize } from "@/common/utils";
@@ -51,12 +52,16 @@ export default {
     [UPDATE_PIZZA](state, pizza) {
       state.pizza = { ...state.pizza, ...pizza };
     },
-    [RESET_STATE](state) {
-      state.pizza = setupPizzaState({
-        sizeId: DEFAULT_SIZE_ID,
-        doughId: DEFAULT_DOUGH_ID,
-        sauceId: DEFAULT_SAUCE_ID,
-      });
+    [RESET_PIZZA](state, initialPizza = null) {
+      if (initialPizza) {
+        state.pizza = { ...initialPizza };
+      } else {
+        state.pizza = setupPizzaState({
+          sizeId: DEFAULT_SIZE_ID,
+          doughId: DEFAULT_DOUGH_ID,
+          sauceId: DEFAULT_SAUCE_ID,
+        });
+      }
     },
   },
   actions: {
@@ -81,25 +86,43 @@ export default {
     },
     post({ commit, rootState }) {
       const data = cloneDeep(rootState.Builder.pizza);
-      commit(
-        ADD_ENTITY,
-        {
-          module: "Cart",
-          entity: "pizzas",
-          value: {
-            ...data,
-            id: uniqueId(),
-            ingredients: Object.keys(data.ingredients).map((key) => ({
-              ingredientId: key,
-              quantity: data.ingredients[key],
-            })),
+      if (data.id) {
+        commit(
+          UPDATE_ENTITY,
+          {
+            module: "Cart",
+            entity: "pizzas",
+            value: {
+              ...data,
+              ingredients: Object.keys(data.ingredients).map((key) => ({
+                ingredientId: key,
+                quantity: data.ingredients[key],
+              })),
+            },
           },
-        },
-        { root: true }
-      );
+          { root: true }
+        );
+      } else {
+        commit(
+          ADD_ENTITY,
+          {
+            module: "Cart",
+            entity: "pizzas",
+            value: {
+              ...data,
+              id: uniqueId(),
+              ingredients: Object.keys(data.ingredients).map((key) => ({
+                ingredientId: key,
+                quantity: data.ingredients[key],
+              })),
+            },
+          },
+          { root: true }
+        );
+      }
     },
-    resetBuilder({ commit }) {
-      commit(RESET_STATE);
+    resetBuilder({ commit }, initialPizza = null) {
+      commit(RESET_PIZZA, initialPizza);
     },
     putDough({ commit }, doughId) {
       commit(UPDATE_PIZZA, {

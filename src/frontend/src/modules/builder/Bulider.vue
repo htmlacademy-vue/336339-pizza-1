@@ -116,7 +116,7 @@ export default {
     },
     async addPizza() {
       await this.post();
-      await this.$router.push("Cart");
+      await this.$router.push("/cart");
     },
   },
   beforeDestroy() {

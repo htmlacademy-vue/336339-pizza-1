@@ -1,5 +1,10 @@
 import miscMock from "@/static/misc.json";
-import { ADD_ENTITY, SET_ENTITY } from "@/store/mutation-types";
+import {
+  ADD_ENTITY,
+  DELETE_ENTITY,
+  SET_ENTITY,
+  UPDATE_ENTITY,
+} from "@/store/mutation-types";
 import { calculateCostOfPizza, capitalize } from "@/common/utils";
 import { miscToClientAdapter } from "@/common/adapters";
 import { cloneDeep, uniqueId } from "lodash";
@@ -24,24 +29,44 @@ export default {
     cartTotal({ pizzas, misc }, getters, rootState) {
       const { dough, sauces, sizes, ingredients } = rootState.Builder;
       const pizzasTotal = pizzas.reduce((accumulator, pizza) => {
-        return (
-          accumulator +
-          calculateCostOfPizza(
-            dough[pizza.doughId],
-            sauces[pizza.sauceId],
-            sizes[pizza.sizeId],
-            pizza.ingredients.reduce((accumulator, currentItem) => {
-              accumulator[currentItem.ingredientId] = currentItem.quantity;
-              return accumulator;
-            }, {}),
-            ingredients
-          )
+        const pizzaCost = calculateCostOfPizza(
+          dough[pizza.doughId],
+          sauces[pizza.sauceId],
+          sizes[pizza.sizeId],
+          pizza.ingredients.reduce((accumulator, currentItem) => {
+            accumulator[currentItem.ingredientId] = currentItem.quantity;
+            return accumulator;
+          }, {}),
+          ingredients
         );
+        return accumulator + pizzaCost * pizza.quantity;
       }, 0);
       const miscTotal = Object.keys(misc).reduce((accumulator, id) => {
         return accumulator + misc[id].quantity * misc[id].price;
       }, 0);
       return pizzasTotal + miscTotal;
+    },
+    adaptedPizzas({ pizzas }, getters, rootState) {
+      const { dough, sauces, sizes, ingredients } = rootState.Builder;
+      return pizzas.map((pizza) => ({
+        ...pizza,
+        dough: dough[pizza.doughId].longLabel,
+        sauce: sauces[pizza.sauceId].name,
+        size: sizes[pizza.sizeId].name,
+        ingredients: pizza.ingredients
+          .map((item) => ingredients[item.ingredientId].name)
+          .join(", "),
+        price: calculateCostOfPizza(
+          dough[pizza.doughId],
+          sauces[pizza.sauceId],
+          sizes[pizza.sizeId],
+          pizza.ingredients.reduce((accumulator, currentItem) => {
+            accumulator[currentItem.ingredientId] = currentItem.quantity;
+            return accumulator;
+          }, {}),
+          ingredients
+        ),
+      }));
     },
   },
   actions: {
@@ -76,6 +101,32 @@ export default {
         },
         { root: true }
       );
+    },
+    setPizzaQuantity({ commit, rootState }, { id, value: quantity }) {
+      const currentPizza = rootState.Cart.pizzas.find(
+        (pizza) => pizza.id === id
+      );
+      if (quantity > 0) {
+        commit(
+          UPDATE_ENTITY,
+          {
+            module: "Cart",
+            entity: "pizzas",
+            value: { ...currentPizza, quantity },
+          },
+          { root: true }
+        );
+      } else {
+        commit(
+          DELETE_ENTITY,
+          {
+            module: "Cart",
+            entity: "pizzas",
+            id: currentPizza.id,
+          },
+          { root: true }
+        );
+      }
     },
   },
 };

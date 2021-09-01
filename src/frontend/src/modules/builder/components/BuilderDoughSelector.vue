@@ -14,7 +14,7 @@
             name="dough"
             :value="doughItem.id"
             class="visually-hidden"
-            :checked="doughItem.id === valueId"
+            :checked="doughItem.id == valueId"
             @input="$emit('setDough', $event.target.value)"
           />
           <b>{{ doughItem.name }}</b>

@@ -11,70 +11,11 @@
           </div>
         </template>
         <div v-else>
-          <!--        <ul class="cart-list sheet">-->
-          <!--          <li class="cart-list__item">-->
-          <!--            <div class="product cart-list__product">-->
-          <!--              <img src="img/product.svg" class="product__img" width="56" height="56" alt="Капричоза">-->
-          <!--              <div class="product__text">-->
-          <!--                <h2>Капричоза</h2>-->
-          <!--                <ul>-->
-          <!--                  <li>30 см, на тонком тесте</li>-->
-          <!--                  <li>Соус: томатный</li>-->
-          <!--                  <li>Начинка: грибы, лук, ветчина, пармезан, ананас</li>-->
-          <!--                </ul>-->
-          <!--              </div>-->
-          <!--            </div>-->
-
-          <!--            <div class="counter cart-list__counter">-->
-          <!--              <button type="button" class="counter__button counter__button&#45;&#45;minus">-->
-          <!--                <span class="visually-hidden">Меньше</span>-->
-          <!--              </button>-->
-          <!--              <input type="text" name="counter" class="counter__input" value="1">-->
-          <!--              <button type="button" class="counter__button counter__button&#45;&#45;plus counter__button&#45;&#45;orange">-->
-          <!--                <span class="visually-hidden">Больше</span>-->
-          <!--              </button>-->
-          <!--            </div>-->
-
-          <!--            <div class="cart-list__price">-->
-          <!--              <b>782 ₽</b>-->
-          <!--            </div>-->
-
-          <!--            <div class="cart-list__button">-->
-          <!--              <button type="button" class="cart-list__edit">Изменить</button>-->
-          <!--            </div>-->
-          <!--          </li>-->
-          <!--          <li class="cart-list__item">-->
-          <!--            <div class="product cart-list__product">-->
-          <!--              <img src="img/product.svg" class="product__img" width="56" height="56" alt="Любимая пицца">-->
-          <!--              <div class="product__text">-->
-          <!--                <h2>Любимая пицца</h2>-->
-          <!--                <ul>-->
-          <!--                  <li>30 см, на тонком тесте</li>-->
-          <!--                  <li>Соус: томатный</li>-->
-          <!--                  <li>Начинка: грибы, лук, ветчина, пармезан, ананас, бекон, блю чиз</li>-->
-          <!--                </ul>-->
-          <!--              </div>-->
-          <!--            </div>-->
-
-          <!--            <div class="counter cart-list__counter">-->
-          <!--              <button type="button" class="counter__button counter__button&#45;&#45;minus">-->
-          <!--                <span class="visually-hidden">Меньше</span>-->
-          <!--              </button>-->
-          <!--              <input type="text" name="counter" class="counter__input" value="2">-->
-          <!--              <button type="button" class="counter__button counter__button&#45;&#45;plus counter__button&#45;&#45;orange">-->
-          <!--                <span class="visually-hidden">Больше</span>-->
-          <!--              </button>-->
-          <!--            </div>-->
-
-          <!--            <div class="cart-list__price">-->
-          <!--              <b>782 ₽</b>-->
-          <!--            </div>-->
-
-          <!--            <div class="cart-list__button">-->
-          <!--              <button type="button" class="cart-list__edit">Изменить</button>-->
-          <!--            </div>-->
-          <!--          </li>-->
-          <!--        </ul>-->
+          <PizzasListLayout
+            :pizzas="adaptedPizzas"
+            @setQuantity="setPizzaQuantity"
+            @setPizzaForEdit="setPizzaForEdit"
+          />
 
           <!--        <div class="cart__additional">-->
           <!--          <ul class="additional-list">-->
@@ -203,14 +144,14 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-import { CartFooterView } from "@/modules/cart/components";
+import { mapState, mapGetters, mapActions } from "vuex";
+import { CartFooterView, PizzasListLayout } from "@/modules/cart/components";
 export default {
   name: "Cart",
-  components: { CartFooterView },
+  components: { CartFooterView, PizzasListLayout },
   computed: {
     ...mapState("Cart", ["pizzas", "misc"]),
-    ...mapGetters("Cart", ["cartTotal"]),
+    ...mapGetters("Cart", ["cartTotal", "adaptedPizzas"]),
     checkedMiscLength() {
       return Object.keys(this.misc).reduce((accumulator, id) => {
         return accumulator + this.misc[id].quantity;
@@ -221,9 +162,21 @@ export default {
     },
   },
   methods: {
-    // ...mapActions("Builder", []),
+    ...mapActions("Cart", ["setPizzaQuantity"]),
+    ...mapActions("Builder", ["resetBuilder"]),
     createOrder() {
       console.log("createOrder");
+    },
+    setPizzaForEdit({ id }) {
+      const checkedPizza = this.pizzas.find((pizza) => pizza.id === id);
+      this.resetBuilder({
+        ...checkedPizza,
+        ingredients: checkedPizza.ingredients.reduce((accumulator, item) => {
+          accumulator[item.ingredientId] = item.quantity;
+          return accumulator;
+        }, {}),
+      });
+      this.$router.push("/");
     },
   },
 };
