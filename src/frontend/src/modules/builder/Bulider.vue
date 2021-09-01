@@ -48,7 +48,12 @@
         </AppDrop>
         <div class="content__result">
           <p>{{ `Итого: ${pizzaPrice} ₽` }}</p>
-          <button type="button" class="button" :disabled="isDisabledButton">
+          <button
+            type="button"
+            class="button"
+            :disabled="isDisabledButton"
+            @click="addPizza"
+          >
             Готовьте!
           </button>
         </div>
@@ -105,10 +110,12 @@ export default {
     handleChangeName(event) {
       this.putName(event.target.value);
     },
-
     onDropIngredientHandler(ingredient) {
-      console.log("onDropIngredientHandler", ingredient);
-      // this.handleChangeIngredient(ingredient.id, ingredient.quantity + 1);
+      this.putIngredient({ id: ingredient.id, value: ingredient.count + 1 });
+    },
+    async addPizza() {
+      await this.post();
+      await this.$router.push("Cart");
     },
   },
 };

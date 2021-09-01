@@ -81,21 +81,21 @@ export default {
         );
       });
     },
-    post({ commit }, pizza) {
-      const data = cloneDeep(pizza);
-
+    post({ commit, getters, rootState }) {
+      const data = cloneDeep(rootState.Builder.pizza);
       commit(
         ADD_ENTITY,
         {
           module: "Cart",
-          entity: "mainOrder",
+          entity: "pizzas",
           value: {
             ...data,
             id: uniqueId(),
             ingredients: Object.keys(data.ingredients).map((key) => ({
               ingredientId: key,
-              quantity: data.ingredients[key],
+              count: data.ingredients[key],
             })),
+            cost: getters.pizzaPrice,
           },
         },
         { root: true }
@@ -153,7 +153,7 @@ function setupState() {
 function setupPizzaState({ doughId, sizeId, sauceId }) {
   return {
     name: "",
-    quantity: 1,
+    count: 1,
     doughId,
     sizeId,
     sauceId,

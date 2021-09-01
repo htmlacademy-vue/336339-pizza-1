@@ -18,6 +18,7 @@ const actions = {
   async init({ dispatch }) {
     dispatch("Builder/query");
     dispatch("Auth/query");
+    dispatch("Cart/query");
   },
 };
 
