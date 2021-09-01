@@ -17,8 +17,7 @@ const state = setupState();
 const actions = {
   async init({ dispatch }) {
     dispatch("Builder/query");
-    // dispatch("Cart/query");
-    // dispatch("Auth/query");
+    dispatch("Auth/query");
   },
 };
 

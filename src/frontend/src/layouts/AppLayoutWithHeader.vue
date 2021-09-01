@@ -28,12 +28,12 @@
               <img
                 src="@/assets/img/users/user5.jpg"
                 srcset="@/assets/img/users/user5@2x.jpg"
-                alt="Василий Ложкин"
+                :alt="user.name"
                 width="32"
                 height="32"
               />
             </picture>
-            <span>Василий Ложкин</span>
+            <span>{{ user.name }}</span>
           </router-link>
           <a href="/" class="header__logout"><span>Выйти</span></a>
         </template>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "AppLayoutWithHeader",
   props: {
@@ -58,10 +60,12 @@ export default {
     },
     isAuth: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
+
   computed: {
+    ...mapState("Auth", ["user"]),
     routerUri() {
       return this.$route.path === "/" ? "/login" : "/sign-in";
     },
