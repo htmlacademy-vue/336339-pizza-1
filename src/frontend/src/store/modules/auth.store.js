@@ -23,5 +23,16 @@ export default {
         { root: true }
       );
     },
+    logout({ commit }) {
+      commit(
+        SET_ENTITY,
+        {
+          ...namespace,
+          entity: "user",
+          value: null,
+        },
+        { root: true }
+      );
+    },
   },
 };

@@ -3,6 +3,7 @@ import adressessMock from "@/static/addresses.json";
 import {
   ADD_ENTITY,
   DELETE_ENTITY,
+  RESET_STATE,
   SET_ENTITY,
   UPDATE_ENTITY,
 } from "@/store/mutation-types";
@@ -19,15 +20,10 @@ const namespace = { entity, module };
 
 export default {
   namespaced: true,
-  state: {
-    pizzas: [],
-    misc: [],
-    phone: "",
-    addresses: [],
-    address: {
-      street: "",
-      building: "",
-      flat: "",
+  state: setupState(),
+  mutations: {
+    [RESET_STATE](state) {
+      Object.assign(state, setupState());
     },
   },
   getters: {
@@ -190,5 +186,22 @@ export default {
         { root: true }
       );
     },
+    resetCart({ commit }) {
+      commit(RESET_STATE);
+    },
   },
 };
+
+function setupState() {
+  return {
+    pizzas: [],
+    misc: [],
+    phone: "",
+    addresses: [],
+    address: {
+      street: "",
+      building: "",
+      flat: "",
+    },
+  };
+}

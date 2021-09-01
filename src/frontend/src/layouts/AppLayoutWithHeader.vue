@@ -35,36 +35,38 @@
             </picture>
             <span>{{ user.name }}</span>
           </router-link>
-          <a href="/" class="header__logout"><span>Выйти</span></a>
+          <a href="#" @click.prevent="handleLogout" class="header__logout"
+            ><span>Выйти</span></a
+          >
         </template>
         <router-link v-else :to="routerUri" class="header__login">
           <span>Войти</span>
         </router-link>
       </div>
     </header>
-    <div class="content">
-      <slot />
-    </div>
+    <slot />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-
+import { mapGetters, mapState, mapActions } from "vuex";
 export default {
   name: "AppLayoutWithHeader",
-  props: {
-    isAuth: {
-      type: Boolean,
-      default: true,
-    },
-  },
 
   computed: {
     ...mapState("Auth", ["user"]),
     ...mapGetters("Cart", ["cartTotal"]),
     routerUri() {
       return this.$route.path === "/" ? "/login" : "/sign-in";
+    },
+    isAuth() {
+      return Boolean(this.user);
+    },
+  },
+  methods: {
+    ...mapActions("Auth", ["logout"]),
+    handleLogout() {
+      this.logout();
     },
   },
 };

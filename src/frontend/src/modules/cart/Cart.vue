@@ -1,5 +1,5 @@
 <template>
-  <form method="post" class="layout-form" @submit.prevent="createOrder">
+  <form method="post" class="layout-form" @submit.prevent="handleSubmitCart">
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
@@ -27,11 +27,8 @@
         </div>
       </div>
     </main>
-    <CartFooterView
-      :total="cartTotal"
-      v-if="!isEmptyCart"
-      @onChange="createOrder"
-    />
+    <CartFooterView :total="cartTotal" v-if="!isEmptyCart" />
+    <SuccessOrderModal :href="hrefForModal" v-if="isOpenModal" />
   </form>
 </template>
 
@@ -42,12 +39,25 @@ import {
   PizzasListLayout,
   MiscLayout,
   DeliveryLayout,
+  SuccessOrderModal,
 } from "@/modules/cart/components";
 export default {
   name: "Cart",
-  components: { CartFooterView, PizzasListLayout, MiscLayout, DeliveryLayout },
+  components: {
+    CartFooterView,
+    PizzasListLayout,
+    MiscLayout,
+    DeliveryLayout,
+    SuccessOrderModal,
+  },
+  data() {
+    return {
+      isOpenModal: false,
+    };
+  },
   computed: {
     ...mapState("Cart", ["pizzas", "misc", "phone", "address", "addresses"]),
+    ...mapState("Auth", ["user"]),
     ...mapGetters("Cart", ["cartTotal", "adaptedPizzas"]),
     checkedMiscLength() {
       return Object.keys(this.misc).reduce((accumulator, id) => {
@@ -57,6 +67,12 @@ export default {
     isEmptyCart() {
       return this.cartTotal === 0;
     },
+    isAuth() {
+      return Boolean(this.user);
+    },
+    hrefForModal() {
+      return this.isAuth ? "/orders" : "/";
+    },
   },
   methods: {
     ...mapActions("Cart", [
@@ -64,10 +80,13 @@ export default {
       "setPizzaMisc",
       "setAddress",
       "setPhone",
+      "post",
+      "resetCart",
     ]),
     ...mapActions("Builder", ["resetBuilder"]),
-    createOrder() {
-      console.log("createOrder");
+    handleSubmitCart() {
+      // this.post(); - пока не будет реализована работа страницы с заказами
+      this.isOpenModal = true;
     },
     setPizzaForEdit({ id }) {
       const checkedPizza = this.pizzas.find((pizza) => pizza.id === id);
@@ -80,6 +99,9 @@ export default {
       });
       this.$router.push("/");
     },
+  },
+  beforeDestroy() {
+    this.resetCart();
   },
 };
 </script>
