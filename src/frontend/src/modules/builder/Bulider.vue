@@ -95,7 +95,10 @@ export default {
       }, {});
     },
     isDisabledButton() {
-      return this.pizza.name === "" || this.nonEmptyIngredients.length === 0;
+      return (
+        this.pizza.name === "" ||
+        Object.keys(this.nonEmptyIngredients).length === 0
+      );
     },
   },
   methods: {

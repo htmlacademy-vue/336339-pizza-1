@@ -1,5 +1,5 @@
 <template>
-  <div class="counter counter--orange ingredients__counter">
+  <div class="counter" :class="className">
     <button
       type="button"
       class="counter__button counter__button--minus"
@@ -35,6 +35,10 @@ export default {
     id: {
       type: [Number, String],
       required: true,
+    },
+    className: {
+      type: String,
+      default: null,
     },
   },
   computed: {

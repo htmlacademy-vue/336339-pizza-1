@@ -128,5 +128,19 @@ export default {
         );
       }
     },
+    setPizzaMisc({ commit, rootState }, { id, value: quantity }) {
+      commit(
+        SET_ENTITY,
+        {
+          module: "Cart",
+          entity: "misc",
+          value: {
+            ...rootState.Cart.misc,
+            [id]: { ...rootState.Cart.misc[id], quantity },
+          },
+        },
+        { root: true }
+      );
+    },
   },
 };
