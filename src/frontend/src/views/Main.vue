@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Builder from "@/modules/builder/Bulider";
+import { Builder } from "@/modules";
 
 export default {
   name: "Main",

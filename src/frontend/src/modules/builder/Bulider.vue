@@ -106,6 +106,7 @@ export default {
       "putName",
       "putIngredient",
       "post",
+      "resetBuilder",
     ]),
     handleChangeName(event) {
       this.putName(event.target.value);
@@ -117,6 +118,9 @@ export default {
       await this.post();
       await this.$router.push("Cart");
     },
+  },
+  beforeDestroy() {
+    this.resetBuilder();
   },
 };
 </script>

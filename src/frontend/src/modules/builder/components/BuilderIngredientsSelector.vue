@@ -9,14 +9,14 @@
       >
         <AppDrag
           :transferData="ingredient"
-          :isDraggable="checkIsDraggable(ingredient.count)"
+          :isDraggable="checkIsDraggable(ingredient.quantity)"
         >
-          <div :class="getDraggableClass(ingredient.count)">
+          <div :class="getDraggableClass(ingredient.quantity)">
             <span class="filling" :class="`filling--${ingredient.label}`">{{
               ingredient.name
             }}</span>
             <CounterControl
-              :value="ingredient.count"
+              :value="ingredient.quantity"
               :max-value="maxIngredientsCountValue"
               @onChange="setValue"
               :id="ingredient.id"
@@ -31,7 +31,7 @@
 <script>
 import CounterControl from "@/common/components/CounterControl";
 import AppDrag from "@/common/components/Drag'n'Drop/AppDrag";
-import { INGREDIENTS_MAX_COUNT } from "@/common/constants";
+import { INGREDIENTS_MAX_QUANTITY } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",
   components: { CounterControl, AppDrag },
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      maxIngredientsCountValue: INGREDIENTS_MAX_COUNT,
+      maxIngredientsCountValue: INGREDIENTS_MAX_QUANTITY,
     };
   },
   methods: {

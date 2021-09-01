@@ -12,7 +12,7 @@
         </router-link>
       </div>
       <div class="header__cart">
-        <router-link to="/cart">{{ total }} ₽</router-link>
+        <router-link to="/cart">{{ cartTotal }} ₽</router-link>
       </div>
       <div class="header__user">
         <template v-if="isAuth">
@@ -49,15 +49,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "AppLayoutWithHeader",
   props: {
-    total: {
-      type: Number,
-      default: 0,
-    },
     isAuth: {
       type: Boolean,
       default: true,
@@ -66,6 +62,7 @@ export default {
 
   computed: {
     ...mapState("Auth", ["user"]),
+    ...mapGetters("Cart", ["cartTotal"]),
     routerUri() {
       return this.$route.path === "/" ? "/login" : "/sign-in";
     },

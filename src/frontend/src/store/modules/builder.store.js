@@ -27,20 +27,21 @@ export default {
   namespaced: true,
   state: setupState(),
   getters: {
-    pizzaPrice({ pizza, dough, sauces, sizes }, getters) {
-      const { doughId, sauceId, sizeId } = pizza;
+    pizzaPrice({ pizza, dough, sauces, sizes, ingredients }) {
+      const { doughId, sauceId, sizeId, ingredients: pizzaIngredients } = pizza;
       return calculateCostOfPizza(
         dough[doughId],
         sauces[sauceId],
         sizes[sizeId],
-        getters.ingredientsWithCount
+        pizzaIngredients,
+        ingredients
       );
     },
     ingredientsWithCount({ ingredients, pizza }) {
       return Object.keys(ingredients).reduce((accumulator, ingredientId) => {
         accumulator[ingredientId] = {
           ...ingredients[ingredientId],
-          count: pizza.ingredients?.[ingredientId] || 0,
+          quantity: pizza.ingredients?.[ingredientId] || 0,
         };
         return accumulator;
       }, {});
@@ -50,9 +51,6 @@ export default {
     [UPDATE_PIZZA](state, pizza) {
       state.pizza = { ...state.pizza, ...pizza };
     },
-    // [SET_INGREDIENTS](state, ingredients) {
-    //   state.ingredients = ingredients;
-    // },
     [RESET_STATE](state) {
       state.pizza = setupPizzaState({
         sizeId: DEFAULT_SIZE_ID,
@@ -81,7 +79,7 @@ export default {
         );
       });
     },
-    post({ commit, getters, rootState }) {
+    post({ commit, rootState }) {
       const data = cloneDeep(rootState.Builder.pizza);
       commit(
         ADD_ENTITY,
@@ -93,16 +91,17 @@ export default {
             id: uniqueId(),
             ingredients: Object.keys(data.ingredients).map((key) => ({
               ingredientId: key,
-              count: data.ingredients[key],
+              quantity: data.ingredients[key],
             })),
-            cost: getters.pizzaPrice,
           },
         },
         { root: true }
       );
     },
+    resetBuilder({ commit }) {
+      commit(RESET_STATE);
+    },
     putDough({ commit }, doughId) {
-      console.log(doughId);
       commit(UPDATE_PIZZA, {
         doughId,
       });
@@ -153,7 +152,7 @@ function setupState() {
 function setupPizzaState({ doughId, sizeId, sauceId }) {
   return {
     name: "",
-    count: 1,
+    quantity: 1,
     doughId,
     sizeId,
     sauceId,
