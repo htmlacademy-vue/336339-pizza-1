@@ -115,7 +115,7 @@ export default {
       this.putName(event.target.value);
     },
     onDropIngredientHandler(ingredient) {
-      this.putIngredient({ id: ingredient.id, value: ingredient.count + 1 });
+      this.putIngredient({ id: ingredient.id, value: ingredient.quantity + 1 });
     },
     async addPizza() {
       await this.post();
