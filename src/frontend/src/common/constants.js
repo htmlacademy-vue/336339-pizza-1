@@ -1,10 +1,12 @@
 export const DOUGH_TYPES = [
   {
     label: "Тонкое",
+    longLabel: "На тонком тесте",
     value: "small",
   },
   {
     label: "Толстое",
+    longLabel: "На толстом тесте",
     value: "big",
   },
 ];
@@ -46,3 +48,6 @@ export const DEFAULT_SAUCE_ID = 1;
 
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
+
+export const MYSELF_DELIVERY = "myself";
+export const NEW_ADDRESS_DELIVERY = "newAddress";

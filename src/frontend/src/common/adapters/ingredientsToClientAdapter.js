@@ -5,7 +5,6 @@ const ingredientsToClientAdapter = (ingredients = []) => {
     accumulator[ingredient.id] = {
       ...ingredient,
       label: ingredient.id ? INGREDIENTS[ingredient.id] : "",
-      quantity: 0,
     };
     return accumulator;
   }, {});

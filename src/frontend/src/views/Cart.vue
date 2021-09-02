@@ -1,10 +1,12 @@
 <template>
-  <p>this is Cart page</p>
+  <CartModule />
 </template>
 
 <script>
+import { Cart as CartModule } from "@/modules";
+
 export default {
   name: "Cart",
-  components: {},
+  components: { CartModule },
 };
 </script>

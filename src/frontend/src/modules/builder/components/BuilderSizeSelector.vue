@@ -14,7 +14,7 @@
             name="diameter"
             :value="size.id"
             class="visually-hidden"
-            :checked="size.id === valueId"
+            :checked="size.id == valueId"
             @input="$emit('setSize', $event.target.value)"
           />
           <span>{{ size.name }}</span>

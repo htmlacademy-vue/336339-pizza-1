@@ -1,13 +1,21 @@
-const calculateCostOfPizza = (dough, sauce, ingredients, size) => {
+const calculateCostOfPizza = (
+  dough,
+  sauce,
+  size,
+  pizzaIngredients,
+  ingredients
+) => {
   return (
-    (dough.price + sauce.price + calculateCostOfIngredients(ingredients)) *
+    (dough.price +
+      sauce.price +
+      calculateCostOfIngredients(pizzaIngredients, ingredients)) *
     size.multiplier
   );
 };
 export default calculateCostOfPizza;
 
-function calculateCostOfIngredients(ingredients) {
-  return Object.keys(ingredients).reduce((accumulator, id) => {
-    return accumulator + ingredients[id].quantity * ingredients[id].price;
+function calculateCostOfIngredients(pizzaIngredients, ingredients) {
+  return Object.keys(pizzaIngredients).reduce((accumulator, id) => {
+    return accumulator + ingredients[id].price * pizzaIngredients[id];
   }, 0);
 }

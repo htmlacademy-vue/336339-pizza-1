@@ -20,6 +20,7 @@
               :max-value="maxIngredientsCountValue"
               @onChange="setValue"
               :id="ingredient.id"
+              class="ingredients__counter counter--orange"
             />
           </div>
         </AppDrag>
@@ -48,7 +49,7 @@ export default {
   },
   methods: {
     setValue(id, value) {
-      this.$emit("setIngredient", id, value);
+      this.$emit("setIngredient", { id, value });
     },
     checkIsDraggable(value) {
       return value < 3;
