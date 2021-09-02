@@ -195,9 +195,9 @@ export default {
 function setupState() {
   return {
     pizzas: [],
-    misc: [],
+    misc: {},
     phone: "",
-    addresses: [],
+    addresses: {},
     address: {
       street: "",
       building: "",

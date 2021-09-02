@@ -98,8 +98,8 @@ export default {
       required: true,
     },
     addresses: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
     },
   },
   components: {},
