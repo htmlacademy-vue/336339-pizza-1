@@ -87,6 +87,7 @@ export default {
     handleSubmitCart() {
       // this.post(); - пока не будет реализована работа страницы с заказами
       this.isOpenModal = true;
+      this.resetCart();
     },
     setPizzaForEdit({ id }) {
       const checkedPizza = this.pizzas.find((pizza) => pizza.id === id);
@@ -99,9 +100,6 @@ export default {
       });
       this.$router.push("/");
     },
-  },
-  beforeDestroy() {
-    this.resetCart();
   },
 };
 </script>

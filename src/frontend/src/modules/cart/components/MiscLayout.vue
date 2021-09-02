@@ -21,7 +21,7 @@
             :value="miscItem.quantity"
             @onChange="setValue"
             :id="miscItem.id"
-            :className="'additional-list__counter'"
+            class="additional-list__counter"
           />
 
           <div class="additional-list__price">

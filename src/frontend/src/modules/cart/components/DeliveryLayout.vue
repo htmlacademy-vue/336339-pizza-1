@@ -98,7 +98,7 @@ export default {
       required: true,
     },
     addresses: {
-      type: Object,
+      type: Array,
       default: () => [],
     },
   },

@@ -13,12 +13,12 @@
           <div
             class="pizza__filling pizza__filling--second"
             :class="`pizza__filling--${value.label}`"
-            v-show="value.count > 1"
+            v-show="value.quantity > 1"
           />
           <div
             class="pizza__filling pizza__filling--third"
             :class="`pizza__filling--${value.label}`"
-            v-show="value.count > 2"
+            v-show="value.quantity > 2"
           />
         </div>
       </div>

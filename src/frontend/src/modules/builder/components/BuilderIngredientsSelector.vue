@@ -20,7 +20,7 @@
               :max-value="maxIngredientsCountValue"
               @onChange="setValue"
               :id="ingredient.id"
-              :className="'ingredients__counter counter--orange'"
+              class="ingredients__counter counter--orange"
             />
           </div>
         </AppDrag>

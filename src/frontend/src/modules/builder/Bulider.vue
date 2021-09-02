@@ -119,7 +119,7 @@ export default {
     },
     async addPizza() {
       await this.post();
-      await this.$router.push("/cart");
+      this.resetBuilder();
     },
   },
   beforeDestroy() {
