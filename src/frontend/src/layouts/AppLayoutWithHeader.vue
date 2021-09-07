@@ -35,7 +35,7 @@
             </picture>
             <span>{{ user.name }}</span>
           </router-link>
-          <a href="#" @click.prevent="handleLogout" class="header__logout"
+          <a href="#" @click.prevent="$logout" class="header__logout"
             ><span>Выйти</span></a
           >
         </template>
@@ -49,21 +49,17 @@
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from "vuex";
+import { mapGetters, mapState } from "vuex";
+import { logout } from "@/common/mixins";
+
 export default {
   name: "AppLayoutWithHeader",
-
+  mixins: [logout],
   computed: {
     ...mapState("Auth", ["user", "isAuthenticated"]),
     ...mapGetters("Cart", ["cartTotal"]),
     routerUri() {
       return this.$route.path === "/" ? "/login" : "/sign-in";
-    },
-  },
-  methods: {
-    ...mapActions("Auth", ["logout"]),
-    handleLogout() {
-      this.logout();
     },
   },
 };
