@@ -1,4 +1,5 @@
 import resources from "@/common/enums/resources";
+import { SET_ENTITY } from "@/store/mutation-types";
 import {
   AuthApiService,
   CrudApiService,
@@ -20,4 +21,14 @@ export const createResources = (notifier) => {
     [resources.SAUCES]: new ReadOnlyApiService(resources.SAUCES, notifier),
     [resources.SIZES]: new ReadOnlyApiService(resources.SIZES, notifier),
   };
+};
+
+export const setAuth = (store) => {
+  store.$api.auth.setAuthHeader();
+  store.dispatch("Auth/getMe");
+  store.commit(SET_ENTITY, {
+    module: "Auth",
+    entity: "isAuthenticated",
+    value: true,
+  });
 };

@@ -15,7 +15,7 @@
         <router-link to="/cart">{{ cartTotal }} ₽</router-link>
       </div>
       <div class="header__user">
-        <template v-if="isAuth">
+        <template v-if="isAuthenticated">
           <router-link to="profile">
             <picture>
               <source
@@ -54,13 +54,10 @@ export default {
   name: "AppLayoutWithHeader",
 
   computed: {
-    ...mapState("Auth", ["user"]),
+    ...mapState("Auth", ["user", "isAuthenticated"]),
     ...mapGetters("Cart", ["cartTotal"]),
     routerUri() {
       return this.$route.path === "/" ? "/login" : "/sign-in";
-    },
-    isAuth() {
-      return Boolean(this.user);
     },
   },
   methods: {

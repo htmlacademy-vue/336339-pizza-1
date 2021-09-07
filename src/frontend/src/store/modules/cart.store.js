@@ -1,5 +1,3 @@
-import miscMock from "@/static/misc.json";
-import adressessMock from "@/static/addresses.json";
 import {
   ADD_ENTITY,
   DELETE_ENTITY,
@@ -71,18 +69,19 @@ export default {
     },
   },
   actions: {
-    query({ commit, rootState }) {
-      const user = cloneDeep(rootState.Auth.user);
+    // eslint-disable-next-line no-unused-vars
+    async query({ commit, rootState }) {
+      const { user, isAuthenticated } = cloneDeep(rootState.Auth);
       commit(
         SET_ENTITY,
         {
           ...namespace,
           entity: "misc",
-          value: miscToClientAdapter(miscMock),
+          value: miscToClientAdapter(await this.$api.misc.query()),
         },
         { root: true }
       );
-      if (user) {
+      if (isAuthenticated) {
         commit(
           SET_ENTITY,
           {
@@ -97,7 +96,9 @@ export default {
           {
             ...namespace,
             entity: "addresses",
-            value: addressesToClientAdapter(adressessMock),
+            value: addressesToClientAdapter(
+              await this.$api.addresses.query()
+            ).filter((address) => address.userId === user.id),
           },
           { root: true }
         );

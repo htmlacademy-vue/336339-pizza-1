@@ -5,7 +5,6 @@ import {
   RESET_PIZZA,
   UPDATE_ENTITY,
 } from "@/store/mutation-types";
-import pizzaMocks from "@/static/pizza.json";
 import { calculateCostOfPizza, capitalize } from "@/common/utils";
 import { cloneDeep, uniqueId } from "lodash";
 import {
@@ -65,12 +64,14 @@ export default {
     },
   },
   actions: {
-    query({ commit }) {
+    async query({ commit }) {
       const entities = {
-        ingredients: ingredientsToClientAdapter(pizzaMocks.ingredients),
-        sizes: sizesToClientAdapter(pizzaMocks.sizes),
-        dough: doughToClientAdapter(pizzaMocks.dough),
-        sauces: saucesToClientAdapter(pizzaMocks.sauces),
+        ingredients: ingredientsToClientAdapter(
+          await this.$api.ingredients.query()
+        ),
+        sizes: sizesToClientAdapter(await this.$api.sizes.query()),
+        dough: doughToClientAdapter(await this.$api.dough.query()),
+        sauces: saucesToClientAdapter(await this.$api.sauces.query()),
       };
       Object.keys(entities).forEach((entityKey) => {
         commit(
