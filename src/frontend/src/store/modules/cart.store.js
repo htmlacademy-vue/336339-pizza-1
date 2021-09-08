@@ -6,10 +6,7 @@ import {
   UPDATE_ENTITY,
 } from "@/store/mutation-types";
 import { calculateCostOfPizza, capitalize } from "@/common/utils";
-import {
-  addressesToClientAdapter,
-  miscToClientAdapter,
-} from "@/common/adapters";
+import { miscToClientAdapter } from "@/common/adapters";
 import { cloneDeep, uniqueId } from "lodash";
 
 const entity = "cart";
@@ -69,7 +66,6 @@ export default {
     },
   },
   actions: {
-    // eslint-disable-next-line no-unused-vars
     async query({ commit, rootState }) {
       const { user, isAuthenticated } = cloneDeep(rootState.Auth);
       commit(
@@ -88,17 +84,6 @@ export default {
             ...namespace,
             entity: "phone",
             value: user.phone,
-          },
-          { root: true }
-        );
-        commit(
-          SET_ENTITY,
-          {
-            ...namespace,
-            entity: "addresses",
-            value: addressesToClientAdapter(
-              await this.$api.addresses.query()
-            ).filter((address) => address.userId === user.id),
           },
           { root: true }
         );
@@ -198,7 +183,6 @@ function setupState() {
     pizzas: [],
     misc: {},
     phone: "",
-    addresses: {},
     address: {
       street: "",
       building: "",

@@ -2,7 +2,7 @@
   <div>
     <Header
       :cartTotal="cartTotal"
-      isAuthenticated="isAuthenticated"
+      :isAuthenticated="isAuthenticated"
       :user="user"
       @logout="$logout"
     />

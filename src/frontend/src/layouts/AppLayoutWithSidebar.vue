@@ -2,7 +2,7 @@
   <div>
     <Header
       :cartTotal="cartTotal"
-      isAuthenticated="isAuthenticated"
+      :isAuthenticated="isAuthenticated"
       :user="user"
       @logout="$logout"
     />
@@ -35,9 +35,7 @@
           >Мои данные</router-link
         >
       </div>
-      <div class="layout__content">
-        <slot />
-      </div>
+      <slot />
     </main>
   </div>
 </template>
