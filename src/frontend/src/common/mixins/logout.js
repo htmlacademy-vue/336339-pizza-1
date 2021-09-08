@@ -3,7 +3,7 @@ export default {
     async $logout() {
       await this.$store.dispatch("Auth/logout");
       this.$notifier.success("Вы успешно вышли");
-      await this.$router.push("/sign-in");
+      await this.$router.push("/");
     },
   },
 };
