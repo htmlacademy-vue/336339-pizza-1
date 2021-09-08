@@ -10,6 +10,10 @@ services:
       POSTGRES_DB: pizza
     ports:
       - 5432:5432
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   backend:
     build: src/backend
@@ -21,6 +25,10 @@ services:
       - db
     ports:
       - 3000:3000
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   frontend:
     build: src/frontend

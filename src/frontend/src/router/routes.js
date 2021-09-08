@@ -29,12 +29,12 @@ export default [
     path: "/orders",
     name: "Orders",
     component: () => import("../views/Orders.vue"),
-    meta: { layout: "AppLayoutWithHeader" },
+    meta: { layout: "AppLayoutWithSidebar" },
   },
   {
     path: "/profile",
     name: "Profile",
     component: () => import("../views/Profile.vue"),
-    meta: { layout: "AppLayoutWithHeader" },
+    meta: { layout: "AppLayoutWithSidebar" },
   },
 ];
