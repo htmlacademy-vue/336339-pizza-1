@@ -5,7 +5,7 @@
       @submit.prevent="handleSubmitForm"
     >
       <div class="address-form__header">
-        <b>Адрес №1</b>
+        <b>{{ formHeader }}</b>
       </div>
 
       <div class="address-form__wrapper">
@@ -101,6 +101,11 @@ export default {
       comment: "",
     },
   }),
+  computed: {
+    formHeader() {
+      return this.addressForEdit ? this.addressForEdit.name : "Новый адрес";
+    },
+  },
   created() {
     if (this.addressForEdit) {
       this.address = { ...this.addressForEdit };

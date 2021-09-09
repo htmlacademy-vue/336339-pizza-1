@@ -35,16 +35,16 @@
         class="cart-form__address"
         v-if="currentDeliveryType !== mySelfConst"
       >
-        <span class="cart-form__label">Новый адрес:</span>
-
+        <span class="cart-form__label">{{ addressTitle }} :</span>
         <div class="cart-form__input">
           <label class="input">
             <span>Улица*</span>
             <input
               type="text"
               name="street"
-              :value="address.street"
+              :value="address.street || ''"
               @input="onChangeAddressInput('street', $event)"
+              :disabled="Boolean(address.id)"
             />
           </label>
         </div>
@@ -55,8 +55,9 @@
             <input
               type="text"
               name="house"
-              :value="address.building"
+              :value="address.building || ''"
               @input="onChangeAddressInput('building', $event)"
+              :disabled="Boolean(address.id)"
             />
           </label>
         </div>
@@ -67,8 +68,9 @@
             <input
               type="text"
               name="apartment"
-              :value="address.flat"
+              :value="address.flat || ''"
               @input="onChangeAddressInput('flat', $event)"
+              :disabled="Boolean(address.id)"
             />
           </label>
         </div>
@@ -97,14 +99,10 @@ export default {
       type: Object,
       required: true,
     },
-    addresses: {
-      type: Object,
-      default: () => {},
-    },
   },
   components: {},
   computed: {
-    ...mapState("Auth", ["user"]),
+    ...mapState("Auth", ["user", "addresses"]),
     isAuth() {
       return Boolean(this.user);
     },
@@ -113,6 +111,9 @@ export default {
     },
     newAddressConst() {
       return NEW_ADDRESS_DELIVERY;
+    },
+    addressTitle() {
+      return this.address.id ? this.address.name : "Новый адрес";
     },
   },
   methods: {
@@ -133,6 +134,11 @@ export default {
         [field]: event.target.value,
       });
     },
+  },
+  created() {
+    if (!this.phone) {
+      this.$emit("setPhone", this.user.phone);
+    }
   },
 };
 </script>

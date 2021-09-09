@@ -1,5 +1,4 @@
 import {
-  ADD_ENTITY,
   DELETE_ENTITY,
   RESET_STATE,
   SET_ENTITY,
@@ -12,6 +11,11 @@ import { cloneDeep, uniqueId } from "lodash";
 const entity = "cart";
 const module = capitalize(entity);
 const namespace = { entity, module };
+const INIT_ADDRESS = {
+  street: "",
+  building: "",
+  flat: "",
+};
 
 export default {
   namespaced: true,
@@ -68,6 +72,7 @@ export default {
   actions: {
     async query({ commit, rootState }) {
       const { user, isAuthenticated } = cloneDeep(rootState.Auth);
+      console.log("set misc", user, isAuthenticated);
       commit(
         SET_ENTITY,
         {
@@ -89,26 +94,27 @@ export default {
         );
       }
     },
-    post({ commit, rootState }) {
+    async post({ rootState }) {
       const data = cloneDeep(rootState.Cart);
-      const userId = rootState.Auth.user.id || null;
-      commit(
-        ADD_ENTITY,
-        {
-          module: "Orders",
-          entity: "orders",
-          value: {
-            ...data,
-            id: uniqueId,
-            userId,
-            misc: Object.keys(data.misc).map((key) => ({
-              miscId: key,
-              quantity: data.misc[key],
-            })),
-          },
-        },
-        { root: true }
-      );
+      const userId = rootState.Auth.user.id || INIT_ADDRESS;
+      await this.$api.orders.post({
+        ...data,
+        id: uniqueId,
+        userId,
+        address: data.address.building ? data.address : null,
+        pizzas: data.pizzas.map((pizza) => {
+          const clonedPizza = { ...pizza };
+          delete clonedPizza["id"];
+          return clonedPizza;
+        }),
+        misc: Object.keys(data.misc)
+          .map((key) => ({
+            miscId: key,
+            quantity: data.misc[key].quantity,
+          }))
+          .filter((miscItem) => miscItem.quantity > 0),
+      });
+      await this.resetCart();
     },
     setPizzaQuantity({ commit, rootState }, { id, value: quantity }) {
       const currentPizza = rootState.Cart.pizzas.find(
@@ -183,10 +189,6 @@ function setupState() {
     pizzas: [],
     misc: {},
     phone: "",
-    address: {
-      street: "",
-      building: "",
-      flat: "",
-    },
+    address: INIT_ADDRESS,
   };
 }

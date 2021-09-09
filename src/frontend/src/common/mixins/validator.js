@@ -29,13 +29,11 @@ const rules = {
 const validator = (value, appliedRules) => {
   let error = "";
   appliedRules.forEach((appliedRule) => {
-    console.log(rules[appliedRule]);
     if (!rules[appliedRule]) {
       return;
     }
     const { rule, message } = rules[appliedRule];
     if (!rule(value)) {
-      console.log("error");
       error = message;
     }
   });

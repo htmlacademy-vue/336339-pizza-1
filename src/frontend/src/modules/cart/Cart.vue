@@ -56,8 +56,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("Cart", ["pizzas", "misc", "phone", "address", "addresses"]),
-    ...mapState("Auth", ["user"]),
+    ...mapState("Cart", ["pizzas", "misc", "address", "phone"]),
+    ...mapState("Auth", ["user", "addresses"]),
     ...mapGetters("Cart", ["cartTotal", "adaptedPizzas"]),
     checkedMiscLength() {
       return Object.keys(this.misc).reduce((accumulator, id) => {
@@ -85,9 +85,8 @@ export default {
     ]),
     ...mapActions("Builder", ["resetBuilder"]),
     handleSubmitCart() {
-      // this.post(); - пока не будет реализована работа страницы с заказами
+      this.post();
       this.isOpenModal = true;
-      this.resetCart();
     },
     setPizzaForEdit({ id }) {
       const checkedPizza = this.pizzas.find((pizza) => pizza.id === id);
