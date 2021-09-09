@@ -1,6 +1,9 @@
 import { SET_ENTITY } from "@/store/mutation-types";
 import { capitalize } from "@/common/utils";
-import { ordersToClientAdapter } from "@/common/adapters";
+import {
+  ordersToClientAdapter,
+  orderToNewOrderAdapter,
+} from "@/common/adapters";
 
 const entity = "orders";
 const module = capitalize(entity);
@@ -14,7 +17,6 @@ export default {
   getters: {
     adaptedOrders({ orders }, getters, rootState) {
       const { dough, sauces, sizes, ingredients } = rootState.Builder;
-      console.log(dough, sauces, sizes, ingredients);
       return ordersToClientAdapter(
         orders,
         dough,
@@ -38,13 +40,16 @@ export default {
         { root: true }
       );
     },
-    // eslint-disable-next-line no-unused-vars
-    async repeatOrder({ commit }, orderId) {
-      console.log("repeatOrder", orderId);
+    async repeatOrder({ dispatch, rootState }, orderId) {
+      const repeatedOrder = rootState.Orders.orders.find(
+        (order) => order.id === orderId
+      );
+      await this.$api.orders.post(orderToNewOrderAdapter(repeatedOrder));
+      await dispatch("query");
     },
-    // eslint-disable-next-line no-unused-vars
-    async deleteOrder({ commit }, orderId) {
-      console.log("deleteOrder", orderId);
+    async deleteOrder({ dispatch }, orderId) {
+      await this.$api.orders.delete(orderId);
+      await dispatch("query");
     },
   },
 };

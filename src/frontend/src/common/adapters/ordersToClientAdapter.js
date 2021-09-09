@@ -8,7 +8,7 @@ const orderToClientAdapter = (
   ingredients,
   misc
 ) => {
-  const { orderPizzas = [], orderMisc = [], orderAddress } = order;
+  const { orderPizzas = [], orderMisc = [], orderAddress, addressId } = order;
   const adaptedOrderPizzas = orderPizzas.map((orderPizza) => ({
     ...orderPizza,
     price: calculateCostOfPizza(
@@ -35,10 +35,10 @@ const orderToClientAdapter = (
       return accumulator + pizza.price * pizza.quantity;
     }, 0),
     orderMisc: orderMisc.map((miscItem) => ({
-      ...miscItem,
       ...misc[miscItem.miscId],
+      ...miscItem,
     })),
-    address: getAddressString(orderAddress),
+    address: addressId ? getAddressString(orderAddress) : "Заберу сам",
   };
 };
 

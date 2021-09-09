@@ -5,6 +5,7 @@ import sizesToClientAdapter from "./sizesToClientAdapter";
 import miscToClientAdapter from "./miscToClientAdapter";
 import addressesToClientAdapter from "./addressesToClientAdapter";
 import ordersToClientAdapter from "./ordersToClientAdapter";
+import orderToNewOrderAdapter from "./orderToNewOrderAdapter";
 
 export {
   doughToClientAdapter,
@@ -14,4 +15,5 @@ export {
   miscToClientAdapter,
   addressesToClientAdapter,
   ordersToClientAdapter,
+  orderToNewOrderAdapter,
 };
