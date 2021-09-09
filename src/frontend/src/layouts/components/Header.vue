@@ -15,7 +15,7 @@
     </div>
     <div class="header__user">
       <template v-if="isAuthenticated">
-        <router-link to="profile">
+        <router-link to="/profile">
           <picture>
             <source
               type="image/webp"
