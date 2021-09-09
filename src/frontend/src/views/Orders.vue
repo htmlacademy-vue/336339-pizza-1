@@ -1,10 +1,12 @@
 <template>
-  <p>this is Orders page</p>
+  <OrdersModule />
 </template>
 
 <script>
+import { Orders as OrdersModule } from "@/modules";
+
 export default {
   name: "Orders",
-  components: {},
+  components: { OrdersModule },
 };
 </script>

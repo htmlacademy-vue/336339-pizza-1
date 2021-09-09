@@ -72,7 +72,6 @@ export default {
   actions: {
     async query({ commit, rootState }) {
       const { user, isAuthenticated } = cloneDeep(rootState.Auth);
-      console.log("set misc", user, isAuthenticated);
       commit(
         SET_ENTITY,
         {

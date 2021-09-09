@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { getAddressString } from "@/common/utils";
 export default {
   name: "AddressTile",
   props: {
@@ -30,8 +31,7 @@ export default {
   },
   computed: {
     addressString() {
-      const { street, building, flat } = this.address;
-      return `${street}, д. ${building}${flat ? `, кв. ${flat}` : ""}`;
+      return getAddressString(this.address);
     },
   },
 };
