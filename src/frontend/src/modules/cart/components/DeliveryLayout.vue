@@ -45,6 +45,7 @@
               :value="address.street || ''"
               @input="onChangeAddressInput('street', $event)"
               :disabled="Boolean(address.id)"
+              required
             />
           </label>
         </div>
@@ -58,6 +59,7 @@
               :value="address.building || ''"
               @input="onChangeAddressInput('building', $event)"
               :disabled="Boolean(address.id)"
+              required
             />
           </label>
         </div>
@@ -80,8 +82,8 @@
 </template>
 
 <script>
-import { NEW_ADDRESS_DELIVERY, MYSELF_DELIVERY } from "@/common/constants";
 import { mapState } from "vuex";
+import { NEW_ADDRESS_DELIVERY, MYSELF_DELIVERY } from "@/common/constants";
 
 export default {
   name: "DeliveryLayout",
@@ -100,7 +102,6 @@ export default {
       required: true,
     },
   },
-  components: {},
   computed: {
     ...mapState("Auth", ["user", "addresses"]),
     isAuth() {

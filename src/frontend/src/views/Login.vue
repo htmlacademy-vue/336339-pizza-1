@@ -75,11 +75,16 @@ export default {
       ) {
         return;
       }
-      await this.$store.dispatch("Auth/login", {
-        email: this.email,
-        password: this.password,
-      });
-      await this.$router.push("/");
+      try {
+        await this.$store.dispatch("Auth/login", {
+          email: this.email,
+          password: this.password,
+        });
+        await this.$router.push("/");
+      } catch (e) {
+        this.email = "";
+        this.password = "";
+      }
     },
   },
 };

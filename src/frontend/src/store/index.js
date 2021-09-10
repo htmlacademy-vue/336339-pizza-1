@@ -1,29 +1,56 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import modules from "./modules";
+import { uniqueId } from "lodash";
 import VuexPlugins from "@/plugins/vuexPlugins";
 import {
   SET_ENTITY,
   ADD_ENTITY,
   UPDATE_ENTITY,
   DELETE_ENTITY,
+  ADD_NOTIFICATION,
+  DELETE_NOTIFICATION,
 } from "@/store/mutation-types";
+import { MESSAGE_LIVE_TIME } from "@/common/constants";
+import modules from "./modules";
 
 Vue.use(Vuex);
 
-const setupState = () => ({});
+const setupState = () => ({
+  notifications: [],
+});
 
 const state = setupState();
 
 const actions = {
   async init({ dispatch }) {
-    await dispatch("Builder/query");
-    await dispatch("Cart/query");
-    await dispatch("Orders/query");
+    await Promise.all([
+      dispatch("Builder/query"),
+      dispatch("Cart/query"),
+      dispatch("Orders/query"),
+    ]);
+  },
+  async createNotification({ commit }, { ...notification }) {
+    const uniqueNotification = {
+      ...notification,
+      id: uniqueId(),
+    };
+    commit(ADD_NOTIFICATION, uniqueNotification);
+    setTimeout(
+      () => commit(DELETE_NOTIFICATION, uniqueNotification.id),
+      MESSAGE_LIVE_TIME
+    );
   },
 };
 
 const mutations = {
+  [ADD_NOTIFICATION](state, notification) {
+    state.notifications = [...state.notifications, notification];
+  },
+  [DELETE_NOTIFICATION](state, id) {
+    state.notifications = state.notifications.filter(
+      (notification) => notification.id !== id
+    );
+  },
   [SET_ENTITY](state, { module, entity, value }) {
     module ? (state[module][entity] = value) : (state[entity] = value);
   },
