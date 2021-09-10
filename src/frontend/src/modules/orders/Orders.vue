@@ -24,7 +24,10 @@ export default {
     ...mapGetters("Orders", ["adaptedOrders"]),
   },
   methods: {
-    ...mapActions("Orders", ["repeatOrder", "deleteOrder"]),
+    ...mapActions("Orders", ["repeatOrder", "deleteOrder", "query"]),
+  },
+  created() {
+    this.query();
   },
 };
 </script>
