@@ -2,7 +2,7 @@ import { SET_ENTITY } from "@/store/mutation-types";
 import { capitalize } from "@/common/utils";
 import {
   ordersToClientAdapter,
-  orderToNewOrderAdapter,
+  orderToCartStateAdapter,
 } from "@/common/adapters";
 
 const entity = "orders";
@@ -44,9 +44,23 @@ export default {
       const repeatedOrder = rootState.Orders.orders.find(
         (order) => order.id === orderId
       );
-      await this.$api.orders.post(orderToNewOrderAdapter(repeatedOrder));
-      await dispatch("query");
+      const miscData = rootState.Cart.misc;
+      repeatedOrder.misc = repeatedOrder.orderMisc.reduce(
+        (accumulator, item) => {
+          const currentMiscId = item.miscId;
+          accumulator[currentMiscId] = {
+            ...miscData[currentMiscId],
+            quantity: item.quantity,
+          };
+          return accumulator;
+        },
+        {}
+      );
+      await dispatch("Cart/resetCart", orderToCartStateAdapter(repeatedOrder), {
+        root: true,
+      });
     },
+
     async deleteOrder({ dispatch }, orderId) {
       await this.$api.orders.delete(orderId);
       await dispatch("query");

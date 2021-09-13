@@ -21,8 +21,8 @@ export default {
   namespaced: true,
   state: setupState(),
   mutations: {
-    [RESET_STATE](state) {
-      Object.assign(state, setupState());
+    [RESET_STATE](state, newState = null) {
+      Object.assign(state, newState || setupState());
     },
   },
   getters: {
@@ -177,8 +177,8 @@ export default {
         { root: true }
       );
     },
-    resetCart({ commit }) {
-      commit(RESET_STATE);
+    resetCart({ commit }, newCartState = null) {
+      commit(RESET_STATE, newCartState);
     },
   },
 };

@@ -31,9 +31,13 @@ const orderToClientAdapter = (
   return {
     ...order,
     orderPizzas: adaptedOrderPizzas,
-    total: adaptedOrderPizzas.reduce((accumulator, pizza) => {
-      return accumulator + pizza.price * pizza.quantity;
-    }, 0),
+    total:
+      adaptedOrderPizzas.reduce((accumulator, pizza) => {
+        return accumulator + pizza.price * pizza.quantity;
+      }, 0) +
+      orderMisc.reduce((accumulator, miscItem) => {
+        return accumulator + misc[miscItem.miscId].price * miscItem.quantity;
+      }, 0),
     orderMisc: orderMisc.map((miscItem) => ({
       ...misc[miscItem.miscId],
       ...miscItem,

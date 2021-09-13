@@ -7,7 +7,7 @@
       v-for="order in adaptedOrders"
       :key="order.id"
       :order="order"
-      @onRepeate="repeatOrder"
+      @onRepeate="handleRepeatClick"
       @onDelete="deleteOrder"
     />
   </div>
@@ -25,6 +25,10 @@ export default {
   },
   methods: {
     ...mapActions("Orders", ["repeatOrder", "deleteOrder", "query"]),
+    async handleRepeatClick(orderId) {
+      await this.repeatOrder(orderId);
+      await this.$router.push("/cart");
+    },
   },
   created() {
     this.query();
