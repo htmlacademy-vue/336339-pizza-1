@@ -100,7 +100,7 @@ export default {
         ...data,
         id: uniqueId,
         userId,
-        address: data.address.building ? data.address : null,
+        address: data?.address?.building ? data.address : null,
         pizzas: data.pizzas.map((pizza) => {
           const clonedPizza = { ...pizza };
           delete clonedPizza["id"];
