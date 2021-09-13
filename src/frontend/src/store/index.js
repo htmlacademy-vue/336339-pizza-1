@@ -23,11 +23,7 @@ const state = setupState();
 
 const actions = {
   async init({ dispatch }) {
-    await Promise.all([
-      dispatch("Builder/query"),
-      dispatch("Cart/query"),
-      dispatch("Orders/query"),
-    ]);
+    await Promise.all([dispatch("Builder/query"), dispatch("Cart/query")]);
   },
   async createNotification({ commit }, { ...notification }) {
     const uniqueNotification = {

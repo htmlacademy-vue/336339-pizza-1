@@ -65,13 +65,19 @@ export default {
   },
   actions: {
     async query({ commit }) {
+      let [ingredientsData, sizesData, doughData, saucesData] =
+        await Promise.all([
+          this.$api.ingredients.query(),
+          this.$api.sizes.query(),
+          this.$api.dough.query(),
+          this.$api.sauces.query(),
+        ]);
+
       const entities = {
-        ingredients: ingredientsToClientAdapter(
-          await this.$api.ingredients.query()
-        ),
-        sizes: sizesToClientAdapter(await this.$api.sizes.query()),
-        dough: doughToClientAdapter(await this.$api.dough.query()),
-        sauces: saucesToClientAdapter(await this.$api.sauces.query()),
+        ingredients: ingredientsToClientAdapter(ingredientsData),
+        sizes: sizesToClientAdapter(sizesData),
+        dough: doughToClientAdapter(doughData),
+        sauces: saucesToClientAdapter(saucesData),
       };
       Object.keys(entities).forEach((entityKey) => {
         commit(

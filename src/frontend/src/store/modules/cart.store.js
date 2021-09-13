@@ -87,7 +87,7 @@ export default {
           {
             ...namespace,
             entity: "phone",
-            value: user.phone,
+            value: user?.phone,
           },
           { root: true }
         );
