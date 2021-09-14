@@ -93,7 +93,7 @@ export default {
         );
       }
     },
-    async post({ rootState, dispatch }) {
+    async post({ rootState }) {
       const data = cloneDeep(rootState.Cart);
       const userId = rootState.Auth.user.id || INIT_ADDRESS;
       await this.$api.orders.post({
@@ -113,7 +113,6 @@ export default {
           }))
           .filter((miscItem) => miscItem.quantity > 0),
       });
-      dispatch("resetCart");
     },
     setPizzaQuantity({ commit, rootState }, { id, value: quantity }) {
       const currentPizza = rootState.Cart.pizzas.find(

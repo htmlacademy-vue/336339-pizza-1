@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: {
     isAuthenticated: false,
-    user: null,
+    user: {},
     addresses: {},
   },
 
@@ -14,7 +14,7 @@ export default {
       const data = await this.$api.auth.login(credentials);
       this.$jwt.saveToken(data.token);
       this.$api.auth.setAuthHeader();
-      dispatch("getMe");
+      await dispatch("getMe");
     },
 
     async logout({ commit }, sendRequest = true) {

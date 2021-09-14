@@ -81,7 +81,6 @@ export default {
       "setAddress",
       "setPhone",
       "post",
-      "resetCart",
     ]),
     ...mapActions("Builder", ["resetBuilder"]),
     handleSubmitCart() {
