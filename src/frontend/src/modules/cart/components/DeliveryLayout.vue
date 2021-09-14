@@ -138,7 +138,7 @@ export default {
   },
   created() {
     if (!this.phone) {
-      this.$emit("setPhone", this.user.phone);
+      this.$emit("setPhone", this.user?.phone);
     }
     if (this.address.id) {
       this.currentDeliveryType = this.address.id;

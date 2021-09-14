@@ -95,7 +95,7 @@ export default {
     },
     async post({ rootState }) {
       const data = cloneDeep(rootState.Cart);
-      const userId = rootState.Auth.user.id || INIT_ADDRESS;
+      const userId = rootState.Auth?.user?.id || null;
       await this.$api.orders.post({
         ...data,
         id: uniqueId,
