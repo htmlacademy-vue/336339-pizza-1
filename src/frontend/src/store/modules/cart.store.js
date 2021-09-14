@@ -1,29 +1,28 @@
-import miscMock from "@/static/misc.json";
-import adressessMock from "@/static/addresses.json";
 import {
-  ADD_ENTITY,
   DELETE_ENTITY,
   RESET_STATE,
   SET_ENTITY,
   UPDATE_ENTITY,
 } from "@/store/mutation-types";
 import { calculateCostOfPizza, capitalize } from "@/common/utils";
-import {
-  addressesToClientAdapter,
-  miscToClientAdapter,
-} from "@/common/adapters";
+import { miscToClientAdapter } from "@/common/adapters";
 import { cloneDeep, uniqueId } from "lodash";
 
 const entity = "cart";
 const module = capitalize(entity);
 const namespace = { entity, module };
+const INIT_ADDRESS = {
+  street: "",
+  building: "",
+  flat: "",
+};
 
 export default {
   namespaced: true,
   state: setupState(),
   mutations: {
-    [RESET_STATE](state) {
-      Object.assign(state, setupState());
+    [RESET_STATE](state, newState = null) {
+      Object.assign(state, newState || setupState());
     },
   },
   getters: {
@@ -71,58 +70,49 @@ export default {
     },
   },
   actions: {
-    query({ commit, rootState }) {
-      const user = cloneDeep(rootState.Auth.user);
+    async query({ commit, rootState }) {
+      const { user, isAuthenticated } = cloneDeep(rootState.Auth);
       commit(
         SET_ENTITY,
         {
           ...namespace,
           entity: "misc",
-          value: miscToClientAdapter(miscMock),
+          value: miscToClientAdapter(await this.$api.misc.query()),
         },
         { root: true }
       );
-      if (user) {
+      if (isAuthenticated) {
         commit(
           SET_ENTITY,
           {
             ...namespace,
             entity: "phone",
-            value: user.phone,
-          },
-          { root: true }
-        );
-        commit(
-          SET_ENTITY,
-          {
-            ...namespace,
-            entity: "addresses",
-            value: addressesToClientAdapter(adressessMock),
+            value: user?.phone,
           },
           { root: true }
         );
       }
     },
-    post({ commit, rootState }) {
+    async post({ rootState }) {
       const data = cloneDeep(rootState.Cart);
-      const userId = rootState.Auth.user.id || null;
-      commit(
-        ADD_ENTITY,
-        {
-          module: "Orders",
-          entity: "orders",
-          value: {
-            ...data,
-            id: uniqueId,
-            userId,
-            misc: Object.keys(data.misc).map((key) => ({
-              miscId: key,
-              quantity: data.misc[key],
-            })),
-          },
-        },
-        { root: true }
-      );
+      const userId = rootState.Auth?.user?.id || null;
+      await this.$api.orders.post({
+        ...data,
+        id: uniqueId,
+        userId,
+        address: data?.address?.building ? data.address : null,
+        pizzas: data.pizzas.map((pizza) => {
+          const clonedPizza = { ...pizza };
+          delete clonedPizza["id"];
+          return clonedPizza;
+        }),
+        misc: Object.keys(data.misc)
+          .map((key) => ({
+            miscId: key,
+            quantity: data.misc[key].quantity,
+          }))
+          .filter((miscItem) => miscItem.quantity > 0),
+      });
     },
     setPizzaQuantity({ commit, rootState }, { id, value: quantity }) {
       const currentPizza = rootState.Cart.pizzas.find(
@@ -186,8 +176,8 @@ export default {
         { root: true }
       );
     },
-    resetCart({ commit }) {
-      commit(RESET_STATE);
+    resetCart({ commit }, newCartState = null) {
+      commit(RESET_STATE, newCartState);
     },
   },
 };
@@ -197,11 +187,6 @@ function setupState() {
     pizzas: [],
     misc: {},
     phone: "",
-    addresses: {},
-    address: {
-      street: "",
-      building: "",
-      flat: "",
-    },
+    address: INIT_ADDRESS,
   };
 }

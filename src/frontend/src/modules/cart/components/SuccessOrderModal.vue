@@ -8,18 +8,29 @@
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <router-link :to="href" class="button">Отлично, я жду!</router-link>
+      <a :href="href" class="button" @click.prevent="handleOkClick"
+        >Отлично, я жду!</a
+      >
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "SuccessOrderModal",
   props: {
     href: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    ...mapActions("Cart", ["resetCart"]),
+    handleOkClick() {
+      this.$router.push(this.href);
+      this.resetCart();
     },
   },
 };

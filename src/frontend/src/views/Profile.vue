@@ -1,10 +1,12 @@
 <template>
-  <p>this is Profile page</p>
+  <ProfileModule />
 </template>
 
 <script>
+import { Profile as ProfileModule } from "@/modules";
+
 export default {
   name: "Profile",
-  components: {},
+  components: { ProfileModule },
 };
 </script>
