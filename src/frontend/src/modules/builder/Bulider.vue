@@ -40,11 +40,19 @@
           />
         </label>
         <AppDrop @drop="onDropIngredientHandler($event)">
-          <BuilderPizzaView
-            :ingredients="nonEmptyIngredients"
-            :sauce="sauces[pizza.sauceId]"
-            :dough="dough[pizza.doughId]"
-          />
+          <transition
+            name="view"
+            appear
+            enter-active-class="animate__animated animate__pulse"
+            mode="out-in"
+          >
+            <BuilderPizzaView
+              :ingredients="nonEmptyIngredients"
+              :sauce="sauces[pizza.sauceId]"
+              :dough="dough[pizza.doughId]"
+              :key="nonEmptyIngredientsLength"
+            />
+          </transition>
         </AppDrop>
         <div class="content__result">
           <p>{{ `Итого: ${pizzaPrice} ₽` }}</p>
@@ -93,6 +101,14 @@ export default {
         }
         return accumulator;
       }, {});
+    },
+    nonEmptyIngredientsLength() {
+      return Object.keys(this.nonEmptyIngredients).reduce(
+        (accumulator, key) => {
+          return accumulator + this.nonEmptyIngredients[key].quantity;
+        },
+        0
+      );
     },
     isDisabledButton() {
       return (

@@ -1,35 +1,37 @@
 <template>
-  <div class="sign-form">
-    <router-link to="/" class="close close--white">
-      <span class="visually-hidden">Закрыть форму авторизации</span>
-    </router-link>
-    <div class="sign-form__title">
-      <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+  <div class="modal">
+    <div class="sign-form">
+      <router-link to="/" class="close close--white">
+        <span class="visually-hidden">Закрыть форму авторизации</span>
+      </router-link>
+      <div class="sign-form__title">
+        <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+      </div>
+      <form @submit.prevent="login">
+        <div class="sign-form__input">
+          <Input
+            :label="'E-mail'"
+            ref="email"
+            v-model="email"
+            type="email"
+            name="email"
+            placeholder="example@mail.ru"
+            :error-text="validations.email.error"
+          />
+        </div>
+        <div class="sign-form__input">
+          <Input
+            :label="'Пароль'"
+            v-model="password"
+            type="password"
+            name="pass"
+            placeholder="***********"
+            :error-text="validations.password.error"
+          />
+        </div>
+        <button type="submit" class="button">Авторизоваться</button>
+      </form>
     </div>
-    <form @submit.prevent="login">
-      <div class="sign-form__input">
-        <Input
-          :label="'E-mail'"
-          ref="email"
-          v-model="email"
-          type="email"
-          name="email"
-          placeholder="example@mail.ru"
-          :error-text="validations.email.error"
-        />
-      </div>
-      <div class="sign-form__input">
-        <Input
-          :label="'Пароль'"
-          v-model="password"
-          type="password"
-          name="pass"
-          placeholder="***********"
-          :error-text="validations.password.error"
-        />
-      </div>
-      <button type="submit" class="button">Авторизоваться</button>
-    </form>
   </div>
 </template>
 
@@ -89,3 +91,15 @@ export default {
   },
 };
 </script>
+<style>
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+</style>
