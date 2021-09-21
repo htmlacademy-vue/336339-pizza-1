@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <AppLayout>
-      <transition
-        name="view"
-        appear
-        enter-active-class="animate__animated animate__bounceInRight"
-      >
+      <transition name="view" appear :enter-active-class="enterActiveClass">
         <router-view />
       </transition>
     </AppLayout>
@@ -29,6 +25,11 @@ export default {
       setAuth(this.$store);
     }
     this.$store.dispatch("init");
+  },
+  computed: {
+    enterActiveClass() {
+      return this.$route.meta.enterActiveClass || "";
+    },
   },
 };
 </script>
