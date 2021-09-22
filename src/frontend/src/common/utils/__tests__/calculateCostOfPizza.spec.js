@@ -1,9 +1,9 @@
 import calculateCostOfPizza from "../calculateCostOfPizza";
 import {
-  doughMocks,
-  saucesMocks,
-  sizesMocks,
-  ingredientsMocks,
+  adaptedDoughMocks,
+  adaptedSaucesMocks,
+  adaptedSizesMocks,
+  adaptedIngredientsMocks,
 } from "@/common/mocks";
 
 describe("calculateCostOfPizza", () => {
@@ -19,11 +19,11 @@ describe("calculateCostOfPizza", () => {
     const sizeId = 1;
     expect(
       calculateCostOfPizza(
-        doughMocks[doughId],
-        saucesMocks[sauceId],
-        sizesMocks[sizeId],
+        adaptedDoughMocks[doughId],
+        adaptedSaucesMocks[sauceId],
+        adaptedSizesMocks[sizeId],
         pizzaIngredients,
-        ingredientsMocks
+        adaptedIngredientsMocks
       )
     ).toEqual(575);
   });
@@ -31,11 +31,11 @@ describe("calculateCostOfPizza", () => {
     const sizeId = 2;
     expect(
       calculateCostOfPizza(
-        doughMocks[doughId],
-        saucesMocks[sauceId],
-        sizesMocks[sizeId],
+        adaptedDoughMocks[doughId],
+        adaptedSaucesMocks[sauceId],
+        adaptedSizesMocks[sizeId],
         pizzaIngredients,
-        ingredientsMocks
+        adaptedIngredientsMocks
       )
     ).toEqual(1150);
   });
