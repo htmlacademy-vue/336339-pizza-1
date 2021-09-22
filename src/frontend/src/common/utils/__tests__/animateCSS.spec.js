@@ -1,11 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { animateCSS } from "@/common/utils";
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-xdescribe("animateCSS", () => {
+describe("animateCSS", () => {
   it("must add the animations classes and remove them automatically", async () => {
     const mockFn = jest.fn();
     const WrapperComponent = {
@@ -34,7 +30,7 @@ xdescribe("animateCSS", () => {
     await button.trigger("click");
     const div = wrapper.find(".testDiv");
     expect(div.classes()).toContain("animate__fadeOut");
-    await sleep(5000);
+    await div.trigger("animationend");
     expect(div.classes()).not.toContain("animate__fadeOut");
     expect(mockFn).toHaveBeenCalled();
   }, 8000);
