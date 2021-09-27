@@ -5,6 +5,7 @@
       class="counter__button counter__button--minus"
       :disabled="isDisableDecrementControl"
       @click="$emit('onChange', id, value - 1)"
+      data-test="counter-minus"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -14,6 +15,7 @@
       class="counter__button counter__button--plus"
       :disabled="isDisableIncrementControl"
       @click="$emit('onChange', id, value + 1)"
+      data-test="counter-plus"
     >
       <span class="visually-hidden">Больше</span>
     </button>

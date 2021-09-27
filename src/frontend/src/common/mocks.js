@@ -18,6 +18,9 @@ export const adaptedDoughMocks = doughToClientAdapter(doughMocks);
 export const ingredientsMocks = pizzaMock.ingredients;
 export const adaptedIngredientsMocks =
   ingredientsToClientAdapter(ingredientsMocks);
+export const adaptedIngredientsWithCountMocks = ingredientsToClientAdapter(
+  ingredientsMocks.map((item) => ({ ...item, quantity: 0 }))
+);
 
 export const saucesMocks = pizzaMock.sauces;
 export const adaptedSaucesMocks = saucesToClientAdapter(saucesMocks);
