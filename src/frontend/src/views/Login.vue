@@ -17,6 +17,7 @@
             name="email"
             placeholder="example@mail.ru"
             :error-text="validations.email.error"
+            data-test="email-input"
           />
         </div>
         <div class="sign-form__input">
@@ -27,6 +28,7 @@
             name="pass"
             placeholder="***********"
             :error-text="validations.password.error"
+            data-test="password-input"
           />
         </div>
         <button type="submit" class="button">Авторизоваться</button>
