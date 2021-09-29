@@ -1,4 +1,4 @@
-import Builder from "./builder/Bulider";
+import Builder from "./builder/Builder";
 import Cart from "./cart/Cart";
 import Profile from "./profile/Profile";
 import Orders from "./orders/Orders";

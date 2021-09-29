@@ -39,7 +39,7 @@
 
 <script>
 import validator from "@/common/mixins/validator";
-import Input from "@/common/components/Input";
+import { Input } from "@/common/components";
 export default {
   name: "Login",
   mixins: [validator],

@@ -30,8 +30,7 @@
 </template>
 
 <script>
-import CounterControl from "@/common/components/CounterControl";
-import AppDrag from "@/common/components/Drag'n'Drop/AppDrag";
+import { CounterControl, AppDrag } from "@/common/components";
 import { INGREDIENTS_MAX_QUANTITY } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",

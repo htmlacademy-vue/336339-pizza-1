@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import CounterControl from "@/common/components/CounterControl";
+import { CounterControl } from "@/common/components";
 export default {
   name: "MiscLayout",
   components: { CounterControl },

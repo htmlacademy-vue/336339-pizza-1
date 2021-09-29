@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import AppLayout from "../AppLayout";
-import AppNotifications from "@/common/components/AppNotifications";
+import { AppNotifications } from "@/common/components";
 
 const stubs = {
   AppNotifications,

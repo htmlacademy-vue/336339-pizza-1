@@ -1,7 +1,7 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import $validator from "@/common/mixins/validator";
 import { generateMockStore } from "@/store/mocks";
-import Input from "@/common/components/Input";
+import { Input } from "@/common/components";
 import Login from "../Login";
 
 const localVue = createLocalVue();

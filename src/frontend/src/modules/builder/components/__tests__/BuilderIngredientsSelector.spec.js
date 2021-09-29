@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
 import BuilderIngredientsSelector from "../BuilderIngredientsSelector";
 import { adaptedIngredientsMocks } from "@/common/mocks";
-import CounterControl from "@/common/components/CounterControl";
+import { CounterControl } from "@/common/components";
 
 const stubs = {
   CounterControl,

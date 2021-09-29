@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import CounterControl from "@/common/components/CounterControl";
+import { CounterControl } from "@/common/components";
 export default {
   name: "PizzasListLayout",
   components: { CounterControl },
