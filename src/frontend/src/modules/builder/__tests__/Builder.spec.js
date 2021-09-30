@@ -100,17 +100,20 @@ describe("Builder", () => {
     createComponent({ localVue, store });
     expect(wrapper.exists()).toBeTruthy();
   });
+
   it("it render correctPizzaPrice", () => {
     createComponent({ localVue, store });
     let element = wrapper.find(".content__result p");
     expect(element.element.innerHTML).toBe(`Итого: ${wrapper.vm.pizzaPrice} ₽`);
   });
+
   it("it disable orderButton when pizzaIngredients.length === 0 or name.length of pizza === 0", () => {
     createComponent({ localVue, store });
     let button = wrapper.find(".content__result button");
     expect(wrapper.vm.isDisabledButton).toBe(true);
     expect(button.attributes("disabled")).toBe("disabled");
   });
+
   it("it not disable orderButton when name.length of pizza > 0 && pizzaIngredients.length > 0", async () => {
     createComponent({ localVue, store });
     await store.commit(SET_ENTITY, {
@@ -126,57 +129,107 @@ describe("Builder", () => {
     expect(wrapper.vm.isDisabledButton).toBe(false);
     expect(button.attributes("disabled")).toBe(undefined);
   });
+
   it("it current calculate nonEmptyIngredients and nonEmptyIngredientsLength", async () => {
-    const INGREDIENT_ID = 11;
-    const INGREDIENT_QUANTITY = 2;
+    const ingredientId = 11;
+    const ingredientQuantity = 2;
     createComponent({ localVue, store });
     await store.commit(SET_ENTITY, {
       module: "Builder",
       entity: "pizza",
       value: {
         ...INIT_PIZZA_STATE,
-        ingredients: { [INGREDIENT_ID]: INGREDIENT_QUANTITY },
+        ingredients: { [ingredientId]: ingredientQuantity },
       },
     });
     expect(wrapper.vm.nonEmptyIngredients).toStrictEqual({
-      [INGREDIENT_ID]: {
-        ...adaptedIngredientsMocks[INGREDIENT_ID],
-        quantity: INGREDIENT_QUANTITY,
+      [ingredientId]: {
+        ...adaptedIngredientsMocks[ingredientId],
+        quantity: ingredientQuantity,
       },
     });
-    expect(wrapper.vm.nonEmptyIngredientsLength).toBe(INGREDIENT_QUANTITY);
+    expect(wrapper.vm.nonEmptyIngredientsLength).toBe(ingredientQuantity);
   });
+
   it("it current render pizzaName at input", async () => {
     createComponent({ localVue, store });
-    const NAME = "test pizza name";
+    const name = "test pizza name";
     await store.commit(SET_ENTITY, {
       module: "Builder",
       entity: "pizza",
-      value: { ...INIT_PIZZA_STATE, name: NAME },
+      value: { ...INIT_PIZZA_STATE, name: name },
     });
     const nameInput = wrapper.find('input[name="pizza_name"]');
-    expect(nameInput.element.value).toBe(NAME);
+    expect(nameInput.element.value).toBe(name);
   });
+
   it("It emits an pizzaName input event when typing", async () => {
     createComponent({ localVue, store });
-    const NAME = "test pizza name";
+    const name = "test pizza name";
     const nameInput = wrapper.find('input[name="pizza_name"]');
-    nameInput.element.value = NAME;
+    nameInput.element.value = name;
     await nameInput.trigger("input");
     expect(actions.Builder.putName).toHaveBeenCalledWith(
       expect.any(Object),
-      NAME
+      name
     );
-    expect(nameInput.element.value).toBe(NAME);
+    expect(nameInput.element.value).toBe(name);
+  });
+
+  it("It emits an putDough action", async () => {
+    createComponent({ localVue, store });
+    let doughInput = wrapper.find(".dough__input input");
+    await doughInput.trigger("input");
+    expect(actions.Builder.putDough).toHaveBeenCalledWith(
+      expect.any(Object),
+      "1"
+    );
+  });
+
+  it("It emits an putSize action", async () => {
+    createComponent({ localVue, store });
+    let sizeInput = wrapper.find(".diameter__input input");
+    await sizeInput.trigger("input");
+
+    expect(actions.Builder.putSize).toHaveBeenCalledWith(
+      expect.any(Object),
+      "1"
+    );
+  });
+
+  it("It emits an putSauce action", async () => {
+    createComponent({ localVue, store });
+    let sauceInput = wrapper.find(".ingredients__input input");
+    await sauceInput.trigger("input");
+    expect(actions.Builder.putSauce).toHaveBeenCalledWith(
+      expect.any(Object),
+      "1"
+    );
+  });
+
+  it("It emits an putIngredient action", async () => {
+    createComponent({ localVue, store });
+    let ingredientInput = wrapper.find(".ingredients__counter");
+    await ingredientInput.find('[data-test="counter-plus"]').trigger("click");
+    expect(actions.Builder.putIngredient).toHaveBeenCalledWith(
+      expect.any(Object),
+      { id: 1, value: 1 }
+    );
+  });
+
+  it("It emits an post action when click on addPizza button", async () => {
+    createComponent({ localVue, store });
+    await store.commit(SET_ENTITY, {
+      module: "Builder",
+      entity: "pizza",
+      value: {
+        ...INIT_PIZZA_STATE,
+        name: "testName",
+        ingredients: { 11: 1, 12: 2 },
+      },
+    });
+    let button = wrapper.find(".content__result button");
+    await button.trigger("click");
+    expect(actions.Builder.post).toHaveBeenCalled();
   });
 });
-
-/*
-  tests:
-   * @setDough="putDough"
-   * @setSize="putSize"
-   * @setSauce="putSauce"
-   * @setIngredient="putIngredient"
-   * @click="addPizza"
-   *
-   * */
