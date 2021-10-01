@@ -13,7 +13,7 @@
             height="60"
             :alt="miscItem.name"
           />
-          <span>{{ miscItem.name }}</span>
+          <span data-test="miscName">{{ miscItem.name }}</span>
         </p>
 
         <div class="additional-list__wrapper">
@@ -22,10 +22,11 @@
             @onChange="setValue"
             :id="miscItem.id"
             class="additional-list__counter"
+            data-test="miscQuantityControl"
           />
 
           <div class="additional-list__price">
-            <b>× {{ miscItem.price }} ₽</b>
+            <b data-test="miscPrice">× {{ miscItem.price }} ₽</b>
           </div>
         </div>
       </li>
