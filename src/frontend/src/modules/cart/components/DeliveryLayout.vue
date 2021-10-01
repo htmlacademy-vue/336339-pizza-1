@@ -7,13 +7,25 @@
           name="test"
           class="select"
           @change="setCurrentDeliveryType($event.target.value)"
+          data-test="deliveryTypeSelect"
         >
-          <option :value="mySelfConst">Заберу сам</option>
-          <option :value="newAddressConst">Новый адрес</option>
+          <option
+            :value="mySelfConst"
+            :selected="currentDeliveryType === mySelfConst"
+          >
+            Заберу сам
+          </option>
+          <option
+            :value="newAddressConst"
+            :selected="currentDeliveryType === newAddressConst"
+          >
+            Новый адрес
+          </option>
           <option
             v-for="address in addresses"
             :key="address.id"
             :value="address.id"
+            :selected="currentDeliveryType === address.id"
           >
             {{ address.name }}
           </option>
@@ -28,6 +40,7 @@
           placeholder="+7 999-999-99-99"
           :value="phone"
           @input="setPhone"
+          data-test="phoneInput"
         />
       </label>
 
@@ -46,6 +59,7 @@
               @input="onChangeAddressInput('street', $event)"
               :disabled="Boolean(address.id)"
               required
+              data-test="streetInput"
             />
           </label>
         </div>
@@ -60,6 +74,7 @@
               @input="onChangeAddressInput('building', $event)"
               :disabled="Boolean(address.id)"
               required
+              data-test="houseInput"
             />
           </label>
         </div>
@@ -73,6 +88,7 @@
               :value="address.flat || ''"
               @input="onChangeAddressInput('flat', $event)"
               :disabled="Boolean(address.id)"
+              data-test="apartmentInput"
             />
           </label>
         </div>
@@ -104,9 +120,6 @@ export default {
   },
   computed: {
     ...mapState("Auth", ["user", "addresses"]),
-    isAuth() {
-      return Boolean(this.user);
-    },
     mySelfConst() {
       return MYSELF_DELIVERY;
     },
