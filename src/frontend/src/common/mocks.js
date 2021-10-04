@@ -97,6 +97,35 @@ export const ordersMock = [
     },
   },
 ];
+
+export const cartPizzasMocks = [
+  {
+    dough: "На тонком тесте",
+    doughId: 1,
+    id: "1",
+    ingredients: "Грибы, Лосось",
+    name: "pizza name 1",
+    price: 1032,
+    quantity: 1,
+    sauce: "Томатный",
+    sauceId: 1,
+    size: "32 см",
+    sizeId: 2,
+  },
+  {
+    dough: "На толстом тесте тесте",
+    doughId: 2,
+    id: "2",
+    ingredients: "Грибы, Лосось, Моцарелла",
+    name: "pizza name 2",
+    price: 1430,
+    quantity: 2,
+    sauce: "Сливочный",
+    sauceId: 2,
+    size: "32 см",
+    sizeId: 2,
+  },
+];
 export const adaptedOrdersMock = ordersToClientAdapter(
   ordersMock,
   adaptedDoughMocks,

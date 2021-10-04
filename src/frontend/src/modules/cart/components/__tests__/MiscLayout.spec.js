@@ -7,7 +7,7 @@ import { CounterControl } from "@/common/components";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
-localVue.component("BuilderDoughSelector", CounterControl);
+localVue.component("CounterControl", CounterControl);
 
 describe("MiscLayout", () => {
   const propsData = {
