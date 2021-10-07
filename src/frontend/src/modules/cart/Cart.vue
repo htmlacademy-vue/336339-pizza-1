@@ -1,16 +1,19 @@
 <template>
-  <form method="post" class="layout-form" @submit.prevent="handleSubmitCart">
+  <form
+    method="post"
+    class="layout-form"
+    @submit.prevent="handleSubmitCart"
+    data-test="cartForm"
+  >
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
           <h1 class="title title--big">Корзина</h1>
         </div>
-        <template v-if="isEmptyCart">
-          <div class="sheet cart__empty" v-if="isEmptyCart">
-            <p>В корзине нет ни одного товара</p>
-          </div>
-        </template>
-        <div v-else>
+        <div class="sheet cart__empty" v-if="isEmptyCart" data-test="emptyCart">
+          <p>В корзине нет ни одного товара</p>
+        </div>
+        <div v-else data-test="notEmptyCart">
           <PizzasListLayout
             :pizzas="adaptedPizzas"
             @setQuantity="setPizzaQuantity"
@@ -27,8 +30,16 @@
         </div>
       </div>
     </main>
-    <CartFooterView :total="cartTotal" v-if="!isEmptyCart" />
-    <SuccessOrderModal :href="hrefForModal" v-if="isOpenModal" />
+    <CartFooterView
+      :total="cartTotal"
+      v-if="!isEmptyCart"
+      data-test="cartFooter"
+    />
+    <SuccessOrderModal
+      :href="hrefForModal"
+      v-if="isOpenModal"
+      data-test="successModal"
+    />
   </form>
 </template>
 
