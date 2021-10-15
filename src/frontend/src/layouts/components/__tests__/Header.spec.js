@@ -72,7 +72,7 @@ describe("Header", () => {
       stubs,
       propsData: { ...propsData, cartTotal: 100 },
     });
-    expect(wrapper.find(".header__cart a").html()).toContain("<a>100 ₽</a>");
+    expect(wrapper.find(".header__cart").text()).toContain("100 ₽");
   });
 
   it("is render userBlock for authenticated user", () => {
