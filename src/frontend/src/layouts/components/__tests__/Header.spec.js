@@ -136,7 +136,8 @@ describe("Header", () => {
       stubs,
       propsData,
     });
-    expect(wrapper.vm.routerUri).toBe("/login");
+    const userBlock = wrapper.find('[data-test="user-login"]');
+    expect(userBlock.attributes("to")).toBe("/login");
   });
   it("is routerUri === login for router.path === /", async () => {
     createComponent({
@@ -151,6 +152,7 @@ describe("Header", () => {
       stubs,
       propsData,
     });
-    expect(wrapper.vm.routerUri).toBe("/sign-in");
+    const userBlock = wrapper.find('[data-test="user-login"]');
+    expect(userBlock.attributes("to")).toBe("/sign-in");
   });
 });

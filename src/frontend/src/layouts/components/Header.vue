@@ -38,7 +38,12 @@
           ><span>Выйти</span></a
         >
       </template>
-      <router-link v-else :to="routerUri" class="header__login">
+      <router-link
+        v-else
+        :to="routerUri"
+        class="header__login"
+        data-test="user-login"
+      >
         <span>Войти</span>
       </router-link>
     </div>
