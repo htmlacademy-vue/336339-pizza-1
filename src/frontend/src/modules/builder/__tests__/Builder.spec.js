@@ -104,13 +104,12 @@ describe("Builder", () => {
   it("it render correctPizzaPrice", () => {
     createComponent({ localVue, store });
     let element = wrapper.find(".content__result p");
-    expect(element.element.innerHTML).toBe(`Итого: ${wrapper.vm.pizzaPrice} ₽`);
+    expect(element.element.innerHTML).toBe(`Итого: 700 ₽`);
   });
 
   it("it disable orderButton when pizzaIngredients.length === 0 or name.length of pizza === 0", () => {
     createComponent({ localVue, store });
     let button = wrapper.find(".content__result button");
-    expect(wrapper.vm.isDisabledButton).toBe(true);
     expect(button.attributes("disabled")).toBe("disabled");
   });
 
@@ -126,29 +125,7 @@ describe("Builder", () => {
       },
     });
     let button = wrapper.find(".content__result button");
-    expect(wrapper.vm.isDisabledButton).toBe(false);
     expect(button.attributes("disabled")).toBe(undefined);
-  });
-
-  it("it current calculate nonEmptyIngredients and nonEmptyIngredientsLength", async () => {
-    const ingredientId = 11;
-    const ingredientQuantity = 2;
-    createComponent({ localVue, store });
-    await store.commit(SET_ENTITY, {
-      module: "Builder",
-      entity: "pizza",
-      value: {
-        ...INIT_PIZZA_STATE,
-        ingredients: { [ingredientId]: ingredientQuantity },
-      },
-    });
-    expect(wrapper.vm.nonEmptyIngredients).toStrictEqual({
-      [ingredientId]: {
-        ...adaptedIngredientsMocks[ingredientId],
-        quantity: ingredientQuantity,
-      },
-    });
-    expect(wrapper.vm.nonEmptyIngredientsLength).toBe(ingredientQuantity);
   });
 
   it("it current render pizzaName at input", async () => {

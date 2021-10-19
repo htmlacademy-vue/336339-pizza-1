@@ -67,13 +67,14 @@ describe("Builder", () => {
     expect(addressTiles.length).toBe(Object.keys(addressesMock).length);
   });
 
-  it("it emit setEditedAddress when click on AddressTile", async () => {
+  it("it emit setEditedAddress and open form when click on AddressTile", async () => {
     createComponent({ localVue, store });
     const tileIndex = 1;
     let addressTiles = wrapper.findAll('[data-test="addressTile"]');
     let button = addressTiles.at(tileIndex).find('[data-test="addressButton"]');
     await button.trigger("click");
-    expect(wrapper.vm.addressForEditId).toBe(addressesMock[tileIndex].id);
+    const formBlock = wrapper.find('[data-test="addressForm"]');
+    expect(formBlock).toBeTruthy();
   });
 
   it("it render addressForm when click handleOpenForm", async () => {
