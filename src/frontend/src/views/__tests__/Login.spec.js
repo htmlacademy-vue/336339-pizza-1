@@ -50,9 +50,7 @@ describe("Login", () => {
 
   it("validation must be called", async () => {
     createComponent({ localVue, mocks, stubs, store });
-    const spyValidateFields = jest.spyOn(wrapper.vm, "$validateFields");
     await wrapper.find(".button").trigger("submit");
-    expect(spyValidateFields).toHaveBeenCalled();
     expect(login).not.toHaveBeenCalled();
     expect(getMe).not.toHaveBeenCalled();
   });
@@ -70,7 +68,10 @@ describe("Login", () => {
     await passwordInput.trigger("input");
 
     await wrapper.find(".button").trigger("submit");
-    expect(login).toHaveBeenCalled();
+    expect(login).toHaveBeenCalledWith(expect.any(Object), {
+      email: "user@example.com",
+      password: "user@example.com",
+    });
     expect(routerPush).toHaveBeenCalled();
   });
 });
