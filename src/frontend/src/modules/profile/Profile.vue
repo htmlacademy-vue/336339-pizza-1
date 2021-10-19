@@ -21,9 +21,9 @@
         />
       </picture>
       <div class="user__name">
-        <span>{{ user.name }}</span>
+        <span data-test="userName">{{ user.name }}</span>
       </div>
-      <p class="user__phone">
+      <p class="user__phone" data-test="userPhone">
         Контактный телефон: <span>{{ user.phone }}</span>
       </p>
     </div>
@@ -32,18 +32,21 @@
       :key="address.id"
       :address="address"
       @onClick="setEditedAddress"
+      data-test="addressTile"
     />
     <AddressForm
       :addressForEdit="addresses[addressForEditId]"
       v-if="isOpenForm"
       @onDelete="handleDeleteAddress"
       @onSave="handleSaveAddress"
+      data-test="addressForm"
     />
     <div class="layout__button">
       <button
         type="button"
         class="button button--border"
         @click="handleOpenForm"
+        data-test="addAddressButton"
       >
         Добавить новый адрес
       </button>

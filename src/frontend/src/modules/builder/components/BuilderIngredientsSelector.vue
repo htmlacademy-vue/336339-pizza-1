@@ -18,8 +18,7 @@
             <CounterControl
               :value="ingredient.quantity"
               :max-value="maxIngredientsCountValue"
-              @onChange="setValue"
-              :id="ingredient.id"
+              @onChange="(value) => setValue(ingredient.id, value)"
               class="ingredients__counter counter--orange"
             />
           </div>
@@ -30,8 +29,7 @@
 </template>
 
 <script>
-import CounterControl from "@/common/components/CounterControl";
-import AppDrag from "@/common/components/Drag'n'Drop/AppDrag";
+import { CounterControl, AppDrag } from "@/common/components";
 import { INGREDIENTS_MAX_QUANTITY } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",

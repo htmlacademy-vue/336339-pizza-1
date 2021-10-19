@@ -1,6 +1,11 @@
 <template>
   <ul class="cart-list sheet">
-    <li class="cart-list__item" v-for="pizza in pizzas" :key="pizza.id">
+    <li
+      class="cart-list__item"
+      v-for="pizza in pizzas"
+      :key="pizza.id"
+      data-test="cartPizzaItem"
+    >
       <div class="product cart-list__product">
         <img
           src="@/assets/img/product.svg"
@@ -10,27 +15,32 @@
           :alt="pizza.name"
         />
         <div class="product__text">
-          <h2>{{ pizza.name }}</h2>
+          <h2 data-test="pizzaName">{{ pizza.name }}</h2>
           <ul>
-            <li>{{ pizza.size }}, {{ pizza.dough }}</li>
-            <li>Соус: {{ pizza.sauce }}</li>
-            <li>Начинка: {{ pizza.ingredients.toLowerCase() }}</li>
+            <li data-test="pizzaSizeDough">
+              {{ pizza.size }}, {{ pizza.dough }}
+            </li>
+            <li data-test="pizzaSauce">Соус: {{ pizza.sauce }}</li>
+            <li data-test="pizzaIngredients">
+              Начинка: {{ pizza.ingredients.toLowerCase() }}
+            </li>
           </ul>
         </div>
       </div>
       <CounterControl
         :value="pizza.quantity"
-        @onChange="setValue"
+        @onChange="(value) => setValue(pizza.id, value)"
         :id="pizza.id"
       />
       <div class="cart-list__price">
-        <b>{{ pizza.price }} ₽</b>
+        <b data-test="pizzaPrice">{{ pizza.price }} ₽</b>
       </div>
 
       <div class="cart-list__button">
         <button
           type="button"
           class="cart-list__edit"
+          data-test="pizzaEditButton"
           @click="setPizzaForEdit(pizza.id)"
         >
           Изменить
@@ -41,7 +51,7 @@
 </template>
 
 <script>
-import CounterControl from "@/common/components/CounterControl";
+import { CounterControl } from "@/common/components";
 export default {
   name: "PizzasListLayout",
   components: { CounterControl },

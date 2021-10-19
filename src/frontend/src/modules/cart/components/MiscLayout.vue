@@ -13,19 +13,20 @@
             height="60"
             :alt="miscItem.name"
           />
-          <span>{{ miscItem.name }}</span>
+          <span data-test="miscName">{{ miscItem.name }}</span>
         </p>
 
         <div class="additional-list__wrapper">
           <CounterControl
             :value="miscItem.quantity"
-            @onChange="setValue"
+            @onChange="(value) => setValue(miscItem.id, value)"
             :id="miscItem.id"
             class="additional-list__counter"
+            data-test="miscQuantityControl"
           />
 
           <div class="additional-list__price">
-            <b>× {{ miscItem.price }} ₽</b>
+            <b data-test="miscPrice">× {{ miscItem.price }} ₽</b>
           </div>
         </div>
       </li>
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-import CounterControl from "@/common/components/CounterControl";
+import { CounterControl } from "@/common/components";
 export default {
   name: "MiscLayout",
   components: { CounterControl },

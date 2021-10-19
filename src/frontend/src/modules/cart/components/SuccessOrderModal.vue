@@ -13,7 +13,11 @@
       </div>
       <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
       <div class="popup__button">
-        <a :href="href" class="button" @click.prevent="handleOkClick"
+        <a
+          :href="href"
+          class="button"
+          @click.prevent="handleOkClick"
+          data-test="successButton"
           >Отлично, я жду!</a
         >
       </div>

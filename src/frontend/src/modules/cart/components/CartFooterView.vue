@@ -9,7 +9,7 @@
       Перейти к конструктору<br />чтоб собрать ещё одну пиццу
     </p>
     <div class="footer__price">
-      <b>Итого: {{ total }} ₽</b>
+      <b data-test="footerTotal">Итого: {{ total }} ₽</b>
     </div>
 
     <div class="footer__submit">

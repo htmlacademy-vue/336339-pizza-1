@@ -15,7 +15,7 @@
     </div>
     <div class="header__user">
       <template v-if="isAuthenticated">
-        <router-link to="/profile">
+        <router-link to="/profile" data-test="user-block">
           <picture>
             <source
               type="image/webp"
@@ -38,7 +38,12 @@
           ><span>Выйти</span></a
         >
       </template>
-      <router-link v-else :to="routerUri" class="header__login">
+      <router-link
+        v-else
+        :to="routerUri"
+        class="header__login"
+        data-test="user-login"
+      >
         <span>Войти</span>
       </router-link>
     </div>

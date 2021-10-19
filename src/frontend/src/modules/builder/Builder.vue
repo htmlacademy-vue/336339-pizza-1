@@ -72,7 +72,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import AppDrop from "@/common/components/Drag'n'Drop/AppDrop";
+import { AppDrop } from "@/common/components";
 import {
   BuilderDoughSelector,
   BuilderSizeSelector,

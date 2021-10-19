@@ -5,7 +5,7 @@
   </component>
 </template>
 <script>
-import AppNotifications from "@/common/components/AppNotifications";
+import { AppNotifications } from "@/common/components";
 const DEFAULT_LAYOUT = "AppEmptyLayout";
 export default {
   name: "AppLayout",

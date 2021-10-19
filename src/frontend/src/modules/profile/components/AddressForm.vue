@@ -3,9 +3,10 @@
     <form
       class="address-form address-form--opened sheet"
       @submit.prevent="handleSubmitForm"
+      data-test="addressForm"
     >
       <div class="address-form__header">
-        <b>{{ formHeader }}</b>
+        <b data-test="formHeader">{{ formHeader }}</b>
       </div>
 
       <div class="address-form__wrapper">
@@ -13,6 +14,7 @@
           <Input
             :value="address.name"
             v-model="address.name"
+            data-test="addressName"
             :label="'Название адреса*'"
             type="text"
             name="name"
@@ -24,6 +26,7 @@
           <Input
             :value="address.street"
             v-model="address.street"
+            data-test="addressStreet"
             :label="'Улица*'"
             type="text"
             name="street"
@@ -35,6 +38,7 @@
           <Input
             :value="address.building"
             v-model="address.building"
+            data-test="addressBuilding"
             :label="'Дом*'"
             type="text"
             name="building"
@@ -46,6 +50,7 @@
           <Input
             :value="address.flat"
             v-model="address.flat"
+            data-test="addressFlat"
             :label="'Квартира'"
             type="text"
             name="flat"
@@ -56,6 +61,7 @@
           <Input
             :value="address.comment"
             v-model="address.comment"
+            data-test="addressComment"
             :label="'Комментарий'"
             type="text"
             name="comment"
@@ -68,10 +74,13 @@
           type="button"
           class="button button--transparent"
           @click="$emit('onDelete')"
+          data-test="onDeleteButton"
         >
           Удалить
         </button>
-        <button type="submit" class="button">Сохранить</button>
+        <button type="submit" class="button" data-test="saveButton">
+          Сохранить
+        </button>
       </div>
     </form>
   </div>
@@ -79,7 +88,7 @@
 
 <script>
 import validator from "@/common/mixins/validator";
-import Input from "@/common/components/Input";
+import { Input } from "@/common/components";
 
 export default {
   name: "AddressForm",

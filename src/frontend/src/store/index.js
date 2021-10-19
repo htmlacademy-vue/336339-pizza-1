@@ -21,7 +21,7 @@ const setupState = () => ({
 
 const state = setupState();
 
-const actions = {
+export const actions = {
   async init({ dispatch }) {
     await Promise.all([dispatch("Builder/query"), dispatch("Cart/query")]);
   },
@@ -38,7 +38,7 @@ const actions = {
   },
 };
 
-const mutations = {
+export const mutations = {
   [ADD_NOTIFICATION](state, notification) {
     state.notifications = [...state.notifications, notification];
   },

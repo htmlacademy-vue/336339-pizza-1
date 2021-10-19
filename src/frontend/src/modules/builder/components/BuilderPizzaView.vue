@@ -9,16 +9,17 @@
           <div
             class="pizza__filling"
             :class="`pizza__filling--${value.label}`"
+            v-if="value.quantity > 0"
           />
           <div
             class="pizza__filling pizza__filling--second"
             :class="`pizza__filling--${value.label}`"
-            v-show="value.quantity > 1"
+            v-if="value.quantity > 1"
           />
           <div
             class="pizza__filling pizza__filling--third"
             :class="`pizza__filling--${value.label}`"
-            v-show="value.quantity > 2"
+            v-if="value.quantity > 2"
           />
         </div>
       </div>
