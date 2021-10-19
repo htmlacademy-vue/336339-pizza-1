@@ -29,7 +29,7 @@
       </div>
       <CounterControl
         :value="pizza.quantity"
-        @onChange="setValue"
+        @onChange="(value) => setValue(pizza.id, value)"
         :id="pizza.id"
       />
       <div class="cart-list__price">

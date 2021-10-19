@@ -19,7 +19,7 @@
         <div class="additional-list__wrapper">
           <CounterControl
             :value="miscItem.quantity"
-            @onChange="setValue"
+            @onChange="(value) => setValue(miscItem.id, value)"
             :id="miscItem.id"
             class="additional-list__counter"
             data-test="miscQuantityControl"

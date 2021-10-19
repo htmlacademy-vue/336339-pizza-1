@@ -5,7 +5,7 @@ describe("CounterControl", () => {
   const defaultProps = {
     value: 0,
     maxValue: 3,
-    id: "",
+    id: "testId",
   };
 
   let wrapper;
@@ -30,12 +30,14 @@ describe("CounterControl", () => {
   });
 
   it("It emits an decrement button event when click", async () => {
+    const value = 1;
     wrapper = shallowMount(CounterControl, {
-      propsData: { ...defaultProps, value: 1 },
+      propsData: { ...defaultProps, value: value },
     });
     let button = wrapper.find(".counter__button--minus");
     await button.trigger("click");
     expect(wrapper.emitted().onChange).toBeTruthy();
+    expect(wrapper.emitted().onChange[0]).toStrictEqual([value - 1]);
   });
 
   it("It emits an increment button event when click", async () => {
@@ -45,5 +47,8 @@ describe("CounterControl", () => {
     let button = wrapper.find(".counter__button--plus");
     await button.trigger("click");
     expect(wrapper.emitted().onChange).toBeTruthy();
+    expect(wrapper.emitted().onChange[0]).toStrictEqual([
+      defaultProps.value + 1,
+    ]);
   });
 });
