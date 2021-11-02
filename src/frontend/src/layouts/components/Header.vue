@@ -40,7 +40,7 @@
       </template>
       <router-link
         v-else
-        :to="routerUri"
+        to="/login"
         class="header__login"
         data-test="user-login"
       >
@@ -65,11 +65,6 @@ export default {
     cartTotal: {
       type: Number,
       required: true,
-    },
-  },
-  computed: {
-    routerUri() {
-      return this.$route.path === "/" ? "/login" : "/sign-in";
     },
   },
 };

@@ -122,37 +122,4 @@ describe("Header", () => {
     const loginBlock = wrapper.find(".header__login");
     expect(loginBlock.exists()).toBeTruthy();
   });
-
-  it("is routerUri === login for router.path === /", async () => {
-    createComponent({
-      localVue,
-      store,
-      mocks: {
-        ...mocks,
-        $route: {
-          path: "/",
-        },
-      },
-      stubs,
-      propsData,
-    });
-    const userBlock = wrapper.find('[data-test="user-login"]');
-    expect(userBlock.attributes("to")).toBe("/login");
-  });
-  it("is routerUri === login for router.path === /", async () => {
-    createComponent({
-      localVue,
-      store,
-      mocks: {
-        ...mocks,
-        $route: {
-          path: "/cart",
-        },
-      },
-      stubs,
-      propsData,
-    });
-    const userBlock = wrapper.find('[data-test="user-login"]');
-    expect(userBlock.attributes("to")).toBe("/sign-in");
-  });
 });
