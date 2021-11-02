@@ -44,16 +44,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
 import {
   CartFooterView,
-  PizzasListLayout,
-  MiscLayout,
   DeliveryLayout,
+  MiscLayout,
+  PizzasListLayout,
   SuccessOrderModal,
-} from "@/modules/cart/components";
+} from "@/views/Cart/components";
+import { mapActions, mapGetters, mapState } from "vuex";
+
 export default {
   name: "Cart",
+  layout: "AppLayoutWithHeader",
+  enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
   components: {
     CartFooterView,
     PizzasListLayout,

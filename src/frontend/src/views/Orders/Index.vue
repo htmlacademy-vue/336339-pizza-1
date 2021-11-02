@@ -14,11 +14,16 @@
 </template>
 
 <script>
+import { auth, isAuthenticated } from "@/middlewares";
+import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
+import OrderSection from "@/views/Orders/components/OrderSection";
 import { mapActions, mapGetters } from "vuex";
-import OrderSection from "./components/OrderSection";
 
 export default {
   name: "Orders",
+  layout: "AppLayoutWithSidebar",
+  middlewares: [auth, isAuthenticated],
+  enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
   components: { OrderSection },
   computed: {
     ...mapGetters("Orders", ["adaptedOrders"]),
