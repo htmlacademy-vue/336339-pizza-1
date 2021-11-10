@@ -11,7 +11,7 @@ import {
   DELETE_NOTIFICATION,
 } from "@/store/mutation-types";
 import { MESSAGE_LIVE_TIME } from "@/common/constants";
-import modules from "./modules";
+import modules from "@/modules";
 
 Vue.use(Vuex);
 

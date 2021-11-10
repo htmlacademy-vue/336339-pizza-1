@@ -40,8 +40,14 @@
 <script>
 import validator from "@/common/mixins/validator";
 import { Input } from "@/common/components";
+import { isLoggedIn } from "@/middlewares";
+import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
+
 export default {
   name: "Login",
+  layout: "AppEmptyLayout",
+  middlewares: [isLoggedIn],
+  enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
   mixins: [validator],
   components: { Input },
   data: () => ({

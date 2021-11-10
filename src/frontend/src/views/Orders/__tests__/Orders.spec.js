@@ -2,7 +2,7 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutation-types";
-import Orders from "../Orders";
+import Orders from "../Index";
 import OrderSection from "../components/OrderSection";
 import {
   adaptedDoughMocks,

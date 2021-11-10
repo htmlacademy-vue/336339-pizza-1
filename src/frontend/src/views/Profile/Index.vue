@@ -57,9 +57,14 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { AddressTile, AddressForm } from "./components";
+import { auth, isAuthenticated } from "@/middlewares";
+import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
 
 export default {
   name: "Profile",
+  layout: "AppLayoutWithSidebar",
+  middlewares: [auth, isAuthenticated],
+  enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
   components: { AddressTile, AddressForm },
   data() {
     return {

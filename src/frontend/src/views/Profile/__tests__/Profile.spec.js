@@ -2,7 +2,7 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutation-types";
-import Profile from "../Profile";
+import Profile from "../Index";
 import { AddressTile, AddressForm } from "../components";
 import { adaptedAddressesMock, addressesMock, userMock } from "@/common/mocks";
 

@@ -2,7 +2,7 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutation-types";
-import Builder from "../Builder";
+import Builder from "../Index";
 import {
   BuilderDoughSelector,
   BuilderSizeSelector,
