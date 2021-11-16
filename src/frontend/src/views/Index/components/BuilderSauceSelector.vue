@@ -2,9 +2,9 @@
   <div class="ingredients__sauce">
     <p>Основной соус:</p>
     <label
-      class="radio ingredients__input"
       v-for="sauce in sauces"
       :key="sauce.id"
+      class="radio ingredients__input"
     >
       <input
         type="radio"
@@ -21,6 +21,7 @@
 <script>
 export default {
   name: "BuilderSauceSelector",
+
   props: {
     sauces: {
       type: Object,

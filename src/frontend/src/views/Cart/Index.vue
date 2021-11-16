@@ -56,8 +56,11 @@ import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "Cart",
+
   layout: "AppLayoutWithHeader",
+
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
+
   components: {
     CartFooterView,
     PizzasListLayout,
@@ -65,11 +68,13 @@ export default {
     DeliveryLayout,
     SuccessOrderModal,
   },
+
   data() {
     return {
       isOpenModal: false,
     };
   },
+
   computed: {
     ...mapState("Cart", ["pizzas", "misc", "address", "phone"]),
     ...mapState("Auth", ["user", "addresses"]),
@@ -89,6 +94,7 @@ export default {
       return this.isAuth ? "/orders" : "/";
     },
   },
+
   methods: {
     ...mapActions("Cart", [
       "setPizzaQuantity",

@@ -11,8 +11,8 @@
         <button
           type="button"
           class="button button--border"
-          @click="$emit('onDelete', order.id)"
           data-test="orderDeleteButton"
+          @click="$emit('onDelete', order.id)"
         >
           Удалить
         </button>
@@ -21,8 +21,8 @@
         <button
           type="button"
           class="button"
-          @click="$emit('onRepeate', order.id)"
           data-test="orderRepeateButton"
+          @click="$emit('onRepeate', order.id)"
         >
           Повторить
         </button>
@@ -30,14 +30,14 @@
     </div>
 
     <ul
-      class="order__list"
       v-if="order.orderPizzas.length > 0"
+      class="order__list"
       data-test="orderList"
     >
       <li
-        class="order__item"
         v-for="pizza in order.orderPizzas"
         :key="pizza.name"
+        class="order__item"
         data-test="orderItem"
       >
         <div class="product">
@@ -102,12 +102,14 @@
 <script>
 export default {
   name: "OrderSection",
+
   props: {
     order: {
       type: Object,
       required: true,
     },
   },
+
   methods: {
     getPizzaPriceString(price, quantity) {
       return `${quantity > 1 ? `${quantity}x` : ""}${price} ₽`;

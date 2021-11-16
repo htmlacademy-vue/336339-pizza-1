@@ -38,8 +38,8 @@
               type="text"
               name="pizza_name"
               placeholder="Введите название пиццы"
-              @input="handleChangeName"
               :value="pizza.name"
+              @input="handleChangeName"
             />
           </label>
           <AppDrop @drop="onDropIngredientHandler($event)">
@@ -89,8 +89,11 @@ import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "Main",
+
   layout: "AppLayoutWithHeader",
+
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
+
   components: {
     BuilderDoughSelector,
     BuilderSizeSelector,
@@ -99,6 +102,7 @@ export default {
     BuilderPizzaView,
     AppDrop,
   },
+
   computed: {
     ...mapState("Builder", ["pizza", "dough", "sauces", "sizes"]),
     ...mapGetters("Builder", ["pizzaPrice", "ingredientsWithCount"]),
@@ -125,6 +129,7 @@ export default {
       );
     },
   },
+
   methods: {
     ...mapActions("Builder", [
       "putDough",
@@ -146,6 +151,7 @@ export default {
       this.resetBuilder();
     },
   },
+
   beforeDestroy() {
     this.resetBuilder();
   },

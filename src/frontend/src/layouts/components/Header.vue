@@ -53,6 +53,7 @@
 <script>
 export default {
   name: "Header",
+
   props: {
     user: {
       type: Object,

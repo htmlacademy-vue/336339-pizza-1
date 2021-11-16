@@ -6,8 +6,8 @@
         <select
           name="test"
           class="select"
-          @change="setCurrentDeliveryType($event.target.value)"
           data-test="deliveryTypeSelect"
+          @change="setCurrentDeliveryType($event.target.value)"
         >
           <option
             :value="mySelfConst"
@@ -39,8 +39,8 @@
           name="tel"
           placeholder="+7 999-999-99-99"
           :value="phone"
-          @input="setPhone"
           data-test="phoneInput"
+          @input="setPhone"
         />
       </label>
 
@@ -56,10 +56,10 @@
               type="text"
               name="street"
               :value="address.street || ''"
-              @input="onChangeAddressInput('street', $event)"
               :disabled="Boolean(address.id)"
               required
               data-test="streetInput"
+              @input="onChangeAddressInput('street', $event)"
             />
           </label>
         </div>
@@ -71,10 +71,10 @@
               type="text"
               name="house"
               :value="address.building || ''"
-              @input="onChangeAddressInput('building', $event)"
               :disabled="Boolean(address.id)"
               required
               data-test="houseInput"
+              @input="onChangeAddressInput('building', $event)"
             />
           </label>
         </div>
@@ -86,9 +86,9 @@
               type="text"
               name="apartment"
               :value="address.flat || ''"
-              @input="onChangeAddressInput('flat', $event)"
               :disabled="Boolean(address.id)"
               data-test="apartmentInput"
+              @input="onChangeAddressInput('flat', $event)"
             />
           </label>
         </div>
@@ -103,11 +103,7 @@ import { NEW_ADDRESS_DELIVERY, MYSELF_DELIVERY } from "@/common/constants";
 
 export default {
   name: "DeliveryLayout",
-  data() {
-    return {
-      currentDeliveryType: MYSELF_DELIVERY,
-    };
-  },
+
   props: {
     phone: {
       type: String,
@@ -118,6 +114,13 @@ export default {
       required: true,
     },
   },
+
+  data() {
+    return {
+      currentDeliveryType: MYSELF_DELIVERY,
+    };
+  },
+
   computed: {
     ...mapState("Auth", ["user", "addresses"]),
     mySelfConst() {
@@ -130,6 +133,7 @@ export default {
       return this.address.id ? this.address.name : "Новый адрес";
     },
   },
+
   methods: {
     setCurrentDeliveryType(value) {
       this.currentDeliveryType = value;
@@ -149,6 +153,7 @@ export default {
       });
     },
   },
+
   created() {
     if (!this.phone) {
       this.$emit("setPhone", this.user?.phone);

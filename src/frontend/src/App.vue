@@ -14,9 +14,17 @@ import { setAuth } from "@/common/helpers";
 
 export default {
   name: "App",
+
   components: {
     AppLayout,
   },
+
+  computed: {
+    enterActiveClass() {
+      return this.$route.meta.enterActiveClass || "";
+    },
+  },
+
   created() {
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
@@ -25,11 +33,6 @@ export default {
       setAuth(this.$store);
     }
     this.$store.dispatch("init");
-  },
-  computed: {
-    enterActiveClass() {
-      return this.$route.meta.enterActiveClass || "";
-    },
   },
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
   <ul class="cart-list sheet">
     <li
+      :key="pizza.id"
       class="cart-list__item"
       v-for="pizza in pizzas"
-      :key="pizza.id"
       data-test="cartPizzaItem"
     >
       <div class="product cart-list__product">
@@ -29,8 +29,8 @@
       </div>
       <AppCounterControl
         :value="pizza.quantity"
-        @onChange="(value) => setValue(pizza.id, value)"
         :id="pizza.id"
+        @onChange="(value) => setValue(pizza.id, value)"
       />
       <div class="cart-list__price">
         <b data-test="pizzaPrice">{{ pizza.price }} ₽</b>
@@ -54,18 +54,22 @@
 import { AppCounterControl } from "@/common/components";
 export default {
   name: "PizzasListLayout",
+
   components: { AppCounterControl },
+
   props: {
     pizzas: {
       type: Array,
       required: true,
     },
   },
+
   computed: {
     ingredientsTitle() {
       return this.pizza.ingredients.toLowerCase();
     },
   },
+
   methods: {
     setValue(id, value) {
       this.$emit("setQuantity", { id, value });

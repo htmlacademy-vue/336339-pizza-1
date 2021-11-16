@@ -3,9 +3,9 @@
     <p>Начинка:</p>
     <ul class="ingredients__list">
       <li
+        :key="ingredient.id"
         class="ingredients__item"
         v-for="ingredient in ingredients"
-        :key="ingredient.id"
       >
         <AppDrag
           :transferData="ingredient"
@@ -18,8 +18,8 @@
             <AppCounterControl
               :value="ingredient.quantity"
               :max-value="maxIngredientsCountValue"
-              @onChange="(value) => setValue(ingredient.id, value)"
               class="ingredients__counter counter--orange"
+              @onChange="(value) => setValue(ingredient.id, value)"
             />
           </div>
         </AppDrag>
@@ -33,18 +33,22 @@ import { AppCounterControl, AppDrag } from "@/common/components";
 import { INGREDIENTS_MAX_QUANTITY } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",
+
   components: { AppCounterControl, AppDrag },
+
   props: {
     ingredients: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       maxIngredientsCountValue: INGREDIENTS_MAX_QUANTITY,
     };
   },
+
   methods: {
     setValue(id, value) {
       this.$emit("setIngredient", { id, value });

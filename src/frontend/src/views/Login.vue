@@ -10,9 +10,9 @@
       <form @submit.prevent="login">
         <div class="sign-form__input">
           <AppInput
+            v-model="email"
             :label="'E-mail'"
             ref="email"
-            v-model="email"
             type="email"
             name="email"
             placeholder="example@mail.ru"
@@ -22,8 +22,8 @@
         </div>
         <div class="sign-form__input">
           <AppInput
-            :label="'Пароль'"
             v-model="password"
+            :label="'Пароль'"
             type="password"
             name="pass"
             placeholder="***********"
@@ -45,11 +45,17 @@ import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
 
 export default {
   name: "Login",
+
   layout: "AppEmptyLayout",
+
   middlewares: [isLoggedIn],
+
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
+
   mixins: [validator],
+
   components: { AppInput },
+
   data: () => ({
     email: "",
     password: "",
@@ -64,6 +70,7 @@ export default {
       },
     },
   }),
+
   watch: {
     email() {
       this.$clearValidationErrors();
@@ -72,9 +79,11 @@ export default {
       this.$clearValidationErrors();
     },
   },
+
   mounted() {
     this.$refs.email.$refs.input.focus();
   },
+
   methods: {
     async login() {
       if (
