@@ -11,7 +11,7 @@
 
       <div class="address-form__wrapper">
         <div class="address-form__input">
-          <Input
+          <AppInput
             :value="address.name"
             v-model="address.name"
             data-test="addressName"
@@ -23,7 +23,7 @@
           />
         </div>
         <div class="address-form__input address-form__input--size--normal">
-          <Input
+          <AppInput
             :value="address.street"
             v-model="address.street"
             data-test="addressStreet"
@@ -35,7 +35,7 @@
           />
         </div>
         <div class="address-form__input address-form__input--size--small">
-          <Input
+          <AppInput
             :value="address.building"
             v-model="address.building"
             data-test="addressBuilding"
@@ -47,7 +47,7 @@
           />
         </div>
         <div class="address-form__input address-form__input--size--small">
-          <Input
+          <AppInput
             :value="address.flat"
             v-model="address.flat"
             data-test="addressFlat"
@@ -58,7 +58,7 @@
           />
         </div>
         <div class="address-form__input">
-          <Input
+          <AppInput
             :value="address.comment"
             v-model="address.comment"
             data-test="addressComment"
@@ -88,12 +88,12 @@
 
 <script>
 import validator from "@/common/mixins/validator";
-import { Input } from "@/common/components";
+import { AppInput } from "@/common/components";
 
 export default {
   name: "AddressForm",
   mixins: [validator],
-  components: { Input },
+  components: { AppInput },
   props: {
     addressForEdit: {
       type: Object,

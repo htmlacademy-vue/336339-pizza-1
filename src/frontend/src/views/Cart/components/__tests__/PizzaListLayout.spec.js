@@ -3,11 +3,11 @@ import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import PizzasListLayout from "../PizzasListLayout";
 import { cartPizzasMocks } from "@/common/mocks";
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
-localVue.component("CounterControl", CounterControl);
+localVue.component("AppCounterControl", AppCounterControl);
 
 describe("PizzasListLayout", () => {
   const propsData = {
@@ -80,7 +80,7 @@ describe("PizzasListLayout", () => {
     );
   });
 
-  it("is emit setQuantity when click at CounterControl", async () => {
+  it("is emit setQuantity when click at AppCounterControl", async () => {
     const counterIndex = 0;
     createComponent({ localVue, store, propsData });
     const miscButtons = wrapper.findAll(".counter__button--plus");

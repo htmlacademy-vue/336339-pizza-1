@@ -9,7 +9,7 @@
       </div>
       <form @submit.prevent="login">
         <div class="sign-form__input">
-          <Input
+          <AppInput
             :label="'E-mail'"
             ref="email"
             v-model="email"
@@ -21,7 +21,7 @@
           />
         </div>
         <div class="sign-form__input">
-          <Input
+          <AppInput
             :label="'Пароль'"
             v-model="password"
             type="password"
@@ -39,7 +39,7 @@
 
 <script>
 import validator from "@/common/mixins/validator";
-import { Input } from "@/common/components";
+import { AppInput } from "@/common/components";
 import { isLoggedIn } from "@/middlewares";
 import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
 
@@ -49,7 +49,7 @@ export default {
   middlewares: [isLoggedIn],
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
   mixins: [validator],
-  components: { Input },
+  components: { AppInput },
   data: () => ({
     email: "",
     password: "",
@@ -99,7 +99,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .modal {
   position: absolute;
   top: 0;

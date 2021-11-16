@@ -27,7 +27,7 @@
           </ul>
         </div>
       </div>
-      <CounterControl
+      <AppCounterControl
         :value="pizza.quantity"
         @onChange="(value) => setValue(pizza.id, value)"
         :id="pizza.id"
@@ -51,10 +51,10 @@
 </template>
 
 <script>
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 export default {
   name: "PizzasListLayout",
-  components: { CounterControl },
+  components: { AppCounterControl },
   props: {
     pizzas: {
       type: Array,

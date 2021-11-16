@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "Input",
+  name: "AppInput",
   model: {
     prop: "value",
     event: "input",

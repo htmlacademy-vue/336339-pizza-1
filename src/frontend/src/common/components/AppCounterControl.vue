@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: "CounterControl",
+  name: "AppCounterControl",
   props: {
     value: {
       type: Number,

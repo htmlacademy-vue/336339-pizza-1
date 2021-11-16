@@ -3,11 +3,11 @@ import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import MiscLayout from "../MiscLayout";
 import { adaptedMiscMocks } from "@/common/mocks";
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
-localVue.component("CounterControl", CounterControl);
+localVue.component("AppCounterControl", AppCounterControl);
 
 describe("MiscLayout", () => {
   const propsData = {
@@ -50,7 +50,7 @@ describe("MiscLayout", () => {
     );
   });
 
-  it("is render currentValue in CounterControl", () => {
+  it("is render currentValue in AppCounterControl", () => {
     const counterIndex = 2;
     createComponent({ localVue, store, propsData });
     const miscControls = wrapper.findAll(
@@ -61,7 +61,7 @@ describe("MiscLayout", () => {
     );
   });
 
-  it("is emit setMisc when click at CounterControl", async () => {
+  it("is emit setMisc when click at AppCounterControl", async () => {
     const counterIndex = 2;
     createComponent({ localVue, store, propsData });
     const miscButtons = wrapper.findAll(

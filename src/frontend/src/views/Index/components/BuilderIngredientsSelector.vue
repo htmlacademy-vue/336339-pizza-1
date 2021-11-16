@@ -15,7 +15,7 @@
             <span class="filling" :class="`filling--${ingredient.label}`">{{
               ingredient.name
             }}</span>
-            <CounterControl
+            <AppCounterControl
               :value="ingredient.quantity"
               :max-value="maxIngredientsCountValue"
               @onChange="(value) => setValue(ingredient.id, value)"
@@ -29,11 +29,11 @@
 </template>
 
 <script>
-import { CounterControl, AppDrag } from "@/common/components";
+import { AppCounterControl, AppDrag } from "@/common/components";
 import { INGREDIENTS_MAX_QUANTITY } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",
-  components: { CounterControl, AppDrag },
+  components: { AppCounterControl, AppDrag },
   props: {
     ingredients: {
       type: Object,
@@ -60,7 +60,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .draggable-item {
   &:hover {
     cursor: pointer;

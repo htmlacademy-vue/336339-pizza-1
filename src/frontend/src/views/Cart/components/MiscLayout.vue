@@ -17,7 +17,7 @@
         </p>
 
         <div class="additional-list__wrapper">
-          <CounterControl
+          <AppCounterControl
             :value="miscItem.quantity"
             @onChange="(value) => setValue(miscItem.id, value)"
             :id="miscItem.id"
@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 export default {
   name: "MiscLayout",
-  components: { CounterControl },
+  components: { AppCounterControl },
   props: {
     misc: {
       type: Object,
