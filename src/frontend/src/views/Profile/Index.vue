@@ -35,7 +35,7 @@
       data-test="addressTile"
     />
     <AddressForm
-      :addressForEdit="addresses[addressForEditId]"
+      :address-for-edit="addresses[addressForEditId]"
       v-if="isOpenForm"
       @onDelete="handleDeleteAddress"
       @onSave="handleSaveAddress"

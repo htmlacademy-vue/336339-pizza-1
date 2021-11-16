@@ -86,10 +86,9 @@
         />
         <p>
           <span>{{ miscItem.name }}</span>
-          <b data-test="orderMiscQuantity"
-            >{{ `${miscItem.quantity > 1 ? `${miscItem.quantity}x ` : ""}`
-            }}{{ miscItem.price }} ₽</b
-          >
+          <b data-test="orderMiscQuantity">{{
+            getMiscQuantityTitle(miscItem)
+          }}</b>
         </p>
       </li>
     </ul>
@@ -112,6 +111,11 @@ export default {
   methods: {
     getPizzaPriceString(price, quantity) {
       return `${quantity > 1 ? `${quantity}x` : ""}${price} ₽`;
+    },
+    getMiscQuantityTitle(miscItem) {
+      return `${miscItem.quantity > 1 ? `${miscItem.quantity}x ` : ""}${
+        miscItem.quantity > 1 ? `${miscItem.quantity}x ` : ""
+      }`;
     },
   },
 };
