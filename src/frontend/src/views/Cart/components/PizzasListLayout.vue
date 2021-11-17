@@ -22,7 +22,7 @@
             </li>
             <li data-test="pizzaSauce">Соус: {{ pizza.sauce }}</li>
             <li data-test="pizzaIngredients">
-              Начинка: {{ ingredientsTitle }}
+              Начинка: {{ getIngredientsTitle(pizza) }}
             </li>
           </ul>
         </div>
@@ -63,19 +63,15 @@ export default {
       required: true,
     },
   },
-
-  computed: {
-    ingredientsTitle() {
-      return this.pizza.ingredients.toLowerCase();
-    },
-  },
-
   methods: {
     setValue(id, value) {
       this.$emit("setQuantity", { id, value });
     },
     setPizzaForEdit(id) {
       this.$emit("setPizzaForEdit", { id });
+    },
+    getIngredientsTitle(pizza) {
+      return pizza.ingredients.toLowerCase();
     },
   },
 };
