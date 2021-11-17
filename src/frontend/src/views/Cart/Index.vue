@@ -10,10 +10,15 @@
         <div class="cart__title">
           <h1 class="title title--big">Корзина</h1>
         </div>
-        <div class="sheet cart__empty" v-if="isEmptyCart" data-test="emptyCart">
+        <div
+          v-if="isEmptyCart"
+          class="sheet cart__empty"
+          key="emptyCart"
+          data-test="emptyCart"
+        >
           <p>В корзине нет ни одного товара</p>
         </div>
-        <div v-else data-test="notEmptyCart">
+        <div v-else key="notEmptyCart" data-test="notEmptyCart">
           <PizzasListLayout
             :pizzas="adaptedPizzas"
             @setQuantity="setPizzaQuantity"
