@@ -10,10 +10,15 @@
         <div class="cart__title">
           <h1 class="title title--big">Корзина</h1>
         </div>
-        <div class="sheet cart__empty" v-if="isEmptyCart" data-test="emptyCart">
+        <div
+          v-if="isEmptyCart"
+          class="sheet cart__empty"
+          key="emptyCart"
+          data-test="emptyCart"
+        >
           <p>В корзине нет ни одного товара</p>
         </div>
-        <div v-else data-test="notEmptyCart">
+        <div v-else key="notEmptyCart" data-test="notEmptyCart">
           <PizzasListLayout
             :pizzas="adaptedPizzas"
             @setQuantity="setPizzaQuantity"
@@ -56,8 +61,11 @@ import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "Cart",
+
   layout: "AppLayoutWithHeader",
+
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
+
   components: {
     CartFooterView,
     PizzasListLayout,
@@ -65,11 +73,13 @@ export default {
     DeliveryLayout,
     SuccessOrderModal,
   },
+
   data() {
     return {
       isOpenModal: false,
     };
   },
+
   computed: {
     ...mapState("Cart", ["pizzas", "misc", "address", "phone"]),
     ...mapState("Auth", ["user", "addresses"]),
@@ -89,6 +99,7 @@ export default {
       return this.isAuth ? "/orders" : "/";
     },
   },
+
   methods: {
     ...mapActions("Cart", [
       "setPizzaQuantity",

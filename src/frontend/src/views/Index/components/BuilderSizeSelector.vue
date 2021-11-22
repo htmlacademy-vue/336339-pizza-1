@@ -4,10 +4,10 @@
       <h2 class="title title--small sheet__title">Выберите размер</h2>
       <div class="sheet__content diameter">
         <label
-          class="diameter__input"
-          :class="`diameter__input--${size.value}`"
           v-for="size in sizes"
           :key="size.id"
+          class="diameter__input"
+          :class="`diameter__input--${size.value}`"
         >
           <input
             type="radio"
@@ -27,6 +27,7 @@
 <script>
 export default {
   name: "BuilderSizeSelector",
+
   props: {
     sizes: {
       type: Object,

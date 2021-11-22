@@ -1,4 +1,15 @@
-module.exports = {
-  presets: ["@vue/cli-plugin-babel/preset"],
-  plugins: ["require-context-hook"],
+module.exports = function (api) {
+  api.cache(true);
+
+  const presets = ["@vue/cli-plugin-babel/preset"];
+  const plugins = [];
+
+  if (process.env.NODE_ENV === "test") {
+    plugins.push("require-context-hook");
+  }
+
+  return {
+    presets,
+    plugins,
+  };
 };

@@ -1,6 +1,6 @@
 <template>
   <label class="input">
-    <span class="label" v-if="label">{{ label }}</span>
+    <span v-if="label" class="label">{{ label }}</span>
     <input
       ref="input"
       :value="value"
@@ -20,11 +20,13 @@
 
 <script>
 export default {
-  name: "Input",
+  name: "AppInput",
+
   model: {
     prop: "value",
     event: "input",
   },
+
   props: {
     value: {
       type: [String, Number],
@@ -55,6 +57,7 @@ export default {
       default: false,
     },
   },
+
   computed: {
     showError() {
       return !!this.errorText;

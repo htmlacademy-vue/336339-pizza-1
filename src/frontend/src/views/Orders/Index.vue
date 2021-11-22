@@ -21,22 +21,29 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Orders",
+
   layout: "AppLayoutWithSidebar",
+
   middlewares: [auth, isAuthenticated],
+
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
+
   components: { OrderSection },
+
   computed: {
     ...mapGetters("Orders", ["adaptedOrders"]),
   },
+
+  created() {
+    this.query();
+  },
+
   methods: {
     ...mapActions("Orders", ["repeatOrder", "deleteOrder", "query"]),
     async handleRepeatClick(orderId) {
       await this.repeatOrder(orderId);
       await this.$router.push("/cart");
     },
-  },
-  created() {
-    this.query();
   },
 };
 </script>

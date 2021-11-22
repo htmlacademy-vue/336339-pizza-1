@@ -10,7 +10,7 @@ import {
   DeliveryLayout,
   SuccessOrderModal,
 } from "../components";
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 import {
   adaptedDoughMocks,
   adaptedIngredientsMocks,
@@ -27,7 +27,7 @@ localVue.component("PizzasListLayout", PizzasListLayout);
 localVue.component("MiscLayout", MiscLayout);
 localVue.component("DeliveryLayout", DeliveryLayout);
 localVue.component("SuccessOrderModal", SuccessOrderModal);
-localVue.component("CounterControl", CounterControl);
+localVue.component("AppCounterControl", AppCounterControl);
 
 localVue.use(Vuex);
 

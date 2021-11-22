@@ -17,14 +17,13 @@
         </p>
 
         <div class="additional-list__wrapper">
-          <CounterControl
+          <AppCounterControl
             :value="miscItem.quantity"
-            @onChange="(value) => setValue(miscItem.id, value)"
-            :id="miscItem.id"
             class="additional-list__counter"
             data-test="miscQuantityControl"
+            :id="miscItem.id"
+            @onChange="(value) => setValue(miscItem.id, value)"
           />
-
           <div class="additional-list__price">
             <b data-test="miscPrice">× {{ miscItem.price }} ₽</b>
           </div>
@@ -35,16 +34,19 @@
 </template>
 
 <script>
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 export default {
   name: "MiscLayout",
-  components: { CounterControl },
+
+  components: { AppCounterControl },
+
   props: {
     misc: {
       type: Object,
       required: true,
     },
   },
+
   methods: {
     setValue(id, value) {
       this.$emit("setMisc", { id, value });

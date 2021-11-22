@@ -7,8 +7,8 @@
           <button
             type="button"
             class="icon"
-            @click="$emit('onClick', address.id)"
             data-test="addressButton"
+            @click="$emit('onClick', address.id)"
           >
             <span class="visually-hidden">Изменить адрес</span>
           </button>
@@ -24,12 +24,14 @@
 import { getAddressString } from "@/common/utils";
 export default {
   name: "AddressTile",
+
   props: {
     address: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     addressString() {
       return getAddressString(this.address);

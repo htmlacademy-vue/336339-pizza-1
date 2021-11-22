@@ -4,8 +4,8 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isDisableDecrementControl"
-      @click="$emit('onChange', value - 1)"
       data-test="counter-minus"
+      @click="$emit('onChange', value - 1)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -14,8 +14,8 @@
       type="button"
       class="counter__button counter__button--plus"
       :disabled="isDisableIncrementControl"
-      @click="$emit('onChange', value + 1)"
       data-test="counter-plus"
+      @click="$emit('onChange', value + 1)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -24,7 +24,8 @@
 
 <script>
 export default {
-  name: "CounterControl",
+  name: "AppCounterControl",
+
   props: {
     value: {
       type: Number,
@@ -35,6 +36,7 @@ export default {
       default: null,
     },
   },
+
   computed: {
     isDisableIncrementControl() {
       return this.maxValue ? this.value === this.maxValue : false;

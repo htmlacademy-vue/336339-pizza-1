@@ -9,10 +9,10 @@
       </div>
       <form @submit.prevent="login">
         <div class="sign-form__input">
-          <Input
+          <AppInput
+            v-model="email"
             :label="'E-mail'"
             ref="email"
-            v-model="email"
             type="email"
             name="email"
             placeholder="example@mail.ru"
@@ -21,9 +21,9 @@
           />
         </div>
         <div class="sign-form__input">
-          <Input
-            :label="'Пароль'"
+          <AppInput
             v-model="password"
+            :label="'Пароль'"
             type="password"
             name="pass"
             placeholder="***********"
@@ -39,17 +39,23 @@
 
 <script>
 import validator from "@/common/mixins/validator";
-import { Input } from "@/common/components";
+import { AppInput } from "@/common/components";
 import { isLoggedIn } from "@/middlewares";
 import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
 
 export default {
   name: "Login",
+
   layout: "AppEmptyLayout",
+
   middlewares: [isLoggedIn],
+
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
+
   mixins: [validator],
-  components: { Input },
+
+  components: { AppInput },
+
   data: () => ({
     email: "",
     password: "",
@@ -64,6 +70,7 @@ export default {
       },
     },
   }),
+
   watch: {
     email() {
       this.$clearValidationErrors();
@@ -72,9 +79,11 @@ export default {
       this.$clearValidationErrors();
     },
   },
+
   mounted() {
     this.$refs.email.$refs.input.focus();
   },
+
   methods: {
     async login() {
       if (
@@ -99,7 +108,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .modal {
   position: absolute;
   top: 0;
