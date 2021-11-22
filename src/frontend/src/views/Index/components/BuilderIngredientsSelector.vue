@@ -3,9 +3,9 @@
     <p>Начинка:</p>
     <ul class="ingredients__list">
       <li
+        :key="ingredient.id"
         class="ingredients__item"
         v-for="ingredient in ingredients"
-        :key="ingredient.id"
       >
         <AppDrag
           :transferData="ingredient"
@@ -15,11 +15,11 @@
             <span class="filling" :class="`filling--${ingredient.label}`">{{
               ingredient.name
             }}</span>
-            <CounterControl
+            <AppCounterControl
               :value="ingredient.quantity"
               :max-value="maxIngredientsCountValue"
-              @onChange="(value) => setValue(ingredient.id, value)"
               class="ingredients__counter counter--orange"
+              @onChange="(value) => setValue(ingredient.id, value)"
             />
           </div>
         </AppDrag>
@@ -29,22 +29,26 @@
 </template>
 
 <script>
-import { CounterControl, AppDrag } from "@/common/components";
+import { AppCounterControl, AppDrag } from "@/common/components";
 import { INGREDIENTS_MAX_QUANTITY } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",
-  components: { CounterControl, AppDrag },
+
+  components: { AppCounterControl, AppDrag },
+
   props: {
     ingredients: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       maxIngredientsCountValue: INGREDIENTS_MAX_QUANTITY,
     };
   },
+
   methods: {
     setValue(id, value) {
       this.$emit("setIngredient", { id, value });
@@ -60,7 +64,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .draggable-item {
   &:hover {
     cursor: pointer;

@@ -34,9 +34,9 @@
           </picture>
           <span>{{ user.name }}</span>
         </router-link>
-        <a href="#" @click.prevent="$emit('logout')" class="header__logout"
-          ><span>Выйти</span></a
-        >
+        <a href="#" @click.prevent="$emit('logout')" class="header__logout">
+          <span>Выйти</span>
+        </a>
       </template>
       <router-link
         v-else
@@ -53,6 +53,7 @@
 <script>
 export default {
   name: "Header",
+
   props: {
     user: {
       type: Object,

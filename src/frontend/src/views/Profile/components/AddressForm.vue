@@ -2,8 +2,8 @@
   <div class="layout__address">
     <form
       class="address-form address-form--opened sheet"
-      @submit.prevent="handleSubmitForm"
       data-test="addressForm"
+      @submit.prevent="handleSubmitForm"
     >
       <div class="address-form__header">
         <b data-test="formHeader">{{ formHeader }}</b>
@@ -11,9 +11,9 @@
 
       <div class="address-form__wrapper">
         <div class="address-form__input">
-          <Input
-            :value="address.name"
+          <AppInput
             v-model="address.name"
+            :value="address.name"
             data-test="addressName"
             :label="'Название адреса*'"
             type="text"
@@ -23,9 +23,9 @@
           />
         </div>
         <div class="address-form__input address-form__input--size--normal">
-          <Input
-            :value="address.street"
+          <AppInput
             v-model="address.street"
+            :value="address.street"
             data-test="addressStreet"
             :label="'Улица*'"
             type="text"
@@ -35,9 +35,9 @@
           />
         </div>
         <div class="address-form__input address-form__input--size--small">
-          <Input
-            :value="address.building"
+          <AppInput
             v-model="address.building"
+            :value="address.building"
             data-test="addressBuilding"
             :label="'Дом*'"
             type="text"
@@ -47,9 +47,9 @@
           />
         </div>
         <div class="address-form__input address-form__input--size--small">
-          <Input
-            :value="address.flat"
+          <AppInput
             v-model="address.flat"
+            :value="address.flat"
             data-test="addressFlat"
             :label="'Квартира'"
             type="text"
@@ -58,9 +58,9 @@
           />
         </div>
         <div class="address-form__input">
-          <Input
-            :value="address.comment"
+          <AppInput
             v-model="address.comment"
+            :value="address.comment"
             data-test="addressComment"
             :label="'Комментарий'"
             type="text"
@@ -73,8 +73,8 @@
         <button
           type="button"
           class="button button--transparent"
-          @click="$emit('onDelete')"
           data-test="onDeleteButton"
+          @click="$emit('onDelete')"
         >
           Удалить
         </button>
@@ -88,18 +88,22 @@
 
 <script>
 import validator from "@/common/mixins/validator";
-import { Input } from "@/common/components";
+import { AppInput } from "@/common/components";
 
 export default {
   name: "AddressForm",
+
   mixins: [validator],
-  components: { Input },
+
+  components: { AppInput },
+
   props: {
     addressForEdit: {
       type: Object,
       default: null,
     },
   },
+
   data: () => ({
     address: {
       id: null,
@@ -110,16 +114,19 @@ export default {
       comment: "",
     },
   }),
+
   computed: {
     formHeader() {
       return this.addressForEdit ? this.addressForEdit.name : "Новый адрес";
     },
   },
+
   created() {
     if (this.addressForEdit) {
       this.address = { ...this.addressForEdit };
     }
   },
+
   methods: {
     handleSubmitForm() {
       this.$emit("onSave", this.address);

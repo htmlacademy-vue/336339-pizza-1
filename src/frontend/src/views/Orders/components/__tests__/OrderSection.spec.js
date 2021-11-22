@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import OrderSection from "../OrderSection";
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
-localVue.component("CounterControl", CounterControl);
+localVue.component("AppCounterControl", AppCounterControl);
 
 describe("OrderSection", () => {
   const propsData = {

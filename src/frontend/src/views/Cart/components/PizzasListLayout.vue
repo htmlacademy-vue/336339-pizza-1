@@ -1,9 +1,9 @@
 <template>
   <ul class="cart-list sheet">
     <li
+      :key="pizza.id"
       class="cart-list__item"
       v-for="pizza in pizzas"
-      :key="pizza.id"
       data-test="cartPizzaItem"
     >
       <div class="product cart-list__product">
@@ -22,15 +22,15 @@
             </li>
             <li data-test="pizzaSauce">Соус: {{ pizza.sauce }}</li>
             <li data-test="pizzaIngredients">
-              Начинка: {{ pizza.ingredients.toLowerCase() }}
+              Начинка: {{ getIngredientsTitle(pizza) }}
             </li>
           </ul>
         </div>
       </div>
-      <CounterControl
+      <AppCounterControl
         :value="pizza.quantity"
-        @onChange="(value) => setValue(pizza.id, value)"
         :id="pizza.id"
+        @onChange="(value) => setValue(pizza.id, value)"
       />
       <div class="cart-list__price">
         <b data-test="pizzaPrice">{{ pizza.price }} ₽</b>
@@ -51,10 +51,12 @@
 </template>
 
 <script>
-import { CounterControl } from "@/common/components";
+import { AppCounterControl } from "@/common/components";
 export default {
   name: "PizzasListLayout",
-  components: { CounterControl },
+
+  components: { AppCounterControl },
+
   props: {
     pizzas: {
       type: Array,
@@ -67,6 +69,9 @@ export default {
     },
     setPizzaForEdit(id) {
       this.$emit("setPizzaForEdit", { id });
+    },
+    getIngredientsTitle(pizza) {
+      return pizza.ingredients.toLowerCase();
     },
   },
 };

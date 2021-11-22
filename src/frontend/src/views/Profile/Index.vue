@@ -31,22 +31,22 @@
       v-for="address in addresses"
       :key="address.id"
       :address="address"
-      @onClick="setEditedAddress"
       data-test="addressTile"
+      @onClick="setEditedAddress"
     />
     <AddressForm
-      :addressForEdit="addresses[addressForEditId]"
+      :address-for-edit="addresses[addressForEditId]"
       v-if="isOpenForm"
+      data-test="addressForm"
       @onDelete="handleDeleteAddress"
       @onSave="handleSaveAddress"
-      data-test="addressForm"
     />
     <div class="layout__button">
       <button
         type="button"
         class="button button--border"
-        @click="handleOpenForm"
         data-test="addAddressButton"
+        @click="handleOpenForm"
       >
         Добавить новый адрес
       </button>
@@ -62,19 +62,26 @@ import { TRANSITION_ENTER_ACTIVE_CLASS } from "@/common/constants";
 
 export default {
   name: "Profile",
+
   layout: "AppLayoutWithSidebar",
+
   middlewares: [auth, isAuthenticated],
+
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
+
   components: { AddressTile, AddressForm },
+
   data() {
     return {
       addressForEditId: null,
       isOpenForm: false,
     };
   },
+
   computed: {
     ...mapState("Auth", ["user", "addresses"]),
   },
+
   methods: {
     ...mapActions("Auth", ["createAddress", "updateAddress", "deleteAddress"]),
     handleOpenForm() {

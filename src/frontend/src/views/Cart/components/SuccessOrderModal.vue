@@ -16,8 +16,8 @@
         <a
           :href="href"
           class="button"
-          @click.prevent="handleOkClick"
           data-test="successButton"
+          @click.prevent="handleOkClick"
           >Отлично, я жду!</a
         >
       </div>
@@ -31,12 +31,14 @@ import { animateCSS } from "@/common/utils";
 
 export default {
   name: "SuccessOrderModal",
+
   props: {
     href: {
       type: String,
       required: true,
     },
   },
+
   methods: {
     ...mapActions("Cart", ["resetCart"]),
     handleOkClick() {

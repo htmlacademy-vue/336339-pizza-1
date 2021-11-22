@@ -7,19 +7,19 @@
       <div class="pizza__wrapper">
         <div v-for="value in ingredients" :key="value.id">
           <div
+            v-if="value.quantity > 0"
             class="pizza__filling"
             :class="`pizza__filling--${value.label}`"
-            v-if="value.quantity > 0"
           />
           <div
+            v-if="value.quantity > 1"
             class="pizza__filling pizza__filling--second"
             :class="`pizza__filling--${value.label}`"
-            v-if="value.quantity > 1"
           />
           <div
+            v-if="value.quantity > 2"
             class="pizza__filling pizza__filling--third"
             :class="`pizza__filling--${value.label}`"
-            v-if="value.quantity > 2"
           />
         </div>
       </div>
@@ -30,6 +30,7 @@
 <script>
 export default {
   name: "BuilderPizzaView",
+
   props: {
     ingredients: {
       type: Object,

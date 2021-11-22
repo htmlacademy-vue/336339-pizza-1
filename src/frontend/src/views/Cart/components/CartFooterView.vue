@@ -21,6 +21,7 @@
 <script>
 export default {
   name: "CartFooterView",
+
   props: {
     total: {
       type: Number,

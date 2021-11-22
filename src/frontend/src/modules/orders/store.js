@@ -45,17 +45,23 @@ export default {
         (order) => order.id === orderId
       );
       const miscData = rootState.Cart.misc;
-      repeatedOrder.misc = repeatedOrder.orderMisc.reduce(
-        (accumulator, item) => {
-          const currentMiscId = item.miscId;
-          accumulator[currentMiscId] = {
-            ...miscData[currentMiscId],
-            quantity: item.quantity,
-          };
-          return accumulator;
-        },
-        {}
-      );
+      const newMisc = Object.keys(miscData).reduce((accumulator, key) => {
+        accumulator[key] = {
+          ...miscData[key],
+          quantity: 0,
+        };
+        return accumulator;
+      }, {});
+      repeatedOrder.misc = repeatedOrder.orderMisc
+        ? repeatedOrder.orderMisc.reduce((accumulator, item) => {
+            const currentMiscId = item.miscId;
+            accumulator[currentMiscId] = {
+              ...newMisc[currentMiscId],
+              quantity: item.quantity,
+            };
+            return accumulator;
+          }, newMisc)
+        : newMisc;
       await dispatch("Cart/resetCart", orderToCartStateAdapter(repeatedOrder), {
         root: true,
       });

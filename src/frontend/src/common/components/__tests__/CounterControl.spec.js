@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import CounterControl from "../CounterControl";
+import AppCounterControl from "../AppCounterControl";
 
-describe("CounterControl", () => {
+describe("AppCounterControl", () => {
   const defaultProps = {
     value: 0,
     maxValue: 3,
@@ -15,15 +15,15 @@ describe("CounterControl", () => {
   });
 
   it("It sets initial value", () => {
-    wrapper = shallowMount(CounterControl, { propsData: defaultProps });
+    wrapper = shallowMount(AppCounterControl, { propsData: defaultProps });
     expect(+wrapper.find("input").element.value).toBe(defaultProps.value);
   });
   it("It disable decrement button when value === 0", () => {
-    wrapper = shallowMount(CounterControl, { propsData: defaultProps });
+    wrapper = shallowMount(AppCounterControl, { propsData: defaultProps });
     expect(wrapper.find(".counter__button--minus").element.disabled).toBe(true);
   });
   it("It disable increment button when value === maxValue", () => {
-    wrapper = shallowMount(CounterControl, {
+    wrapper = shallowMount(AppCounterControl, {
       propsData: { ...defaultProps, value: 3 },
     });
     expect(wrapper.find(".counter__button--plus").element.disabled).toBe(true);
@@ -31,7 +31,7 @@ describe("CounterControl", () => {
 
   it("It emits an decrement button event when click", async () => {
     const value = 1;
-    wrapper = shallowMount(CounterControl, {
+    wrapper = shallowMount(AppCounterControl, {
       propsData: { ...defaultProps, value: value },
     });
     let button = wrapper.find(".counter__button--minus");
@@ -41,7 +41,7 @@ describe("CounterControl", () => {
   });
 
   it("It emits an increment button event when click", async () => {
-    wrapper = shallowMount(CounterControl, {
+    wrapper = shallowMount(AppCounterControl, {
       propsData: defaultProps,
     });
     let button = wrapper.find(".counter__button--plus");

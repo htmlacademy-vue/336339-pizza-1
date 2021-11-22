@@ -4,10 +4,10 @@
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
       <div class="sheet__content dough">
         <label
-          class="dough__input"
-          :class="`dough__input--${doughItem.value}`"
           v-for="doughItem in dough"
           :key="doughItem.id"
+          class="dough__input"
+          :class="`dough__input--${doughItem.value}`"
         >
           <input
             type="radio"
@@ -28,6 +28,7 @@
 <script>
 export default {
   name: "BuilderDoughSelector",
+
   props: {
     dough: {
       type: Object,

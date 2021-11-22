@@ -1,12 +1,12 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import $validator from "@/common/mixins/validator";
 import { generateMockStore } from "@/store/mocks";
-import { Input } from "@/common/components";
+import { AppInput } from "@/common/components";
 
 import AddressForm from "../AddressForm";
 
 const localVue = createLocalVue();
-localVue.component("Input", Input);
+localVue.component("AppInput", AppInput);
 
 describe("AddressForm", () => {
   let store;
