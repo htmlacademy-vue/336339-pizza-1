@@ -109,6 +109,7 @@ export default {
       type: String,
       default: () => "",
     },
+
     address: {
       type: Object,
       required: true,
@@ -123,12 +124,15 @@ export default {
 
   computed: {
     ...mapState("Auth", ["user", "addresses"]),
+
     mySelfConst() {
       return MYSELF_DELIVERY;
     },
+
     newAddressConst() {
       return NEW_ADDRESS_DELIVERY;
     },
+
     addressTitle() {
       return this.address.id ? this.address.name : "Новый адрес";
     },
@@ -152,9 +156,11 @@ export default {
         existingAddress || { street: "", building: "", flat: "" }
       );
     },
+
     setPhone(event) {
       this.$emit("setPhone", event.target.value);
     },
+
     onChangeAddressInput(field, event) {
       this.$emit("setAddress", {
         ...this.address,

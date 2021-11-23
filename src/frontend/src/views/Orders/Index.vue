@@ -40,6 +40,7 @@ export default {
 
   methods: {
     ...mapActions("Orders", ["repeatOrder", "deleteOrder", "query"]),
+
     async handleRepeatClick(orderId) {
       await this.repeatOrder(orderId);
       await this.$router.push("/cart");

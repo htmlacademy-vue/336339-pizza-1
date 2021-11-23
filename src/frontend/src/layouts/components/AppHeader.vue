@@ -69,10 +69,12 @@ export default {
       type: Object,
       default: () => {},
     },
+
     isAuthenticated: {
       type: Boolean,
       required: true,
     },
+
     cartTotal: {
       type: Number,
       required: true,

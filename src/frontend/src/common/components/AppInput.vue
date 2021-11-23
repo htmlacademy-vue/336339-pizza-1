@@ -38,26 +38,32 @@ export default {
       type: [String, Number],
       required: true,
     },
+
     name: {
       type: String,
       required: true,
     },
+
     type: {
       type: String,
       default: "text",
     },
+
     placeholder: {
       type: String,
       default: "",
     },
+
     label: {
       type: String,
       default: "",
     },
+
     errorText: {
       type: String,
       default: "",
     },
+
     required: {
       type: Boolean,
       default: false,

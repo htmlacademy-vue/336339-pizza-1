@@ -45,11 +45,16 @@ import AppHeader from "./components/AppHeader";
 
 export default {
   name: "AppLayoutWithSidebar",
+
   components: { AppHeader },
+
   mixins: [logout],
+
   computed: {
     ...mapState("Auth", ["user", "isAuthenticated"]),
+
     ...mapGetters("Cart", ["cartTotal"]),
+
     currentRoute() {
       return this.$route.path;
     },

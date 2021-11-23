@@ -39,10 +39,12 @@ export default {
       type: Object,
       required: true,
     },
+
     dough: {
       type: Object,
       required: true,
     },
+
     sauce: {
       type: Object,
       required: true,

@@ -81,6 +81,7 @@ export default {
     email() {
       this.$clearValidationErrors();
     },
+
     password() {
       this.$clearValidationErrors();
     },

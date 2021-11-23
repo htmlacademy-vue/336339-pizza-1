@@ -108,7 +108,9 @@ export default {
 
   computed: {
     ...mapState("Builder", ["pizza", "dough", "sauces", "sizes"]),
+
     ...mapGetters("Builder", ["pizzaPrice", "ingredientsWithCount"]),
+
     nonEmptyIngredients() {
       return Object.keys(this.pizza.ingredients).reduce((accumulator, key) => {
         if (this.pizza.ingredients[key] > 0) {
@@ -117,6 +119,7 @@ export default {
         return accumulator;
       }, {});
     },
+
     nonEmptyIngredientsLength() {
       return Object.keys(this.nonEmptyIngredients).reduce(
         (accumulator, key) => {
@@ -125,6 +128,7 @@ export default {
         0
       );
     },
+
     isDisabledButton() {
       return (
         this.pizza.name === "" ||
@@ -147,12 +151,15 @@ export default {
       "post",
       "resetBuilder",
     ]),
+
     handleChangeName(event) {
       this.putName(event.target.value);
     },
+
     onDropIngredientHandler(ingredient) {
       this.putIngredient({ id: ingredient.id, value: ingredient.quantity + 1 });
     },
+
     async addPizza() {
       await this.post();
       this.resetBuilder();

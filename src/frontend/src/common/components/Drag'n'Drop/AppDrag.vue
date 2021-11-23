@@ -20,6 +20,7 @@ export default {
       type: Object,
       required: true,
     },
+
     isDraggable: {
       type: Boolean,
       default: true,

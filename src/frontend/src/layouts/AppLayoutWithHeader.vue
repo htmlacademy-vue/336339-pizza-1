@@ -17,10 +17,14 @@ import AppHeader from "./components/AppHeader";
 
 export default {
   name: "AppLayoutWithHeader",
+
   components: { AppHeader },
+
   mixins: [logout],
+
   computed: {
     ...mapState("Auth", ["user", "isAuthenticated"]),
+
     ...mapGetters("Cart", ["cartTotal"]),
   },
 };

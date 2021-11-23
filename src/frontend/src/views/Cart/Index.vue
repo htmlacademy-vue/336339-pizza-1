@@ -89,19 +89,25 @@ export default {
 
   computed: {
     ...mapState("Cart", ["pizzas", "misc", "address", "phone"]),
+
     ...mapState("Auth", ["user", "addresses"]),
+
     ...mapGetters("Cart", ["cartTotal", "adaptedPizzas"]),
+
     checkedMiscLength() {
       return Object.keys(this.misc).reduce((accumulator, id) => {
         return accumulator + this.misc[id].quantity;
       }, 0);
     },
+
     isEmptyCart() {
       return this.cartTotal === 0;
     },
+
     isAuth() {
       return Boolean(this.user);
     },
+
     hrefForModal() {
       return this.isAuth ? "/orders" : "/";
     },
@@ -115,11 +121,14 @@ export default {
       "setPhone",
       "post",
     ]),
+
     ...mapActions("Builder", ["resetBuilder"]),
+
     handleSubmitCart() {
       this.post();
       this.isOpenModal = true;
     },
+
     setPizzaForEdit({ id }) {
       const checkedPizza = this.pizzas.find((pizza) => pizza.id === id);
       this.resetBuilder({

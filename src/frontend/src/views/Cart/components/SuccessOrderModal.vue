@@ -44,6 +44,7 @@ export default {
 
   methods: {
     ...mapActions("Cart", ["resetCart"]),
+
     handleOkClick() {
       animateCSS(".popup", "fadeOut").then(() => {
         this.$router.push(this.href);

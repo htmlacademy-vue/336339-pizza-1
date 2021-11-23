@@ -63,13 +63,16 @@ export default {
       required: true,
     },
   },
+
   methods: {
     setValue(id, value) {
       this.$emit("setQuantity", { id, value });
     },
+
     setPizzaForEdit(id) {
       this.$emit("setPizzaForEdit", { id });
     },
+
     getIngredientsTitle(pizza) {
       return pizza.ingredients.toLowerCase();
     },

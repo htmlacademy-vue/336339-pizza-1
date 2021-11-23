@@ -87,23 +87,28 @@ export default {
 
   methods: {
     ...mapActions("Auth", ["createAddress", "updateAddress", "deleteAddress"]),
+
     handleOpenForm() {
       this.isOpenForm = true;
     },
+
     handleCloseForm() {
       this.isOpenForm = false;
       this.addressForEditId = null;
     },
+
     setEditedAddress(editedAddressId) {
       this.addressForEditId = editedAddressId;
       this.handleOpenForm();
     },
+
     handleDeleteAddress() {
       if (this.addressForEditId) {
         this.deleteAddress(this.addressForEditId);
       }
       this.handleCloseForm();
     },
+
     handleSaveAddress(address) {
       this.handleCloseForm();
       if (address.id) {

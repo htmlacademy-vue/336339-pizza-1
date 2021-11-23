@@ -117,6 +117,7 @@ export default {
     getPizzaPriceString(price, quantity) {
       return `${quantity > 1 ? `${quantity}x` : ""}${price} ₽`;
     },
+
     getMiscQuantityTitle(miscItem) {
       return `${miscItem.quantity > 1 ? `${miscItem.quantity}x ` : ""}${
         miscItem.quantity > 1 ? `${miscItem.quantity}x ` : ""

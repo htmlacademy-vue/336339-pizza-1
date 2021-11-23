@@ -56,9 +56,11 @@ export default {
     setValue(id, value) {
       this.$emit("setIngredient", { id, value });
     },
+
     checkIsDraggable(value) {
       return value < 3;
     },
+
     getDraggableClass(value) {
       return {
         "draggable-item": this.checkIsDraggable(value),

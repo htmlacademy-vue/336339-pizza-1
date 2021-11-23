@@ -36,6 +36,7 @@ export default {
       type: Number,
       default: 0,
     },
+
     maxValue: {
       type: Number,
       default: null,
@@ -46,6 +47,7 @@ export default {
     isDisableIncrementControl() {
       return this.maxValue ? this.value === this.maxValue : false;
     },
+
     isDisableDecrementControl() {
       return this.value === 0;
     },
