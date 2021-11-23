@@ -52,7 +52,7 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "AppHeader",
 
   props: {
     user: {

@@ -1,6 +1,9 @@
 <template>
   <label class="input">
-    <span v-if="label" class="label">{{ label }}</span>
+    <span
+      v-if="label"
+      class="label"
+    >{{ label }}</span>
     <input
       ref="input"
       :value="value"
@@ -12,7 +15,10 @@
       :required="required"
       @input="$emit('input', $event.target.value)"
     />
-    <span v-if="showError" class="text-field__text error error_text">
+    <span
+      v-if="showError"
+      class="text-field__text error error_text"
+    >
       {{ errorText }}
     </span>
   </label>

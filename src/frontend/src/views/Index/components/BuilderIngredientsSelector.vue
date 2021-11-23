@@ -8,8 +8,8 @@
         v-for="ingredient in ingredients"
       >
         <AppDrag
-          :transferData="ingredient"
-          :isDraggable="checkIsDraggable(ingredient.quantity)"
+          :transfer-data="ingredient"
+          :is-draggable="checkIsDraggable(ingredient.quantity)"
         >
           <div :class="getDraggableClass(ingredient.quantity)">
             <span class="filling" :class="`filling--${ingredient.label}`">{{
