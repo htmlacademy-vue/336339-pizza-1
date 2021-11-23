@@ -53,10 +53,10 @@
               mode="out-in"
             >
               <BuilderPizzaView
+                :key="nonEmptyIngredientsLength"
                 :ingredients="nonEmptyIngredients"
                 :sauce="sauces[pizza.sauceId]"
                 :dough="dough[pizza.doughId]"
-                :key="nonEmptyIngredientsLength"
               />
             </transition>
           </AppDrop>

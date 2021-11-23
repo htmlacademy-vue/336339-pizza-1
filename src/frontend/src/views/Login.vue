@@ -14,8 +14,8 @@
         <div class="sign-form__input">
           <AppInput
             v-model="email"
-            :label="'E-mail'"
             ref="email"
+            :label="'E-mail'"
             type="email"
             name="email"
             placeholder="example@mail.ru"

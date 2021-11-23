@@ -2,9 +2,9 @@
   <div class="cart__additional">
     <ul class="additional-list">
       <li
-        class="additional-list__item sheet"
         v-for="miscItem in misc"
         :key="miscItem.id"
+        class="additional-list__item sheet"
       >
         <p class="additional-list__description">
           <img

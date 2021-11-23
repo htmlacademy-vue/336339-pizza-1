@@ -42,8 +42,8 @@
         </router-link>
         <a
           href="#"
-          @click.prevent="$emit('logout')"
           class="header__logout"
+          @click.prevent="$emit('logout')"
         >
           <span>Выйти</span>
         </a>

@@ -3,9 +3,9 @@
     <p>Начинка:</p>
     <ul class="ingredients__list">
       <li
+        v-for="ingredient in ingredients"
         :key="ingredient.id"
         class="ingredients__item"
-        v-for="ingredient in ingredients"
       >
         <AppDrag
           :transfer-data="ingredient"

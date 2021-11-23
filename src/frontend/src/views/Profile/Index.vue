@@ -38,8 +38,8 @@
       @onClick="setEditedAddress"
     />
     <AddressForm
-      :address-for-edit="addresses[addressForEditId]"
       v-if="isOpenForm"
+      :address-for-edit="addresses[addressForEditId]"
       data-test="addressForm"
       @onDelete="handleDeleteAddress"
       @onSave="handleSaveAddress"

@@ -1,9 +1,9 @@
 <template>
   <ul class="cart-list sheet">
     <li
+      v-for="pizza in pizzas"
       :key="pizza.id"
       class="cart-list__item"
-      v-for="pizza in pizzas"
       data-test="cartPizzaItem"
     >
       <div class="product cart-list__product">

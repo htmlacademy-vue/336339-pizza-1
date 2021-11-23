@@ -72,8 +72,8 @@
     </ul>
 
     <ul
-      class="order__additional"
       v-if="order.orderMisc.length > 0"
+      class="order__additional"
       data-test="orderAdditional"
     >
       <li

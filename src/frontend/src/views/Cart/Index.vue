@@ -2,8 +2,8 @@
   <form
     method="post"
     class="layout-form"
-    @submit.prevent="handleSubmitCart"
     data-test="cartForm"
+    @submit.prevent="handleSubmitCart"
   >
     <main class="content cart">
       <div class="container">
@@ -12,8 +12,8 @@
         </div>
         <div
           v-if="isEmptyCart"
-          class="sheet cart__empty"
           key="emptyCart"
+          class="sheet cart__empty"
           data-test="emptyCart"
         >
           <p>В корзине нет ни одного товара</p>
@@ -43,13 +43,13 @@
       </div>
     </main>
     <CartFooterView
-      :total="cartTotal"
       v-if="!isEmptyCart"
+      :total="cartTotal"
       data-test="cartFooter"
     />
     <SuccessOrderModal
-      :href="hrefForModal"
       v-if="isOpenModal"
+      :href="hrefForModal"
       data-test="successModal"
     />
   </form>

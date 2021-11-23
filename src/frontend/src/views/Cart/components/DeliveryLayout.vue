@@ -45,8 +45,8 @@
       </label>
 
       <div
-        class="cart-form__address"
         v-if="currentDeliveryType !== mySelfConst"
+        class="cart-form__address"
       >
         <span class="cart-form__label">{{ addressTitle }} :</span>
         <div class="cart-form__input">
