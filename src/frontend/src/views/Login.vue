@@ -1,7 +1,10 @@
 <template>
   <div class="modal">
     <div class="sign-form">
-      <router-link to="/" class="close close--white">
+      <router-link
+        to="/"
+        class="close close--white"
+      >
         <span class="visually-hidden">Закрыть форму авторизации</span>
       </router-link>
       <div class="sign-form__title">
@@ -31,7 +34,10 @@
             data-test="password-input"
           />
         </div>
-        <button type="submit" class="button">Авторизоваться</button>
+        <button
+          type="submit"
+          class="button"
+        >Авторизоваться</button>
       </form>
     </div>
   </div>

@@ -23,7 +23,10 @@
       <div class="user__name">
         <span data-test="userName">{{ user.name }}</span>
       </div>
-      <p class="user__phone" data-test="userPhone">
+      <p
+        class="user__phone"
+        data-test="userPhone"
+      >
         Контактный телефон: <span>{{ user.phone }}</span>
       </p>
     </div>

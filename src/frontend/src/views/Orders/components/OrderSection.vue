@@ -1,5 +1,8 @@
 <template>
-  <section class="sheet order" data-test="orderSection">
+  <section
+    class="sheet order"
+    data-test="orderSection"
+  >
     <div class="order__wrapper">
       <div class="order__number">
         <b data-test="orderTitle">Заказ {{ order.id }}</b>

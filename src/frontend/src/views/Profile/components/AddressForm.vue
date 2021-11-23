@@ -78,7 +78,11 @@
         >
           Удалить
         </button>
-        <button type="submit" class="button" data-test="saveButton">
+        <button
+          type="submit"
+          class="button"
+          data-test="saveButton"
+        >
           Сохранить
         </button>
       </div>

@@ -5,7 +5,10 @@
       :class="`pizza--foundation--${dough.value}-${sauce.value}`"
     >
       <div class="pizza__wrapper">
-        <div v-for="value in ingredients" :key="value.id">
+        <div
+          v-for="value in ingredients"
+          :key="value.id"
+        >
           <div
             v-if="value.quantity > 0"
             class="pizza__filling"

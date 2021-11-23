@@ -12,7 +12,10 @@
           :is-draggable="checkIsDraggable(ingredient.quantity)"
         >
           <div :class="getDraggableClass(ingredient.quantity)">
-            <span class="filling" :class="`filling--${ingredient.label}`">{{
+            <span
+              class="filling"
+              :class="`filling--${ingredient.label}`"
+            >{{
               ingredient.name
             }}</span>
             <AppCounterControl
