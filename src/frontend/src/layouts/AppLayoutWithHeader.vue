@@ -17,8 +17,8 @@ import AppHeader from "./components/AppHeader";
 
 export default {
   name: "AppLayoutWithHeader",
-  mixins: [logout],
   components: { AppHeader },
+  mixins: [logout],
   computed: {
     ...mapState("Auth", ["user", "isAuthenticated"]),
     ...mapGetters("Cart", ["cartTotal"]),

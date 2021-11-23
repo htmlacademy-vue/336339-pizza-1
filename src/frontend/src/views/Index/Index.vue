@@ -133,6 +133,10 @@ export default {
     },
   },
 
+  beforeDestroy() {
+    this.resetBuilder();
+  },
+
   methods: {
     ...mapActions("Builder", [
       "putDough",
@@ -153,10 +157,6 @@ export default {
       await this.post();
       this.resetBuilder();
     },
-  },
-
-  beforeDestroy() {
-    this.resetBuilder();
   },
 };
 </script>

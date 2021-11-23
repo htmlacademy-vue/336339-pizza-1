@@ -58,9 +58,9 @@ export default {
 
   enterActiveClass: TRANSITION_ENTER_ACTIVE_CLASS,
 
-  mixins: [validator],
-
   components: { AppInput },
+
+  mixins: [validator],
 
   data: () => ({
     email: "",

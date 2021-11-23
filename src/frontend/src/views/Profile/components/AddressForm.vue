@@ -97,9 +97,9 @@ import { AppInput } from "@/common/components";
 export default {
   name: "AddressForm",
 
-  mixins: [validator],
-
   components: { AppInput },
+
+  mixins: [validator],
 
   props: {
     addressForEdit: {

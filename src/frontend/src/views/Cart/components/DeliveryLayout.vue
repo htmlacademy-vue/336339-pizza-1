@@ -134,6 +134,15 @@ export default {
     },
   },
 
+  created() {
+    if (!this.phone) {
+      this.$emit("setPhone", this.user?.phone);
+    }
+    if (this.address.id) {
+      this.currentDeliveryType = this.address.id;
+    }
+  },
+
   methods: {
     setCurrentDeliveryType(value) {
       this.currentDeliveryType = value;
@@ -152,15 +161,6 @@ export default {
         [field]: event.target.value,
       });
     },
-  },
-
-  created() {
-    if (!this.phone) {
-      this.$emit("setPhone", this.user?.phone);
-    }
-    if (this.address.id) {
-      this.currentDeliveryType = this.address.id;
-    }
   },
 };
 </script>
