@@ -61,3 +61,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.logo {
+  display: block;
+
+  img {
+    display: block;
+
+    width: 90px;
+    height: 40px;
+  }
+}
+</style>
