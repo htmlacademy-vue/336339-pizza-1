@@ -18,7 +18,7 @@
             <AppCounterControl
               :value="ingredient.quantity"
               :max-value="maxIngredientsCountValue"
-              class="ingredients__counter counter--orange"
+              class="ingredients__counter"
               @onChange="(value) => setValue(ingredient.id, value)"
             />
           </div>
