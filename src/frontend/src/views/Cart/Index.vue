@@ -18,13 +18,20 @@
         >
           <p>В корзине нет ни одного товара</p>
         </div>
-        <div v-else key="notEmptyCart" data-test="notEmptyCart">
+        <div
+          v-else
+          key="notEmptyCart"
+          data-test="notEmptyCart"
+        >
           <PizzasListLayout
             :pizzas="adaptedPizzas"
             @setQuantity="setPizzaQuantity"
             @setPizzaForEdit="setPizzaForEdit"
           />
-          <MiscLayout :misc="misc" @setMisc="setPizzaMisc" />
+          <MiscLayout
+            :misc="misc"
+            @setMisc="setPizzaMisc"
+          />
           <DeliveryLayout
             :phone="phone"
             :address="address"

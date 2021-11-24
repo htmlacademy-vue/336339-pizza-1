@@ -5,7 +5,10 @@
     enter-active-class="animate__animated animate__fadeIn"
   >
     <div class="popup">
-      <router-link :to="href" class="close">
+      <router-link
+        :to="href"
+        class="close"
+      >
         <span class="visually-hidden">Закрыть попап</span>
       </router-link>
       <div class="popup__title">
