@@ -1,6 +1,9 @@
 <template>
   <div class="content">
-    <form action="#" method="post">
+    <form
+      action="#"
+      method="post"
+    >
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
         <BuilderDoughSelector
@@ -50,10 +53,10 @@
               mode="out-in"
             >
               <BuilderPizzaView
+                :key="nonEmptyIngredientsLength"
                 :ingredients="nonEmptyIngredients"
                 :sauce="sauces[pizza.sauceId]"
                 :dough="dough[pizza.doughId]"
-                :key="nonEmptyIngredientsLength"
               />
             </transition>
           </AppDrop>
@@ -105,7 +108,9 @@ export default {
 
   computed: {
     ...mapState("Builder", ["pizza", "dough", "sauces", "sizes"]),
+
     ...mapGetters("Builder", ["pizzaPrice", "ingredientsWithCount"]),
+
     nonEmptyIngredients() {
       return Object.keys(this.pizza.ingredients).reduce((accumulator, key) => {
         if (this.pizza.ingredients[key] > 0) {
@@ -114,6 +119,7 @@ export default {
         return accumulator;
       }, {});
     },
+
     nonEmptyIngredientsLength() {
       return Object.keys(this.nonEmptyIngredients).reduce(
         (accumulator, key) => {
@@ -122,12 +128,17 @@ export default {
         0
       );
     },
+
     isDisabledButton() {
       return (
         this.pizza.name === "" ||
         Object.keys(this.nonEmptyIngredients).length === 0
       );
     },
+  },
+
+  beforeDestroy() {
+    this.resetBuilder();
   },
 
   methods: {
@@ -140,20 +151,128 @@ export default {
       "post",
       "resetBuilder",
     ]),
+
     handleChangeName(event) {
       this.putName(event.target.value);
     },
+
     onDropIngredientHandler(ingredient) {
       this.putIngredient({ id: ingredient.id, value: ingredient.quantity + 1 });
     },
+
     async addPizza() {
       await this.post();
       this.resetBuilder();
     },
   },
-
-  beforeDestroy() {
-    this.resetBuilder();
-  },
 };
 </script>
+
+<style lang="scss" scoped>
+.content__result {
+  button {
+    margin-left: 12px;
+    padding: 16px 45px;
+  }
+}
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
+
+  &--small {
+    @include b-s18-h21;
+  }
+}
+
+.input {
+  display: block;
+
+  span {
+    @include r-s14-h16;
+
+    display: block;
+
+    margin-bottom: 4px;
+  }
+
+  input {
+    @include r-s16-h19;
+
+    display: block;
+
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 8px 16px;
+
+    transition: 0.3s;
+
+    color: $black;
+    border: 1px solid $purple-400;
+    border-radius: 8px;
+    outline: none;
+    background-color: $white;
+
+    font-family: inherit;
+
+    &:focus {
+      border-color: $green-500;
+    }
+  }
+
+  &:hover {
+    input {
+      border-color: $black;
+    }
+  }
+}
+
+.button {
+  $bl: &;
+
+  @include b-s18-h21;
+  font-family: inherit;
+  display: block;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: $shadow-medium;
+
+  background-color: $green-500;
+
+  &:hover:not(:active):not(:disabled) {
+    background-color: $green-400;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $green-600;
+  }
+
+  &:focus:not(:disabled) {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background-color: $green-300;
+    color: rgba($white, 0.2);
+    cursor: default;
+  }
+}
+</style>

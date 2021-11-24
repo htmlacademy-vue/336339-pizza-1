@@ -2,8 +2,8 @@
   <form
     method="post"
     class="layout-form"
-    @submit.prevent="handleSubmitCart"
     data-test="cartForm"
+    @submit.prevent="handleSubmitCart"
   >
     <main class="content cart">
       <div class="container">
@@ -12,19 +12,26 @@
         </div>
         <div
           v-if="isEmptyCart"
-          class="sheet cart__empty"
           key="emptyCart"
+          class="sheet cart__empty"
           data-test="emptyCart"
         >
           <p>В корзине нет ни одного товара</p>
         </div>
-        <div v-else key="notEmptyCart" data-test="notEmptyCart">
+        <div
+          v-else
+          key="notEmptyCart"
+          data-test="notEmptyCart"
+        >
           <PizzasListLayout
             :pizzas="adaptedPizzas"
             @setQuantity="setPizzaQuantity"
             @setPizzaForEdit="setPizzaForEdit"
           />
-          <MiscLayout :misc="misc" @setMisc="setPizzaMisc" />
+          <MiscLayout
+            :misc="misc"
+            @setMisc="setPizzaMisc"
+          />
           <DeliveryLayout
             :phone="phone"
             :address="address"
@@ -36,13 +43,13 @@
       </div>
     </main>
     <CartFooterView
-      :total="cartTotal"
       v-if="!isEmptyCart"
+      :total="cartTotal"
       data-test="cartFooter"
     />
     <SuccessOrderModal
-      :href="hrefForModal"
       v-if="isOpenModal"
+      :href="hrefForModal"
       data-test="successModal"
     />
   </form>
@@ -82,19 +89,25 @@ export default {
 
   computed: {
     ...mapState("Cart", ["pizzas", "misc", "address", "phone"]),
+
     ...mapState("Auth", ["user", "addresses"]),
+
     ...mapGetters("Cart", ["cartTotal", "adaptedPizzas"]),
+
     checkedMiscLength() {
       return Object.keys(this.misc).reduce((accumulator, id) => {
         return accumulator + this.misc[id].quantity;
       }, 0);
     },
+
     isEmptyCart() {
       return this.cartTotal === 0;
     },
+
     isAuth() {
       return Boolean(this.user);
     },
+
     hrefForModal() {
       return this.isAuth ? "/orders" : "/";
     },
@@ -108,11 +121,14 @@ export default {
       "setPhone",
       "post",
     ]),
+
     ...mapActions("Builder", ["resetBuilder"]),
+
     handleSubmitCart() {
       this.post();
       this.isOpenModal = true;
     },
+
     setPizzaForEdit({ id }) {
       const checkedPizza = this.pizzas.find((pizza) => pizza.id === id);
       this.resetBuilder({
@@ -127,3 +143,25 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.cart__title {
+  margin-bottom: 15px;
+}
+
+.cart__empty {
+  padding: 20px 30px;
+}
+
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
+}
+</style>
