@@ -1,10 +1,7 @@
 <template>
   <div class="modal">
     <div class="sign-form">
-      <router-link
-        to="/"
-        class="close close--white"
-      >
+      <router-link to="/" class="close close--white">
         <span class="visually-hidden">Закрыть форму авторизации</span>
       </router-link>
       <div class="sign-form__title">
@@ -34,10 +31,7 @@
             data-test="password-input"
           />
         </div>
-        <button
-          type="submit"
-          class="button"
-        >Авторизоваться</button>
+        <button type="submit" class="button">Авторизоваться</button>
       </form>
     </div>
   </div>
@@ -115,7 +109,14 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
+.sign-form {
+  button {
+    margin: 0 auto;
+    padding: 16px 14px;
+  }
+}
+
 .modal {
   position: absolute;
   top: 0;
@@ -125,5 +126,120 @@ export default {
   height: 100%;
   justify-content: center;
   align-items: center;
+}
+.close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 25px;
+  height: 25px;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+
+  color: $black;
+  border-radius: 50%;
+  outline: none;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 25px;
+    height: 2px;
+
+    content: "";
+
+    border-radius: 2px;
+    background-color: $black;
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+
+  &:focus {
+    &::before,
+    &::after {
+      background-color: $orange-100;
+    }
+  }
+
+  &--white {
+    &::before,
+    &::after {
+      background-color: $white;
+    }
+  }
+}
+
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--small {
+    @include b-s18-h21;
+  }
+}
+
+.button {
+  $bl: &;
+
+  @include b-s18-h21;
+  font-family: inherit;
+  display: block;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: $shadow-medium;
+
+  background-color: $green-500;
+
+  &:hover:not(:active):not(:disabled) {
+    background-color: $green-400;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $green-600;
+  }
+
+  &:focus:not(:disabled) {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background-color: $green-300;
+    color: rgba($white, 0.2);
+    cursor: default;
+  }
 }
 </style>

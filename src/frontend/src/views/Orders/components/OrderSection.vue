@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="sheet order"
-    data-test="orderSection"
-  >
+  <section class="sheet order" data-test="orderSection">
     <div class="order__wrapper">
       <div class="order__number">
         <b data-test="orderTitle">Заказ {{ order.id }}</b>
@@ -121,7 +118,7 @@ export default {
     getMiscQuantityTitle(miscItem) {
       return `${miscItem.quantity > 1 ? `${miscItem.quantity}x ` : ""}${
         miscItem.quantity > 1 ? `${miscItem.quantity}x ` : ""
-      }`;
+      }${miscItem.price} ₽`;
     },
   },
 };
@@ -182,10 +179,32 @@ export default {
 
 .order__item {
   display: flex;
+  justify-content: space-between;
 
   width: 310px;
   margin-right: 33px;
   margin-bottom: 32px;
+
+  .product {
+    display: flex;
+    align-items: center;
+  }
+
+  .product__text {
+    margin-left: 15px;
+
+    h2 {
+      @include b-s18-h21;
+
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      @include clear-list;
+      @include l-s11-h13;
+    }
+  }
 }
 
 .order__price {
@@ -246,5 +265,70 @@ export default {
   margin-top: 24px;
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.button {
+  $bl: &;
+
+  @include b-s18-h21;
+  font-family: inherit;
+  display: block;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: $shadow-medium;
+
+  background-color: $green-500;
+
+  &:hover:not(:active):not(:disabled) {
+    background-color: $green-400;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $green-600;
+  }
+
+  &:focus:not(:disabled) {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background-color: $green-300;
+    color: rgba($white, 0.2);
+    cursor: default;
+  }
+
+  &--border {
+    background-color: transparent;
+    border: 1px solid $green-500;
+    color: $black;
+    box-shadow: none;
+
+    &:hover:not(:active):not(:disabled) {
+      color: $green-500;
+      border-color: $green-500;
+      background-color: transparent;
+    }
+
+    &:active:not(:disabled) {
+      color: $green-600;
+      border-color: $green-600;
+      background-color: transparent;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }
 </style>

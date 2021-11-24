@@ -23,10 +23,7 @@
       <div class="user__name">
         <span data-test="userName">{{ user.name }}</span>
       </div>
-      <p
-        class="user__phone"
-        data-test="userPhone"
-      >
+      <p class="user__phone" data-test="userPhone">
         Контактный телефон: <span>{{ user.phone }}</span>
       </p>
     </div>
@@ -151,6 +148,89 @@ export default {
 
   span {
     font-weight: 400;
+  }
+}
+
+.layout__button {
+  button {
+    padding: 12px 23px;
+  }
+}
+
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
+}
+
+.button {
+  $bl: &;
+
+  @include b-s18-h21;
+  font-family: inherit;
+  display: block;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: $shadow-medium;
+
+  background-color: $green-500;
+
+  &:hover:not(:active):not(:disabled) {
+    background-color: $green-400;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $green-600;
+  }
+
+  &:focus:not(:disabled) {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background-color: $green-300;
+    color: rgba($white, 0.2);
+    cursor: default;
+  }
+
+  &--border {
+    background-color: transparent;
+    border: 1px solid $green-500;
+    color: $black;
+    box-shadow: none;
+
+    &:hover:not(:active):not(:disabled) {
+      color: $green-500;
+      border-color: $green-500;
+      background-color: transparent;
+    }
+
+    &:active:not(:disabled) {
+      color: $green-600;
+      border-color: $green-600;
+      background-color: transparent;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 }
 </style>

@@ -112,4 +112,16 @@ export default {
   }
 }
 
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--small {
+    @include b-s18-h21;
+  }
+}
+
 </style>

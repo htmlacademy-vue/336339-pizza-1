@@ -188,4 +188,67 @@ export default {
 
   border-bottom: 1px solid rgba($green-500, 0.1);
 }
+
+.button {
+  $bl: &;
+
+  @include b-s18-h21;
+  font-family: inherit;
+  display: block;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: $shadow-medium;
+
+  background-color: $green-500;
+
+  &:hover:not(:active):not(:disabled) {
+    background-color: $green-400;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $green-600;
+  }
+
+  &:focus:not(:disabled) {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background-color: $green-300;
+    color: rgba($white, 0.2);
+    cursor: default;
+  }
+
+  &--transparent {
+    @include b-s14-h16;
+    background-color: transparent;
+    box-shadow: none;
+    color: $black;
+
+    &:hover:not(:active):not(:disabled) {
+      color: $red-800;
+      background-color: transparent;
+    }
+
+    &:active:not(:disabled) {
+      color: $red-900;
+      background-color: transparent;
+    }
+
+    &:disabled {
+      opacity: 0.25;
+    }
+  }
+}
 </style>

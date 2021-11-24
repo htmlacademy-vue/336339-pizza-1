@@ -18,20 +18,13 @@
         >
           <p>В корзине нет ни одного товара</p>
         </div>
-        <div
-          v-else
-          key="notEmptyCart"
-          data-test="notEmptyCart"
-        >
+        <div v-else key="notEmptyCart" data-test="notEmptyCart">
           <PizzasListLayout
             :pizzas="adaptedPizzas"
             @setQuantity="setPizzaQuantity"
             @setPizzaForEdit="setPizzaForEdit"
           />
-          <MiscLayout
-            :misc="misc"
-            @setMisc="setPizzaMisc"
-          />
+          <MiscLayout :misc="misc" @setMisc="setPizzaMisc" />
           <DeliveryLayout
             :phone="phone"
             :address="address"
@@ -151,5 +144,17 @@ export default {
 
 .cart__empty {
   padding: 20px 30px;
+}
+
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
 }
 </style>

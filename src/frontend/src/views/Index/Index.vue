@@ -1,9 +1,6 @@
 <template>
   <div class="content">
-    <form
-      action="#"
-      method="post"
-    >
+    <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
         <BuilderDoughSelector
@@ -167,3 +164,112 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.content__result {
+  button {
+    margin-left: 12px;
+    padding: 16px 45px;
+  }
+}
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
+
+  &--small {
+    @include b-s18-h21;
+  }
+}
+
+.input {
+  display: block;
+
+  span {
+    @include r-s14-h16;
+
+    display: block;
+
+    margin-bottom: 4px;
+  }
+
+  input {
+    @include r-s16-h19;
+
+    display: block;
+
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 8px 16px;
+
+    transition: 0.3s;
+
+    color: $black;
+    border: 1px solid $purple-400;
+    border-radius: 8px;
+    outline: none;
+    background-color: $white;
+
+    font-family: inherit;
+
+    &:focus {
+      border-color: $green-500;
+    }
+  }
+
+  &:hover {
+    input {
+      border-color: $black;
+    }
+  }
+}
+
+.button {
+  $bl: &;
+
+  @include b-s18-h21;
+  font-family: inherit;
+  display: block;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: $shadow-medium;
+
+  background-color: $green-500;
+
+  &:hover:not(:active):not(:disabled) {
+    background-color: $green-400;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $green-600;
+  }
+
+  &:focus:not(:disabled) {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background-color: $green-300;
+    color: rgba($white, 0.2);
+    cursor: default;
+  }
+}
+</style>

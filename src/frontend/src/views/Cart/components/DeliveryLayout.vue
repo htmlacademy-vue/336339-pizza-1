@@ -214,4 +214,94 @@ export default {
     max-width: 120px;
   }
 }
+
+.select {
+  @include r-s16-h19;
+
+  display: block;
+
+  margin: 0;
+  padding: 8px 16px;
+  padding-right: 30px;
+
+  cursor: pointer;
+  transition: 0.3s;
+
+  color: $black;
+  border: 1px solid $purple-400;
+  border-radius: 8px;
+  outline: none;
+  background-color: $silver-100;
+  background-image: url("~@/assets/img/select.svg");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+
+  font-family: inherit;
+
+  appearance: none;
+
+  &:hover {
+    border-color: $orange-100;
+  }
+
+  &:focus {
+    border-color: $green-500;
+  }
+}
+
+.input {
+  display: block;
+
+  span {
+    @include r-s14-h16;
+
+    display: block;
+
+    margin-bottom: 4px;
+  }
+
+  input {
+    @include r-s16-h19;
+
+    display: block;
+
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 8px 16px;
+
+    transition: 0.3s;
+
+    color: $black;
+    border: 1px solid $purple-400;
+    border-radius: 8px;
+    outline: none;
+    background-color: $white;
+
+    font-family: inherit;
+
+    &:focus {
+      border-color: $green-500;
+    }
+  }
+
+  &:hover {
+    input {
+      border-color: $black;
+    }
+  }
+
+  &--big-label {
+    display: flex;
+    align-items: center;
+
+    span {
+      @include b-s16-h19;
+
+      margin-right: 16px;
+
+      white-space: nowrap;
+    }
+  }
+}
 </style>
