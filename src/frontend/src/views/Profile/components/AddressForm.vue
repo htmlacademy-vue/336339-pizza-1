@@ -138,3 +138,54 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.address-form__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  width: 80%;
+  padding: 16px;
+}
+
+.address-form__input {
+  width: 100%;
+  margin-bottom: 16px;
+
+  &--size {
+    &--normal {
+      width: 60.5%;
+    }
+
+    &--small {
+      width: 18%;
+    }
+  }
+}
+
+.address-form__buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 0 16px;
+
+  button {
+    margin-left: 16px;
+    padding: 16px 27px;
+  }
+}
+
+.address-form__header {
+  @include b-s14-h16;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 21px;
+  padding: 10px 16px;
+
+  border-bottom: 1px solid rgba($green-500, 0.1);
+}
+</style>

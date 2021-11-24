@@ -143,3 +143,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.cart__title {
+  margin-bottom: 15px;
+}
+
+.cart__empty {
+  padding: 20px 30px;
+}
+</style>

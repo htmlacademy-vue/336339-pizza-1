@@ -39,3 +39,49 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.address-form {
+  $bl: &;
+
+  position: relative;
+
+  padding-top: 0;
+  padding-bottom: 26px;
+
+  &--opened {
+    #{$bl}__header {
+      padding: 16px;
+    }
+  }
+
+  p {
+    @include r-s16-h19;
+
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding: 0 16px;
+  }
+
+  small {
+    @include l-s11-h13;
+
+    display: block;
+
+    padding: 0 16px;
+  }
+}
+
+.address-form__header {
+  @include b-s14-h16;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 21px;
+  padding: 10px 16px;
+
+  border-bottom: 1px solid rgba($green-500, 0.1);
+}
+</style>
