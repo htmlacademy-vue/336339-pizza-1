@@ -1,7 +1,10 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <router-link to="/" class="logo">
+      <router-link
+        to="/"
+        class="logo"
+      >
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
@@ -15,7 +18,10 @@
     </div>
     <div class="header__user">
       <template v-if="isAuthenticated">
-        <router-link to="/profile" data-test="user-block">
+        <router-link
+          to="/profile"
+          data-test="user-block"
+        >
           <picture>
             <source
               type="image/webp"
@@ -34,7 +40,11 @@
           </picture>
           <span>{{ user.name }}</span>
         </router-link>
-        <a href="#" @click.prevent="$emit('logout')" class="header__logout">
+        <a
+          href="#"
+          class="header__logout"
+          @click.prevent="$emit('logout')"
+        >
           <span>Выйти</span>
         </a>
       </template>
@@ -52,17 +62,19 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "AppHeader",
 
   props: {
     user: {
       type: Object,
       default: () => {},
     },
+
     isAuthenticated: {
       type: Boolean,
       required: true,
     },
+
     cartTotal: {
       type: Number,
       required: true,
@@ -70,3 +82,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.logo {
+  display: block;
+
+  img {
+    display: block;
+
+    width: 90px;
+    height: 40px;
+  }
+}
+</style>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Header
-      :cartTotal="cartTotal"
-      :isAuthenticated="isAuthenticated"
+    <AppHeader
+      :cart-total="cartTotal"
+      :is-authenticated="isAuthenticated"
       :user="user"
       @logout="$logout"
     />
@@ -13,14 +13,18 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import { logout } from "@/common/mixins";
-import Header from "./components/Header";
+import AppHeader from "./components/AppHeader";
 
 export default {
   name: "AppLayoutWithHeader",
+
+  components: { AppHeader },
+
   mixins: [logout],
-  components: { Header },
+
   computed: {
     ...mapState("Auth", ["user", "isAuthenticated"]),
+
     ...mapGetters("Cart", ["cartTotal"]),
   },
 };

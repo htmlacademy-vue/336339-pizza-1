@@ -1,12 +1,12 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
-import Header from "../Header";
+import AppHeader from "../AppHeader";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe("Header", () => {
+describe("AppHeader", () => {
   let routerPush;
   const directives = {
     clickOutside: jest.fn(),
@@ -34,7 +34,7 @@ describe("Header", () => {
   let store;
   let wrapper;
   const createComponent = (options) => {
-    wrapper = mount(Header, options);
+    wrapper = mount(AppHeader, options);
   };
 
   beforeEach(() => {

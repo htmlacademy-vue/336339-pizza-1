@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <AppLayout>
-      <transition name="view" appear :enter-active-class="enterActiveClass">
+      <transition
+        name="view"
+        appear
+        :enter-active-class="enterActiveClass"
+      >
         <router-view />
       </transition>
     </AppLayout>
